@@ -1,25 +1,25 @@
-require('dotenv').config();
-const express = require('express');
-const cors = require('cors');
-const mongoose = require('mongoose');
-//const authRoutes = require('./routes/authRoutes');
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
+require("dotenv").config();
+const initDatabase = require("./scripts/init-mongo");
 
 const app = express();
-
-// Middleware
 app.use(express.json());
 app.use(cors());
 
-// Conexión a MongoDB
-mongoose.connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}).then(() => console.log("MongoDB conectado"))
-  .catch(err => console.error(err));
+// Conectar a MongoDB
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+.then(() => {
+  console.log("MongoDB conectado");
+  //initDatabase(); // Ejecutar script de inicialización
+})
+.catch(err => console.error(err));
 
-// Rutas
-//app.use('/api/auth', authRoutes);
+// Importar rutas de autenticación
+const authRoutes = require("./routes/authRoutes");
+app.use("/api/auth", authRoutes);
 
-// Iniciar servidor
+// Puerto
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Servidor corriendo en el puerto ${PORT}`));
+app.listen(PORT, () => console.log(`Servidor en http://localhost:${PORT}`));

@@ -1,27 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
-import Component from './Component';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Main from './pages/Main';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Hola mundo
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <Component />
-      </header>
-    </div>
-  );
-}
+const App = () => {
+    //const [auth, setAuth] = useState(!!localStorage.getItem('token'));
+
+    return (
+        <Router>
+            <Routes>
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/main" element={ <Main /> } />
+            </Routes>
+        </Router>
+    );
+};
 
 export default App;
