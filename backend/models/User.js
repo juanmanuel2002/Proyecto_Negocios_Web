@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-//const { use } = require('../routes/authRoutes');
 
 const UserSchema = new mongoose.Schema({
     usuario: { type: String, required: true, unique: true }, 
@@ -8,7 +7,6 @@ const UserSchema = new mongoose.Schema({
     password: { type: String, required: true }
 });
 
-const Usuario = mongoose.model('User',UserSchema,"usuarios"); 
+const User = mongoose.model('User', UserSchema,"usuarios"); // Nombre de la colección en plural
 
-module.exports = Usuario;
-//module.exports = mongoose.model('User', UserSchema);
+module.exports = User;

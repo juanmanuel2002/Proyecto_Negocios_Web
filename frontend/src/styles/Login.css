@@ -17,18 +17,19 @@
   }
   
   .form {
-    margin-top: 20px;
+    margin-top: 50px;
   }
   
   .form .input {
-    width: 100%;
+    width: 95%;
     background: white;
     border: none;
-    padding: 15px 20px;
+    padding-block: 15px;
     border-radius: 20px;
     margin-top: 15px;
     box-shadow: #cff0ff 0px 10px 10px -5px;
     border-inline: 2px solid transparent;
+    transition: all 0.2s ease-in-out;
   }
   
   .form .input::-moz-placeholder {
@@ -46,12 +47,12 @@
   
   .form .forgot-password {
     display: block;
-    margin-top: 10px;
+    margin-top: 20px;
     margin-left: 10px;
   }
   
   .form .forgot-password a {
-    font-size: 11px;
+    font-size: 13px;
     color: #0099ff;
     text-decoration: none;
   }
@@ -63,7 +64,7 @@
     background: linear-gradient(45deg, rgb(16, 137, 211) 0%, rgb(18, 177, 209) 100%);
     color: white;
     padding-block: 15px;
-    margin: 20px auto;
+    margin: 50px auto;
     border-radius: 20px;
     box-shadow: rgba(133, 189, 215, 0.8784313725) 0px 20px 10px -15px;
     border: none;
@@ -80,59 +81,3 @@
     box-shadow: rgba(133, 189, 215, 0.8784313725) 0px 15px 10px -10px;
   }
   
-  .social-account-container {
-    margin-top: 25px;
-  }
-  
-  .social-account-container .title {
-    display: block;
-    text-align: center;
-    font-size: 10px;
-    color: rgb(170, 170, 170);
-  }
-  
-  .social-account-container .social-accounts {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-top: 5px;
-  }
-  
-  .social-account-container .social-accounts .social-button {
-    background: linear-gradient(45deg, rgb(0, 0, 0) 0%, rgb(112, 112, 112) 100%);
-    border: 5px solid white;
-    padding: 5px;
-    border-radius: 50%;
-    width: 40px;
-    aspect-ratio: 1;
-    display: grid;
-    place-content: center;
-    box-shadow: rgba(133, 189, 215, 0.8784313725) 0px 12px 10px -8px;
-    transition: all 0.2s ease-in-out;
-  }
-  
-  .social-account-container .social-accounts .social-button .svg {
-    fill: white;
-    margin: auto;
-  }
-  
-  .social-account-container .social-accounts .social-button:hover {
-    transform: scale(1.2);
-  }
-  
-  .social-account-container .social-accounts .social-button:active {
-    transform: scale(0.9);
-  }
-  
-  .agreement {
-    display: block;
-    text-align: center;
-    margin-top: 15px;
-  }
-  
-  .agreement a {
-    text-decoration: none;
-    color: #0099ff;
-    font-size: 9px;
-  }

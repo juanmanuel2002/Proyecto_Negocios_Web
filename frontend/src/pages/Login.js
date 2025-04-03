@@ -4,7 +4,7 @@ import axios from 'axios';
 import '../styles/Login.css'; 
 
 const Login = () => {
-    const [user, setUser] = useState('');
+    const [usuario, setUser] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [success, setSuccess] = useState(false);
@@ -12,18 +12,16 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        try {
-            console.log('Usuario:', user);  // Verifica el valor de usuario
-            console.log('Contraseña:', password);  // Verifica el valor de contraseña
-
-            await axios.post('http://localhost:5000/api/auth/login', { usuario: user, password });
-            //localStorage.setItem('token', res.data.token);
-            //setAuth(true);
+        try {    
+            // Solo verifica la respuesta exitosa
+            await axios.post('http://localhost:5000/api/auth/login', { usuario, password });
+            
             setSuccess(true);
+            // Redirecciona inmediatamente o después de un tiempo
             setTimeout(() => navigate('/main'), 2000);
         } catch (err) {
-            console.error(err);  // Imprime el error
-            setError("Credenciales incorrectas");
+            console.error(err.response?.data || err.message);
+            setError(err.response?.data?.message || "Credenciales incorrectas");
         }
     };
 
@@ -38,8 +36,11 @@ const Login = () => {
                     className="input"
                     type="text"
                     placeholder="Usuario"
-                    value={user}
-                    onChange={(e) => setUser(e.target.value)}
+                    value={usuario}
+                    onChange={(e) => {
+                        setUser(e.target.value);
+                        setError(''); // Borra el error cuando el usuario escribe
+                    }}
                 />
                 <input
                     required
@@ -47,8 +48,12 @@ const Login = () => {
                     type="password"
                     placeholder="Contraseña"
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={(e) => {
+                        setPassword(e.target.value);
+                        setError(''); // Borra el error cuando el usuario escribe
+                    }}
                 />
+                <span className="forgot-password"><a href="#">Olvide mi contraseña</a></span>
                 <input className="login-button" type="submit" value="Sign In" />
             </form>
 
@@ -60,7 +65,7 @@ const Login = () => {
             <div className="footer">
                 <p>©2025 Sabores ocultos. Todos los derechos reservados.</p>
             </div>
-            
+
         </div>
     );
 };
