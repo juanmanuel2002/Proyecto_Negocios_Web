@@ -27,7 +27,7 @@ const Login = () => {
 
     return (
         <div className="container">
-            <div className="heading">Sign In</div>
+            <div className="heading">Bienvenido</div>
             {success && <p style={{ color: 'green' }}>✅ Login exitoso. Redirigiendo...</p>}
             {error && <p style={{ color: 'red' }}>{error}</p>}
             <form className="form" onSubmit={handleSubmit}>
@@ -53,7 +53,9 @@ const Login = () => {
                         setError(''); // Borra el error cuando el usuario escribe
                     }}
                 />
-                <span className="forgot-password"><a href="#">Olvide mi contraseña</a></span>
+                <span className="forgot-password">
+                    <a onClick={() => navigate('/forgot-password')}>Olvidé mi contraseña</a>
+                </span>
                 <input className="login-button" type="submit" value="Sign In" />
             </form>
 
