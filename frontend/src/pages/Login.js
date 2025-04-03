@@ -56,7 +56,12 @@ const Login = () => {
                 <span className="forgot-password">
                     <a onClick={() => navigate('/forgot-password')}>Olvidé mi contraseña</a>
                 </span>
-                <input className="login-button" type="submit" value="Sign In" />
+                <input 
+                    className="login-button" 
+                    type="submit" 
+                    value="Sign In" 
+                    onClick={() => setError('')} // Limpia el error cuando se hace click
+                />
             </form>
 
             <div className="register-container">

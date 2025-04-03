@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config(); // Cargar variables de entorno
 
 const router = express.Router();
-const JWT_SECRET = process.env.JWT_SECRET || 'tu_secreto';
+const JWT_SECRET = process.env.JWT_SECRET;
 
 // Registro de usuario
 router.post('/register', async (req, res) => {
@@ -57,8 +57,8 @@ router.post('/login', async (req, res) => {
 const transporter = nodemailer.createTransport({
     service: 'gmail', // Usa un servicio real como Gmail, Outlook, etc.
     auth: {
-        user: process.env.EMAIL_USER,  // Leer desde .env
-        pass: process.env.EMAIL_PASS   // Leer desde .env
+        user: process.env.EMAIL_USER,  
+        pass: process.env.EMAIL_PASS   
     }
 });
 
