@@ -55,43 +55,33 @@ body, html, .main-container {
   margin: 1rem 0;
 }
 
-/* Frase con imagen */
-.intro-section {
+.pregunta-banner {
+  position: relative;
+  height: 350px;
+  background-image: url('../asserts/vinedo.jpg'); /* Ajusta la ruta si es necesario */
+  background-size: cover;
+  background-position: center;
+  border-radius: 20px;
+  margin: 5rem auto;
+  max-width: 90%;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
   align-items: center;
-  padding: 4rem 2rem;
-  background-color: #efebe9;
-}
-
-.intro-text {
-  flex: 1 1 50%;
-  font-size: 1.8rem;
-  font-weight: bold;
-  color: #4e342e;
-  animation: fadeInLeft 1s ease;
-}
-
-.intro-image {
-  flex: 1 1 40%;
-  display: flex;
   justify-content: center;
-  animation: fadeInRight 1s ease;
-  max-width: 500px;
-  width: 300px; /* Ajusta este valor según lo que necesites */
-  max-height: 600px; /* Ajusta este valor como necesites */
-  height: auto;
-  object-fit: contain;
-  border-radius: 12px;
 }
 
-.intro-image img {
-  width: 100%;
-  max-width: 400px;
-  height: auto;
+.overlay-text {
+  color: white;
+  padding: 1.5rem 2rem;
   border-radius: 12px;
+  text-align: center;
+  max-width: 80%;
 }
+
+.overlay-text h2 {
+  font-size: 2.5rem;
+  line-height: 1.4;
+}
+
 
 /* Logo + descripción */
 .about-box {
@@ -186,15 +176,7 @@ body, html, .main-container {
   box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 }
 
-/* Animación */
-@keyframes scroll-carousel {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
-}
+
 
 
 .footer-banner {
@@ -305,6 +287,139 @@ body, html, .main-container {
   background-color: #3e2723;
 }
 
+.mystery-box-section {
+  background-color: #f5f5f5;
+  padding: 4rem 2rem;
+  margin-top: 3rem;
+  border-radius: 20px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.mystery-box-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.mystery-box-text {
+  flex: 1;
+  min-width: 280px;
+}
+
+.mystery-box-text h2 {
+  font-size: 2rem;
+  color: #6d4c41;
+  margin-bottom: 1rem;
+}
+
+.mystery-box-text p {
+  font-size: 1rem;
+  color: #444;
+  margin-bottom: 1.5rem;
+}
+
+.descubre-btn {
+  background-color: #6d4c41;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.descubre-btn:hover {
+  background-color: #5d4037;
+}
+
+.mystery-box-cards {
+  flex: 1;
+  min-width: 280px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.card-box {
+  background-color: white;
+  padding: 1.2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: transform 0.3s;
+}
+
+.card-box:hover {
+  transform: translateY(-5px);
+}
+
+.card-box h4 {
+  color: #795548;
+  margin-bottom: 0.5rem;
+}
+
+.card-box p {
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.comunidad-section {
+  text-align: center;
+  padding: 3rem 2rem;
+  margin-top: 3rem;
+  background-color: #efebe9;
+  border-radius: 20px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.05);
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.comunidad-section h2 {
+  color: #6d4c41;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.comunidad-section p {
+  color: #444;
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.suscribirse-btn {
+  background-color: #6d4c41;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.8rem;
+  font-size: 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.suscribirse-btn:hover {
+  background-color: #5d4037;
+}
+
+
+/* Scroll suave */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Aplicar animación al footer */
+footer {
+  animation: fadeInUp 1.2s ease-in-out;
+  animation-fill-mode: both;
+  margin-top: 3rem;
+}
+
 /* Responsive footer */
 @media (max-width: 600px) {
   .footer-links {
@@ -324,8 +439,7 @@ body, html, .main-container {
   from { opacity: 0; transform: translateX(30px); }
   to { opacity: 1; transform: translateX(0); }
 }
-/* */
-/* Animación fade-in-up */
+
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -337,18 +451,15 @@ body, html, .main-container {
   }
 }
 
-/* Scroll suave */
-html {
-  scroll-behavior: smooth;
+@keyframes scroll-carousel {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
-/* Aplicar animación al footer */
-footer {
-  animation: fadeInUp 1.2s ease-in-out;
-  animation-fill-mode: both;
-  margin-top: 3rem;
-}
-/* */
 
 
 /* Responsive */

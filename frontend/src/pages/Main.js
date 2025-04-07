@@ -7,7 +7,6 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { useEffect } from 'react';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import bandera from '../asserts/bandera.jpg';
 import logo from '../asserts/logo.jpg';
 import cafe from '../asserts/Galeria/cafe.jpg';
 import cerveza from '../asserts/Galeria/cerveza.jpg';
@@ -15,6 +14,8 @@ import mezcal from '../asserts/Galeria/mezcal.jpg';
 import regalo from '../asserts/Galeria/regalo.jpg';
 import articulos from '../asserts/Galeria/articulos.jpg';
 import vino_chocolate from '../asserts/Galeria/vino_chocolate.jpg';
+import { FaCrown, FaGift, FaBoxOpen, FaStar } from 'react-icons/fa'; // Agrega esto arriba
+
 
 const Main = () => {
     useEffect(() => {
@@ -42,13 +43,10 @@ const Main = () => {
             <div className="center-title">Sabores Ocultos</div>
 
             {/* Bloque de la pregunta + imagen */}
-            <div className="intro-section" data-aos="fade-up">
-                <div className="intro-text">
-                    <h2>¿Estás listo para abrir un pedacito de México en cada caja?</h2>
-                </div>
-                <div className="intro-image">
-                    <img src={bandera} alt="México" />
-                </div>
+            <div className="pregunta-banner" data-aos="fade-up">
+            <div className="overlay-text">
+                <h2>¿Estás listo para abrir una caja llena de sabor y misterio?</h2>
+            </div>
             </div>
 
             {/* Logo + descripción */}
@@ -78,6 +76,56 @@ const Main = () => {
                 ))}
             </div>
             </div>
+            
+            {/* Definicion de mistery box */}
+            <div className="mystery-box-section" data-aos="fade-up">
+            <div className="mystery-box-content">
+                {/* Columna Izquierda */}
+                <div className="mystery-box-text">
+                <h2>¿Qué son las mystery boxes?</h2>
+                <p>
+                    Nuestras mystery boxes son una selección única de productos exclusivos cuidadosamente elegidos para sorprenderte. 
+                    Descubre sabores auténticos y experiencias inolvidables.
+                </p>
+                <button onClick = {() => navigate('/tienda')} className="descubre-btn">Descubre más </button>
+                </div>
+
+                {/* Columna Derecha - Cards */}
+                <div className="mystery-box-cards">
+                <div className="card-box">
+                    <FaCrown size={30} color="#6d4c41" />
+                    <h4>Selección Premium</h4>
+                    <p>Disfruta de productos seleccionados con altos estándares de calidad.</p>
+                </div>
+                <div className="card-box">
+                    <FaStar size={30} color="#6d4c41" />
+                    <h4>Sorpresa Garantizada</h4>
+                    <p>Cada caja está pensada para brindarte una experiencia única e inesperada.</p>
+                </div>
+                <div className="card-box">
+                    <FaBoxOpen size={30} color="#6d4c41" />
+                    <h4>Ediciones Limitadas</h4>
+                    <p>Productos que no encontrarás en ningún otro lugar, por tiempo limitado.</p>
+                </div>
+                <div className="card-box">
+                    <FaGift size={30} color="#6d4c41" />
+                    <h4>Regalo Perfecto</h4>
+                    <p>Ideal para compartir y sorprender a alguien especial.</p>
+                </div>
+                </div>
+            </div>
+            </div>
+
+            {/* Unete a nuestra comunidad */}
+            <div className="comunidad-section" data-aos="fade-up">
+            <h2>Únete a nuestra comunidad</h2>
+            <p>Recibe noticias, promociones y contenido exclusivo antes que nadie.</p>
+            <button className="suscribirse-btn" onClick={() => window.location.href = '/suscripciones'}>
+                Suscribirse
+            </button>
+            </div>
+
+
 
             {/* Footer */}
             <footer data-aos="fade-up">
