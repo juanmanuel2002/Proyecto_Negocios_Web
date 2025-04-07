@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate  } from 'react-router-
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Main from './pages/Main';
+import Tienda from './pages/Tienda';
 import ForgotPassword from './pages/ForgotPassword';
 import ForgotPasswordReset from './pages/ForgotPasswordReset';
 
@@ -12,6 +13,7 @@ const App = () => {
             <Routes>
                 <Route path="/main" element={ <Main /> } /> 
                 <Route path="/login" element={<Login />} />
+                <Route path="/tienda" element={<Tienda />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/forgot-password" element={ <ForgotPassword /> } />
                 <Route path="/reset-password/:token" element={ <ForgotPasswordReset /> } />

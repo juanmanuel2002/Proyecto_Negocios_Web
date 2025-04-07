@@ -9,10 +9,16 @@ import { useEffect } from 'react';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import bandera from '../asserts/bandera.jpg';
 import logo from '../asserts/logo.jpg';
+import cafe from '../asserts/Galeria/cafe.jpg';
+import cerveza from '../asserts/Galeria/cerveza.jpg';
+import mezcal from '../asserts/Galeria/mezcal.jpg';
+import regalo from '../asserts/Galeria/regalo.jpg';
+import articulos from '../asserts/Galeria/articulos.jpg';
+import vino_chocolate from '../asserts/Galeria/vino_chocolate.jpg';
 
 const Main = () => {
     useEffect(() => {
-        AOS.init({ duration: 1000, once: true });
+        AOS.init({ duration: 1000, once: false });
     }, []);
     const navigate = useNavigate();
 
@@ -57,15 +63,31 @@ const Main = () => {
                 </div>
             </div>
 
+            <div className="carousel-wrapper" data-aos="fade-up">
+            <div className="carousel-track">
+                {[cafe, cerveza, mezcal, regalo, articulos, vino_chocolate].map((img, idx) => (
+                <div className="carousel-item" key={idx}>
+                    <img src={img} alt={`Galería ${idx + 1}`} />
+                </div>
+                ))}
+                {/* Duplica para scroll infinito visual */}
+                {[cafe, cerveza, mezcal, regalo, articulos, vino_chocolate].map((img, idx) => (
+                <div className="carousel-item" key={`copy-${idx}`}>
+                    <img src={img} alt={`Galería ${idx + 1} (duplicado)`} />
+                </div>
+                ))}
+            </div>
+            </div>
+
             {/* Footer */}
             <footer data-aos="fade-up">
                 <div className="footer-banner">
                     ©2025 Sabores Ocultos. Todos los derechos reservados.
                 </div>
                 <div className="footer-links">
-                    <a href="#">Inicio</a>
+                    <span onClick={() => navigate('/main')}>Inicio</span>
                     <a href="#">Sobre Nosotros</a>
-                    <a href="#">Artículos</a>
+                    <span onClick={() => navigate('/tienda')}>Artículos</span>
                     <a href="#">Política de Privacidad</a>
                     <a href="#">Términos y Condiciones</a>
                     <a href="#">Contacto</a>
