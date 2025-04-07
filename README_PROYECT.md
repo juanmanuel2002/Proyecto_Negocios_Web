@@ -12,11 +12,11 @@ npm -v
 
 Crear proyecto react (frontend) \
 npx create-react-app . \
-npm install axios 
+npm install axios bcrypt react-router-dom
 
 (backend) \
 npm init -y \
-npm install express mongoose dotenv bcryptjs jsonwebtoken cors 
+npm install express mongoose dotenv bcryptjs jsonwebtoken cors nodemailer 
 
 Levantar la aplicacion (frontend): \
 npm start
@@ -24,5 +24,8 @@ npm start
 Levantar servidor backend \
 npm index.js 
 
-Extension recomendada en VSC - ES7+ React/Redux/React-Native snippets
+Extension recomendada en VSC:
+ - ES7+ React/Redux/React-Native snippets
+ - ESLint
+ - Prettier 
 
