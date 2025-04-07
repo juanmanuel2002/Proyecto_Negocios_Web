@@ -24,7 +24,7 @@ const Main = () => {
     const navigate = useNavigate();
 
     return (
-        <div className="main-container">
+        <div className="main-container" >
             {/* Navegación superior */}
             <header className="banner">
                 <div className="left-nav">
@@ -125,8 +125,6 @@ const Main = () => {
             </button>
             </div>
 
-
-
             {/* Footer */}
             <footer data-aos="fade-up">
                 <div className="footer-banner">
@@ -134,7 +132,7 @@ const Main = () => {
                 </div>
                 <div className="footer-links">
                     <span onClick={() => navigate('/main')}>Inicio</span>
-                    <a href="#">Sobre Nosotros</a>
+                    <span onClick={() => navigate('/nosotros')}>Sobre Nosotros</span>
                     <span onClick={() => navigate('/tienda')}>Artículos</span>
                     <a href="#">Política de Privacidad</a>
                     <a href="#">Términos y Condiciones</a>

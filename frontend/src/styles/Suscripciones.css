@@ -1,0 +1,81 @@
+.suscripciones-container {
+    padding: 4rem 2rem;
+    background-color: #fff8f0;
+    color: #4a3f35;
+    font-family: 'Segoe UI', sans-serif;
+    text-align: center;
+  }
+  
+  .subtitulo {
+    margin-top: 1rem;
+    font-size: 1.2rem;
+    color: #6c584c;
+  }
+  
+  .cards-suscripciones {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-top: 3rem;
+  }
+  
+  .card-plan {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 2rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    width: 280px;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+  }
+  
+  .card-plan:hover {
+    transform: translateY(-5px);
+  }
+  
+  .card-plan h2 {
+    font-size: 1.5rem;
+    color: #8b4513;
+  }
+  
+  .precio {
+    font-size: 1.2rem;
+    margin: 1rem 0;
+    color: #5c4b3b;
+  }
+  
+  .card-plan ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 1.5rem;
+    text-align: left;
+  }
+  
+  .card-plan li {
+    margin-bottom: 0.5rem;
+  }
+  
+  .boton-suscribirse {
+    padding: 0.7rem 1.5rem;
+    background-color: #a0522d;
+    color: white;
+    border: none;
+    border-radius: 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .boton-suscribirse:hover {
+    background-color: #8b4513;
+  }
+  
+  /* Responsive */
+  @media (max-width: 900px) {
+    .cards-suscripciones {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+  
