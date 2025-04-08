@@ -53,8 +53,8 @@ const Login = () => {
                         setError(''); // Borra el error cuando el usuario escribe
                     }}
                 />
-                <span className="forgot-password">
-                    <a onClick={() => navigate('/forgot-password')}>Olvidé mi contraseña</a>
+                <span className="forgot-password"
+                    onClick={() => navigate('/forgot-password')}>Olvidé mi contraseña
                 </span>
                 <input 
                     className="login-button" 

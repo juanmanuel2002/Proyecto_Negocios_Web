@@ -13,9 +13,9 @@ const Footer = () => {
                 <span onClick={() => navigate('/main')}>Inicio</span>
                 <span onClick={() => navigate('/nosotros')}>Sobre Nosotros</span>
                 <span onClick={() => navigate('/tienda')}>Artículos</span>
-                <a href="#">Política de Privacidad</a>
-                <a href="#">Términos y Condiciones</a>
-                <a href="#">Contacto</a>
+                <span onClick={() => navigate('/privacy-Policy')}>Política de Privacidad</span>
+                <span onClick={() => navigate('/terms-and-conditions')}>Términos y Condiciones</span>
+                <span onClick={() => navigate('/contact-us')}>Contacto</span>
                 <div className="social-icons">
                     <i className="fab fa-facebook-f" />
                     <i className="fab fa-twitter" />

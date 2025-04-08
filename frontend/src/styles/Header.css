@@ -1,3 +1,4 @@
+@import './Variables.css';
 .banner {
     display: flex;
     justify-content: space-between;
@@ -36,10 +37,24 @@
   }
   
   .center-title {
-    flex: 1 1 100%;
+    
     text-align: center;
     font-size: 3.8rem;
     font-weight: bold;
-    color: #3e2723;
     margin: 1rem 0;
+    color: var(--text-color);
+  }
+
+  .theme-toggle {
+    background-color: transparent;
+    border: none;
+    font-size: 1.1rem;
+    cursor: pointer;
+    color: var(--text-color);
+    margin-left: 1rem;
+    transition: color 0.3s ease;
+  }
+  
+  .theme-toggle:hover {
+    color: var(--accent-color);
   }

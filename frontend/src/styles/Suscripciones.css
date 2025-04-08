@@ -24,14 +24,14 @@
 }
 
 .paquete-card h3 {
-  color: var(--acent-color);
+  color: var(--text-color);
   margin-bottom: 0.5rem;
 }
 
 .paquete-card p {
   font-weight: bold;
   font-size: 1.2rem;
-  color: var(--primary-color);
+  color: var(--text-color);
 }
 
 .paquete-card ul {
@@ -42,7 +42,7 @@
 
 .paquete-card ul li {
   margin-bottom: 0.5rem;
-  color: var(--secondary-color)
+  color: var(--text-color)
 }
 
 .paquete-card button {

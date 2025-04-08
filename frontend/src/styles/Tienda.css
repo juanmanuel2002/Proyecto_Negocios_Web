@@ -2,7 +2,7 @@
     text-align: center;
     font-size: 2rem;
     margin-top: 2rem;
-    color: #4b2e2e;
+    color: var(--titulo-color);
   }
   
   .productos-grid {
@@ -37,7 +37,7 @@
   
   .card-producto .descripcion {
     font-size: 0.9rem;
-    color: #444;
+    color: var(--titulo-color);
     margin: 0.5rem 0;
   }
   
