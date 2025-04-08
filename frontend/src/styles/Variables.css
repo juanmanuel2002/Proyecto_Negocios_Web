@@ -3,10 +3,13 @@
     /* Colores principales */
     --primary-color: #6d4c41;
     --secondary-color: #5d4037;
+    --secondary-color-hover: #4b2d26; /* Agregado */
     --accent-color: #4e342e;
+    --accent-color-hover: #3e2723; /* Usado para hovers */
     --background-color: #f7e4e4;
-    --background-button-hover: #3e2723;
     --light-background-color: #efebe9;
+    --input-border-color: #d7ccc8; /* Agregado */
+    --input-background-color: #f5f5f5; /* Agregado */
     --text-color: #4e342e;
     --text-light-color: #f5f5f5;
     --card-color: #f8e7cece;
@@ -17,6 +20,7 @@
     --font-size-base: 1rem;
     --font-size-large: 1.2rem;
     --font-size-small: 0.9rem;
+    --font-size-title: 1.8rem; /* Agregado si no estaba */
   
     /* Espaciado */
     --padding-base: 1rem;

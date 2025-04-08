@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import '../styles/Register.css';
+import '../styles/Auth.css';
 
 const Register = () => {
     const [nombre, setNombre] = useState('');
