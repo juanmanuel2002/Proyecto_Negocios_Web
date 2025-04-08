@@ -15,8 +15,8 @@
   
   .card-producto {
     width: 250px;
-    background-color: #fffaf4;
-    border: 2px solid #d8c3a5;
+    background-color: var(--card-color);
+    border: 2px solid var(--card-border-color);
     border-radius: 20px;
     padding: 1.5rem;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);

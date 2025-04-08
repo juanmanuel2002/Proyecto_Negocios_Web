@@ -1,11 +1,18 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import '../styles/Main.css'; 
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import { useEffect } from 'react';
+import '../styles/Suscripciones.css'; 
+import '../styles/Global.css'; 
+import '../styles/Header.css';
 
-const Tienda = () => {
-  const navigate = useNavigate();
+const Suscripciones = () => {
+
+  useEffect(() => {
+    AOS.init({ duration: 1000, once: false });
+  }, []);
 
   const handleCardClick = (paquete) => {
     alert(`Paquete ${paquete} seleccionado`);
@@ -13,22 +20,9 @@ const Tienda = () => {
 
   return (
     <div className="main-container">
-      {/* Banner */}
-      <header className="banner">
-        <div className="left-nav">
-            <span onClick={() => navigate('/main')}>Inicio</span>
-            <span onClick={() => navigate('/nosotros')}>Sobre Nosotros</span>
-            <span onClick={() => navigate('/tienda')}>Tienda</span>
-            <span onClick={() => navigate('/suscripciones')}>Suscripciones</span>
-        </div>
-        <div className="right-nav">
-            <ShoppingCartIcon />
-            <AccountCircleIcon onClick={() => navigate('/login')} />
-        </div>
-    </header>
-
-    {/* Título separado */}
-    <div className="center-title">Sabores Ocultos</div>
+    {/* Banner */}
+    <Header/>
+    <div data-aos="fade-up" className="center-title">Sabores Ocultos</div>
 
       {/* Cards de paquetes */}
       <div className="paquetes-container">
@@ -60,28 +54,9 @@ const Tienda = () => {
           </div>
         ))}
       </div>
-    
-      {/* Footer */}
-      <footer data-aos="fade-up">
-                <div className="footer-banner">
-                    ©2025 Sabores Ocultos. Todos los derechos reservados.
-                </div>
-                <div className="footer-links">
-                    <span onClick={() => navigate('/main')}>Inicio</span>
-                    <span onClick={() => navigate('/nosotros')}>Sobre Nosotros</span>
-                    <span onClick={() => navigate('/tienda')}>Artículos</span>
-                    <a href="#">Política de Privacidad</a>
-                    <a href="#">Términos y Condiciones</a>
-                    <a href="#">Contacto</a>
-                    <div className="social-icons">
-                        <i className="fab fa-facebook-f" />
-                        <i className="fab fa-twitter" />
-                        <i className="fab fa-instagram" />
-                    </div>
-                </div>
-            </footer>
+      <Footer />
     </div>
   );
 };
 
-export default Tienda;
+export default Suscripciones;

@@ -1,0 +1,45 @@
+.banner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #d7ccc8;
+    padding: 1rem 2rem;
+    border-bottom: 2px solid #a1887f;
+    flex-wrap: wrap;
+  }
+  
+  .left-nav, .right-nav {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  
+  .left-nav span {
+    cursor: pointer;
+    font-weight: bold;
+    color: #5d4037;
+    transition: color 0.3s ease;
+  }
+  
+  .left-nav span:hover {
+    color: #3e2723;
+  }
+  
+  .right-nav svg {
+    color: #4e342e;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  
+  .right-nav svg:hover {
+    transform: scale(1.1);
+  }
+  
+  .center-title {
+    flex: 1 1 100%;
+    text-align: center;
+    font-size: 3.8rem;
+    font-weight: bold;
+    color: #3e2723;
+    margin: 1rem 0;
+  }

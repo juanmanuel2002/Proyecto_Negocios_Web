@@ -1,35 +1,22 @@
 import React from 'react';
-import '../styles/SobreNosotros.css';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
+import '../styles/SobreNosotros.css';
+import '../styles/Global.css'; 
+import '../styles/Header.css';
 
 const SobreNosotros = () => {
     useEffect(() => {
         AOS.init({ duration: 1000, once: false });
     }, []);
-    const navigate = useNavigate();
   return (
     <div className="main-container" >
-                {/* Navegación superior */}
-                <header className="banner">
-                    <div className="left-nav">
-                        <span onClick={() => navigate('/main')}>Inicio</span>
-                        <span onClick={() => navigate('/nosotros')}>Sobre Nosotros</span>
-                        <span onClick={() => navigate('/tienda')}>Tienda</span>
-                        <span onClick={() => navigate('/suscripciones')}>Suscripciones</span>
-                    </div>
-                    <div className="right-nav">
-                        <ShoppingCartIcon />
-                        <AccountCircleIcon onClick={() => navigate('/login')} />
-                    </div>
-                </header>
-    
-                {/* Título separado */}
-                <div className="center-title">Sabores Ocultos</div>
+    {/* Banner */}
+    <Header />
+    <div data-aos="fade-up" className="center-title">Sabores Ocultos</div>
     
     
     <div className="sobre-nosotros-container" data-aos="fade-up">
@@ -79,28 +66,7 @@ const SobreNosotros = () => {
       </section>
 
     </div>
-
-    
-
-    {/* Footer */}
-    <footer data-aos="fade-up">
-        <div className="footer-banner">
-            ©2025 Sabores Ocultos. Todos los derechos reservados.
-        </div>
-        <div className="footer-links">
-            <span onClick={() => navigate('/main')}>Inicio</span>
-            <span onClick={() => navigate('/nosotros')}>Sobre Nosotros</span>
-            <span onClick={() => navigate('/tienda')}>Artículos</span>
-            <a href="#">Política de Privacidad</a>
-            <a href="#">Términos y Condiciones</a>
-            <a href="#">Contacto</a>
-            <div className="social-icons">
-                <i className="fab fa-facebook-f" />
-                <i className="fab fa-twitter" />
-                <i className="fab fa-instagram" />
-            </div>
-        </div>
-    </footer>
+    <Footer />
 
     </div>
   );

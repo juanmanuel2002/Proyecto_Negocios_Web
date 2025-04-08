@@ -1,0 +1,31 @@
+/* Variables globales */
+:root {
+    /* Colores principales */
+    --primary-color: #6d4c41;
+    --secondary-color: #5d4037;
+    --accent-color: #4e342e;
+    --background-color: #f7e4e4;
+    --background-button-hover: #3e2723;
+    --light-background-color: #efebe9;
+    --text-color: #4e342e;
+    --text-light-color: #f5f5f5;
+    --card-color: #f8e7cece;
+    --card-border-color: #d8c3a5;
+  
+    /* Tipografía */
+    --font-family: 'Georgia', serif;
+    --font-size-base: 1rem;
+    --font-size-large: 1.2rem;
+    --font-size-small: 0.9rem;
+  
+    /* Espaciado */
+    --padding-base: 1rem;
+    --margin-base: 1rem;
+  
+    /* Bordes */
+    --border-radius: 10px;
+    --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  
+    /* Transiciones */
+    --transition-duration: 0.3s;
+  }

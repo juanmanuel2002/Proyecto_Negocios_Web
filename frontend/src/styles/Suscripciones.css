@@ -1,81 +1,62 @@
-.suscripciones-container {
-    padding: 4rem 2rem;
-    background-color: #fff8f0;
-    color: #4a3f35;
-    font-family: 'Segoe UI', sans-serif;
-    text-align: center;
-  }
-  
-  .subtitulo {
-    margin-top: 1rem;
-    font-size: 1.2rem;
-    color: #6c584c;
-  }
-  
-  .cards-suscripciones {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    flex-wrap: wrap;
-    margin-top: 3rem;
-  }
-  
-  .card-plan {
-    background-color: #fff;
-    padding: 2rem;
-    border-radius: 2rem;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    width: 280px;
-    transition: transform 0.3s ease;
-    cursor: pointer;
-  }
-  
-  .card-plan:hover {
-    transform: translateY(-5px);
-  }
-  
-  .card-plan h2 {
-    font-size: 1.5rem;
-    color: #8b4513;
-  }
-  
-  .precio {
-    font-size: 1.2rem;
-    margin: 1rem 0;
-    color: #5c4b3b;
-  }
-  
-  .card-plan ul {
-    list-style: none;
-    padding: 0;
-    margin-bottom: 1.5rem;
-    text-align: left;
-  }
-  
-  .card-plan li {
-    margin-bottom: 0.5rem;
-  }
-  
-  .boton-suscribirse {
-    padding: 0.7rem 1.5rem;
-    background-color: #a0522d;
-    color: white;
-    border: none;
-    border-radius: 1rem;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .boton-suscribirse:hover {
-    background-color: #8b4513;
-  }
-  
-  /* Responsive */
-  @media (max-width: 900px) {
-    .cards-suscripciones {
-      flex-direction: column;
-      align-items: center;
-    }
-  }
-  
+.paquetes-container {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  padding: 3rem 2rem;
+  background-color: var(--background-color)
+}
+
+.paquete-card {
+  background-color:var(--card-color);
+  border: 2px solid var(--card-border-color);
+  border-radius: 20px;
+  padding: 2rem;
+  width: 250px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  text-align: center;
+  transition: transform 0.3s ease;
+  animation: fadeInUp 1s ease;
+}
+
+.paquete-card:hover {
+  transform: translateY(-5px);
+}
+
+.paquete-card h3 {
+  color: var(--acent-color);
+  margin-bottom: 0.5rem;
+}
+
+.paquete-card p {
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: var(--primary-color);
+}
+
+.paquete-card ul {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 1rem;
+}
+
+.paquete-card ul li {
+  margin-bottom: 0.5rem;
+  color: var(--secondary-color)
+}
+
+.paquete-card button {
+  background-color: var(--secondary-color);
+  color: #f5f5f5;
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.paquete-card button:hover {
+  background-color: var(--background-button-hover);
+}
