@@ -20,15 +20,14 @@
     --font-size-large: 1.2rem;
     --font-size-small: 0.9rem;
     --font-size-title: 1.8rem; 
-  
+    --botton-dark-color: #8b4513;
     /* Espaciado */
     --padding-base: 1rem;
     --margin-base: 1rem;
   
     /* Bordes */
-    --border-radius: 10px;
-    --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-  
+    --border-radius: 20px;
+    --box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
     /* Transiciones */
     --transition-duration: 0.3s;
   }
@@ -43,7 +42,8 @@
     --input-background-color: #2c2c2c;
     --input-border-color: #555;
     --accent-color-hover: #ffa000;
-  
+    --box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+    --botton-dark-color: #8b4513;
     --card-color: #2c2c2c;
     --card-border-color: #444;
   }

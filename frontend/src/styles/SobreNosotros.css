@@ -11,7 +11,7 @@
     border: 2px solid var(--card-border-color);
     padding: 2.5rem;
     border-radius: 20px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--box-shadow);
     text-align: center;
     margin-bottom: 3rem;
   }
@@ -19,6 +19,7 @@
   .nosotros-banner h1 {
     font-size: 2.8rem;
     margin-bottom: 1rem;
+    color: var(--botton-dark-color);
   }
   
   .nosotros-banner p {
@@ -48,7 +49,7 @@
     background-color:  var(--card-color);
     border: 2px solid var(--card-border-color);
     border-radius: 15px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--box-shadow);
     padding: 1.5rem;
     width: 250px;
     text-align: center;
@@ -75,6 +76,7 @@
   .nosotros-mision {
     background: var(--card-color);
     border: 2px solid var(--card-border-color);
+    box-shadow : var(--box-shadow);
     padding: 2rem;
     margin: 2rem 0;
     border-radius: 20px;
@@ -84,6 +86,7 @@
   .nosotros-mision h2 {
     font-size: 2rem;
     margin-bottom: 1.5rem;
+    color: var(--botton-dark-color);
   }
   
   .nosotros-mision p {

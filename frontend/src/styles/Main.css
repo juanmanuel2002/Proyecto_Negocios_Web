@@ -43,7 +43,8 @@
   align-items: center;
   text-align: center;
   padding: 4rem 2rem;
-  background-color: #d7ccc8;
+  background-color: var(--card-color);
+  
 }
 
 .logo-circle {
@@ -70,7 +71,7 @@
   padding: 1rem 2rem;
   font-size: 1.2rem;
   line-height: 1.7;
-  color: #3e2723;
+  color: var(--text-color);
 }
 
 .right-nav {

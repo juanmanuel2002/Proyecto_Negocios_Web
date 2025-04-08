@@ -1,3 +1,5 @@
+@import './Variables.css';
+
 .paquetes-container {
   display: flex;
   justify-content: center;
@@ -8,12 +10,13 @@
 }
 
 .paquete-card {
+  webkit-backdrop-filter: blur(10px);
+  box-shadow: var(--box-shadow);
   background-color:var(--card-color);
   border: 2px solid var(--card-border-color);
   border-radius: 20px;
   padding: 2rem;
   width: 250px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   text-align: center;
   transition: transform 0.3s ease;
   animation: fadeInUp 1s ease;
@@ -31,7 +34,7 @@
 .paquete-card p {
   font-weight: bold;
   font-size: 1.2rem;
-  color: var(--text-color);
+  color: var(--botton-dark-color);
 }
 
 .paquete-card ul {
@@ -46,8 +49,8 @@
 }
 
 .paquete-card button {
-  background-color: var(--secondary-color);
-  color: #f5f5f5;
+  background-color: var(--botton-dark-color);
+  color: #fff;
   padding: 0.8rem 1.5rem;
   border: none;
   border-radius: 5px;
