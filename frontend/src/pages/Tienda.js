@@ -45,7 +45,7 @@ const Tienda = () => {
       {loading ? (
           <p className="loading"><ClipLoader color="#6d4c41" size={50} /></p> 
       ) : error ? (
-        <p className="error">{error}</p>
+        <p className="error">Ha ocurrido un error al obtener los productos</p>
       ) : (
         <div className="productos-grid" data-aos="fade-up">
           {productos.map((producto) => (

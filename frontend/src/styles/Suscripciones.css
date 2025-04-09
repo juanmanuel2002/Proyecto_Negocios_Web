@@ -63,3 +63,256 @@
 .paquete-card button:hover {
   background-color: var(--background-button-hover);
 }
+
+/* Banner "Conoce más" */
+.conoce-mas-banner {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.conoce-mas-banner p {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.flecha-down {
+  font-size: 30px;
+  cursor: pointer;
+}
+
+/* Estilo general para la sección "¿Qué contiene?" */
+.que-contiene-container {
+  background-color: #f4f4f4;
+  padding: 40px;
+  margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.titulo-que-contiene {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  align-self: flex-start; /* Alineación a la izquierda */
+}
+
+/* Contenedor para la imagen y las tarjetas */
+.contenidos-productos {
+  display: flex;
+  justify-content: space-between; /* Mantiene la imagen y las tarjetas separadas */
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.imagen-que-contiene {
+  flex: 1; /* Hace que la imagen ocupe el 40% de la pantalla */
+  padding-right: 20px;
+}
+
+.imagen-que-contiene img {
+  width: 100%;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.productos-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Dos columnas */
+  gap: 20px; /* Reduce el espacio entre las columnas */
+  width: 60%;
+  justify-items: center; /* Alinea las tarjetas al centro de cada celda */
+  align-self: right; /* Alinea las tarjetas a la derecha */
+} 
+
+.card-producto {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.card-producto:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+.card-producto h3 {
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.card-producto p {
+  font-size: 14px;
+  color: #666;
+}
+
+/* Asegura que si hay un número impar de productos, el último esté centrado */
+.card-producto.centered {
+  grid-column: span 2; /* Esto hace que el último producto ocupe ambas columnas */
+  justify-self: center;
+}
+
+/* Móvil y pantallas pequeñas */
+@media (max-width: 768px) {
+  .contenidos-productos {
+    flex-direction: column; /* Pone imagen y productos uno debajo del otro */
+    align-items: center;
+  }
+
+  .imagen-que-contiene {
+    padding-right: 0;
+    margin-bottom: 20px;
+  }
+
+  .imagen-que-contiene img {
+    width: 80%;
+  }
+
+  .productos-cards {
+    width: 100%; /* Que ocupe todo el ancho disponible */
+    grid-template-columns: 1fr; /* Una sola columna */
+    justify-items: center;
+    max-width: 200px;
+  }
+
+  .card-producto {
+    width: 80%; /* Que no sean tan angostas */
+  }
+}
+
+/* Tablets */
+@media (max-width: 1024px) {
+  .productos-cards {
+    width: 100%;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    max-width: 430px;
+  }
+
+  .card-producto {
+    width: 80%;
+  }
+
+  .contenidos-productos {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .imagen-que-contiene {
+    padding-right: 0;
+    margin-bottom: 20px;
+  }
+
+  .imagen-que-contiene img {
+    width: 80%;
+  }
+}
+
+/* Estilo para la sección "Lo que opinan nuestros clientes" */
+.opinan-container {
+  padding: 40px;
+  background-color: #f4f4f4;
+  margin-top: 60px;
+
+  /* 👇 Agregado para alinear título + cards horizontalmente */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  flex-wrap: wrap; /* para que se adapte en pantallas pequeñas */
+}
+
+.titulo-opinan {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 0; /* 👈 quita espacio extra abajo */
+  min-width: 250px;
+}
+
+
+.opinan-cards {
+  display: flex;
+  justify-content: flex-end; /* Alinea las cards a la derecha */
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.card-opinion {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  width: 250px; /* Ancho de las tarjetas */
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.card-opinion:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+.card-opinion h3 {
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.card-opinion p {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.5;
+}
+
+/* Hacer la sección responsive */
+@media (max-width: 768px) {
+  .opinan-cards {
+    justify-content: center; /* Centra las tarjetas en pantallas pequeñas */
+  }
+
+  .card-opinion {
+    width: 80%; /* Ajusta el tamaño de las tarjetas en pantallas pequeñas */
+  }
+}
+
+.marcas-container {
+  padding: 60px 40px;
+  background-color: #ffffff;
+  text-align: center;
+}
+
+.titulo-marcas {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 30px;
+  color: var(--text-color);
+}
+
+.marcas-logos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+}
+
+.logo-marca {
+  height: 200px;
+  object-fit: contain;
+  transition: filter 0.3s ease;
+}
+
+.logo-marca:hover {
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .logo-marca {
+    height: 120px;
+  }
+}

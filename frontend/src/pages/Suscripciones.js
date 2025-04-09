@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import { useEffect } from 'react';
 import '../styles/Suscripciones.css'; 
 import '../styles/Global.css'; 
 import '../styles/Header.css';
@@ -12,21 +11,23 @@ const Suscripciones = () => {
 
   useEffect(() => {
     AOS.init({ duration: 1000, once: false });
+    AOS.refresh(); 
   }, []);
 
   const handleCardClick = (paquete) => {
     alert(`Paquete ${paquete} seleccionado`);
   };
 
+  const productos = ['Mermelada', 'Tequila', 'Mezcal', 'Chocolate', 'Cerveza', 'Vino', 'Cafe'];
+
   return (
     <div className="main-container">
-    {/* Banner */}
-    <Header/>
-    <div data-aos="fade-up" className="center-title">Sabores Ocultos</div>
+      <Header/>
+      <div data-aos="fade-up" className="center-title">Sabores Ocultos</div>
 
       {/* Cards de paquetes */}
       <div className="paquetes-container">
-        {[
+        {[ 
           { nombre: 'Básico', precio: 350, items: ['Una botella', 'Dos productos'] },
           { nombre: 'Premium', precio: 550, items: ['Dos botellas', 'Cuatro productos'] },
           { nombre: 'Exclusiva', precio: 450, items: ['Tres botellas', 'Tres productos'] },
@@ -49,11 +50,76 @@ const Suscripciones = () => {
                 handleCardClick(paquete.nombre);
               }}
             >
-              Seleccionar
+              Ordenar
             </button>
           </div>
         ))}
       </div>
+
+      {/* Nueva sección "¿Qué contiene?" */}
+      <div className="que-contiene-container" data-aos="fade-up"> 
+        <h2 className="titulo-que-contiene">¿Qué contiene?</h2>
+        <div className="contenidos-productos">
+          {/* Imagen a la izquierda */}
+          <div className="imagen-que-contiene">
+            <img src="imagenes/Galeria/mezcal.jpg" alt="Imagen de ejemplo" />
+          </div>
+
+          {/* Contenedor de tarjetas de productos */}
+          <div className="productos-cards">
+            {productos.map((producto, index) => (
+              <div 
+                className={`card-producto ${productos.length % 2 === 1 && index === productos.length - 1 ? 'centered' : ''}`} 
+                key={producto}
+              >
+                <h3>{producto}</h3>
+                <p>Descripción del producto</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+
+      <div className="opinan-container" data-aos="fade-up">
+      <h2 className="titulo-opinan">Lo que opinan nuestros clientes</h2>
+      <div className="opinan-cards">
+        {[{
+          nombre: 'Juan Pérez',
+          descripcion: 'Me encantaron los productos, el servicio es excelente y la calidad es insuperable.'
+        },
+        {
+          nombre: 'Ana García',
+          descripcion: '¡Una experiencia única! Recibí todo justo a tiempo y los productos son deliciosos.'
+        }].map((opinion, index) => (
+          <div className="card-opinion" key={index}>
+            <h3>{opinion.nombre}</h3>
+            <p>{opinion.descripcion}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    {/* Sección de marcas */}
+    <div className="marcas-container" data-aos="fade-up">
+      <h2 className="titulo-marcas">Las marcas que puedes encontrar</h2>
+      <div className="marcas-logos">
+        {[
+          'marca1.jpg',
+          'marca2.jpg',
+          'marca3.jpg',
+          'marca4.jpg',
+        ].map((logo, index) => (
+          <img
+            key={index}
+            src={`imagenes/marcas/${logo}`} // Asegúrate de que la ruta sea correcta
+            alt={`Marca ${index + 1}`}
+            className="logo-marca"
+          />
+        ))}
+      </div>
+    </div>
+
       <Footer />
     </div>
   );

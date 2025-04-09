@@ -65,9 +65,10 @@
     background-color: #a0522d;
   }
   
-  .loading {
+  .loading, .error {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 200px; /* Altura del contenedor de carga */
+    color: var(--text-color);
   }
