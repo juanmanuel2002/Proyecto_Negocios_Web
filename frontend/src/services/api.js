@@ -55,3 +55,17 @@ export const resetPassword = async (token, newPassword) => {
         return { success: false, message: 'Error al conectar con el servidor.' };
     }
 };
+
+export const fetchProductos = async () => {
+    try {
+        const response = await fetch(`${API_URL}/productos`);
+        const data = await response.json();
+        if (response.ok) {
+        return { success: true, data: data };
+        } else {
+        return { success: false, message: 'Error al obtener los productos' };
+        }
+    } catch (error) {
+        return { success: false, message: error.message };
+    }
+};

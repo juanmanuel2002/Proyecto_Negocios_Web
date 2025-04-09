@@ -5,12 +5,6 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { useEffect } from 'react';
 import logo from '../asserts/logo.jpg';
-import cafe from '../asserts/Galeria/cafe.jpg';
-import cerveza from '../asserts/Galeria/cerveza.jpg';
-import mezcal from '../asserts/Galeria/mezcal.jpg';
-import regalo from '../asserts/Galeria/regalo.jpg';
-import articulos from '../asserts/Galeria/articulos.jpg';
-import vino_chocolate from '../asserts/Galeria/vino_chocolate.jpg';
 import Carousel from '../components/Carousel';
 import MysteryBoxCard from '../components/MysteryBoxCards';
 import Header from '../components/Header';
@@ -25,7 +19,17 @@ const Main = () => {
         AOS.init({ duration: 1000, once: false });
     }, []);
     const navigate = useNavigate();
-    const images = [cafe, cerveza, mezcal, regalo, articulos, vino_chocolate];
+
+    // Aquí estás usando imágenes que deben estar en public/images
+    const images = [
+        '/imagenes/Galeria/cafe.jpg',
+        '/imagenes/Galeria/cerveza.jpg',
+        '/imagenes/Galeria/mezcal.jpg',
+        '/imagenes/Galeria/regalo.jpg',
+        '/imagenes/Galeria/articulos.jpg',
+        '/imagenes/Galeria/vino_chocolate.jpg'
+    ];
+
     return (
         <div className="main-container" >
             {/* Banner */}

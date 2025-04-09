@@ -65,3 +65,9 @@
     background-color: #a0522d;
   }
   
+  .loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px; /* Altura del contenedor de carga */
+  }

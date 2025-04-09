@@ -1,6 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 import { registerUser, loginUser, sendResetEmail, resetPassword } from './services/firebase/auth.js';
+import {getProductos} from './services/firebase/getProduct.js';
+
 
 const app = express();
 app.use(cors());
@@ -40,7 +42,7 @@ app.post('/api/reset-email', async (req, res) => {
 });
 
 // Endpoint para restablecer la contraseña
-app.post('/api/reset-password', async (req, res) => {
+app.post('/api/reset-password', async (res) => {
     const { token, newPassword } = req.body;
     try {
         await resetPassword(token, newPassword);
@@ -48,6 +50,16 @@ app.post('/api/reset-password', async (req, res) => {
     } catch (error) {
         res.status(500).json({ success: false, message: error.message });
     }
+});
+
+
+app.get('/api/productos', async (req,res) => {
+  const result = await getProductos();
+  if (result.success) {
+    res.status(200).json(result.data);
+  } else {
+    res.status(500).json({ error: result.message });
+  }
 });
 
 // Iniciar el servidor
