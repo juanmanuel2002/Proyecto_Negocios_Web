@@ -25,11 +25,11 @@ const App = () => {
                     <Route path="/suscripciones" element={<Suscripciones />} />
                     <Route path="/nosotros" element={<SobreNosotros />} />
                     <Route path="/forgot-password" element={<ForgotPassword />} />
-                    <Route path="/reset-password/:token" element={<ForgotPasswordReset />} />
+                    <Route path="__/auth/action/*" element={<ForgotPasswordReset />} />
                     <Route path="/privacy-policy" element={<PrivacyPolicy />} />
                     <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
                     <Route path="/contact-us" element={<ContactUs />} />
-                    <Route path="/" element={<Navigate to="/login" />} />
+                    <Route path="/" element={<Navigate to="/main" />} />
                 </Routes>
             </Router>
         </ThemeProvider>

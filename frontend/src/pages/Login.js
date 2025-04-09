@@ -1,80 +1,63 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Importar useNavigate
-import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { loginUser } from '../services/api'; // Importa la función del servicio
 import '../styles/Auth.css';
 
 const Login = () => {
-    const [usuario, setUser] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
-    const [success, setSuccess] = useState(false);
-    const navigate = useNavigate(); // Hook para la navegación
+  const navigate = useNavigate();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {    
-            // Solo verifica la respuesta exitosa
-            await axios.post('http://localhost:5000/api/auth/login', { usuario, password });
-            
-            setSuccess(true);
-            // Redirecciona inmediatamente o después de un tiempo
-            setTimeout(() => navigate('/main'), 2000);
-        } catch (err) {
-            console.error(err.response?.data || err.message);
-            setError(err.response?.data?.message || "Credenciales incorrectas");
-        }
-    };
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setError('');
 
-    return (
-        <div className="container">
-            <div className="heading">Bienvenido</div>
-            {success && <p style={{ color: 'green' }}>✅ Login exitoso. Redirigiendo...</p>}
-            {error && <p style={{ color: 'red' }}>{error}</p>}
-            <form className="form" onSubmit={handleSubmit}>
-                <input
-                    required
-                    className="input"
-                    type="text"
-                    placeholder="Usuario"
-                    value={usuario}
-                    onChange={(e) => {
-                        setUser(e.target.value);
-                        setError(''); // Borra el error cuando el usuario escribe
-                    }}
-                />
-                <input
-                    required
-                    className="input"
-                    type="password"
-                    placeholder="Contraseña"
-                    value={password}
-                    onChange={(e) => {
-                        setPassword(e.target.value);
-                        setError(''); // Borra el error cuando el usuario escribe
-                    }}
-                />
-                <span className="forgot-password"
-                    onClick={() => navigate('/forgot-password')}>Olvidé mi contraseña
-                </span>
-                <input 
-                    className="login-button" 
-                    type="submit" 
-                    value="Sign In" 
-                    onClick={() => setError('')} // Limpia el error cuando se hace click
-                />
-            </form>
+    const result = await loginUser(email, password);
+    if (result.success) {
+      navigate('/main');
+    } else {
+      setError(result.message);
+    }
+  };
 
-            <div className="register-container">
-                <p>¿No tienes cuenta?</p>
-                <button className="register-button" onClick={() => navigate('/register')}>Crear Cuenta</button>
-            </div>
-            
-            <div className="footer">
-                <p>©2025 Sabores ocultos. Todos los derechos reservados.</p>
-            </div>
+  return (
+    <div className="container">
+      <h2 className="heading">Iniciar Sesión</h2>
+      <form onSubmit={handleLogin} className="form">
+        <input
+          className="input"
+          type="email"
+          placeholder="Correo electrónico"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <input
+          className="input"
+          type="password"
+          placeholder="Contraseña"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+        {error && <p className="error" style={{ color: 'red' }}>{error}</p>}
+        <button className="login-button" type="submit">Iniciar Sesión</button>
+      </form>
 
-        </div>
-    );
+      <div className="register-container">
+        <p className="forgot-password">
+          ¿Olvidaste tu contraseña? <a href="/forgot-password">Recupérala aquí</a>
+        </p>
+        <button
+          className="register-button"
+          onClick={() => navigate('/register')}
+        >
+          Crear cuenta nueva
+        </button>
+      </div>
+    </div>
+  );
 };
 
 export default Login;

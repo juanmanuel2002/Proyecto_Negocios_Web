@@ -12,17 +12,20 @@ npm -v
 
 Crear proyecto react (frontend) \
 npx create-react-app . \
-npm install axios bcrypt react-router-dom
 
-(backend) \
-npm init -y \
-npm install express mongoose dotenv bcryptjs jsonwebtoken cors nodemailer 
+front\
+npm install aos axiosreact-icons react-router-dom @mui/icons-material @fortawesome/fontawesome @mui/styled-engine @emotion/react @emotion/styled @fortawesome/fontawesome-free firebase firebaseui \ 
 
 Levantar la aplicacion (frontend): \
 npm start
 
+
+(backend) \
+npm init -y \
+npm install express cors firebase dotenv react firebase-admin react-dom nodemon
+
 Levantar servidor backend \
-npm index.js 
+npm index.js  o nodemon serverjs
 
 Extension recomendada en VSC:
  - ES7+ React/Redux/React-Native snippets

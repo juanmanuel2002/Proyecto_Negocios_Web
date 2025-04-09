@@ -1,71 +1,61 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { registerUser } from '../services/api'; // Importa la función del servicio
 import '../styles/Auth.css';
 
 const Register = () => {
-    const [nombre, setNombre] = useState('');
-    const [usuario, setUsuario] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [success, setSuccess] = useState(false);
-    const [error, setError] = useState('');
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
+  const [error, setError] = useState('');
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            await axios.post('http://localhost:5000/api/auth/register', { nombre, usuario, email, password });
-            setSuccess(true);
-            setTimeout(() => navigate('/main'), 2000); // Redirige después de 2 segundos
-        } catch (err) {
-            setError("Error al registrar usuario");
-        }
-    };
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    setError('');
 
-    return (
-        <div className="container">
-            <div className="heading">Registrarse</div>
-            {success && <p style={{ color: 'green' }}>✅ Usuario creado exitosamente. Redirigiendo...</p>}
-            {error && <p style={{ color: 'red' }}>{error}</p>}
-            <form className="form" onSubmit={handleSubmit}>
-                <input
-                    required
-                    className="input"
-                    type="text"
-                    placeholder="Nombre"
-                    value={nombre}
-                    onChange={(e) => setNombre(e.target.value)}
-                />
-                <input
-                    required
-                    className="input"
-                    type="text"
-                    placeholder="Usuario"
-                    value={usuario}
-                    onChange={(e) => setUsuario(e.target.value)}
-                />
-                <input
-                    required
-                    className="input"
-                    type="email"
-                    placeholder="Correo Electrónico"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-                <input
-                    required
-                    className="input"
-                    type="password"
-                    placeholder="Contraseña"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                />
-                <button className="register-button" type="submit">Registrarse</button>
-            </form>
-            <button className="back-button" onClick={() => navigate('/login')}>Volver al Login</button>
-        </div>
-    );
+    const result = await registerUser(email, password, name);
+    if (result.success) {
+      navigate('/login');
+    } else {
+      setError(result.message);
+    }
+  };
+
+  return (
+    <div className="container">
+      <h2 className="heading">Crear Cuenta</h2>
+      <form onSubmit={handleRegister} className="form">
+        <input
+          className="input"
+          type="text"
+          placeholder="Nombre"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+        />
+        <input
+          className="input"
+          type="email"
+          placeholder="Correo electrónico"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <input
+          className="input"
+          type="password"
+          placeholder="Contraseña"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+        {error && <p className="error" style={{ color: 'red' }}>{error}</p>}
+        <button className="login-button" type="submit">Registrarse</button>
+        <button className="register-button" onClick={() => navigate('/login')}>Regresar</button>
+      </form>
+    </div>
+  );
 };
 
 export default Register;

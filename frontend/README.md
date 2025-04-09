@@ -3,6 +3,11 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
+front
+npm install aos axiosreact-icons react-router-dom @mui/icons-material @fortawesome/fontawesome @mui/styled-engine @emotion/react @emotion/styled @fortawesome/fontawesome-free firebase firebaseui
+
+back
+npm install express cors firebase dotenv react firebase-admin react-dom
 
 In the project directory, you can run:
 

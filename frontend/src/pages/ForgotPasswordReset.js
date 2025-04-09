@@ -1,62 +1,53 @@
 import React, { useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { resetPassword } from '../services/api'; // Importa la función del servicio
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import '../styles/Auth.css';
 
 const ForgotPasswordReset = () => {
-    const { token } = useParams(); // Obtener el token de la URL
-    const navigate = useNavigate();
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const [error, setError] = useState('');
-    const [success, setSuccess] = useState(false);
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const [newPassword, setNewPassword] = useState('');
+  const [message, setMessage] = useState('');
+  const [error, setError] = useState('');
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        console.log(token); // Verificar el token en la consola
-        if (!token) {
-            setError('Token no proporcionado');
-            return;
-        }
-        if (password !== confirmPassword) {
-            setError('Las contraseñas no coinciden');
-            return;
-        }
-        try {
-            await axios.post(`http://localhost:5000/api/auth/reset-password/${token}`, { password });
-            setSuccess(true);
-            setTimeout(() => navigate('/login'), 3000); // Redirigir a login después de éxito
-        } catch (err) {
-            setError(err.response?.data?.message || 'Error al restablecer la contraseña');
-        }
-    };
+  const handleResetPassword = async (e) => {
+    e.preventDefault();
+    setError('');
+    setMessage('');
 
-    return (
-        <div className="container">
-            <div className="heading">Restablecer Contraseña</div>
-            {success && <p style={{ color: 'green' }}>✅ Contraseña actualizada. Redirigiendo...</p>}
-            {error && <p style={{ color: 'red' }}>{error}</p>}
-            <form className="form" onSubmit={handleSubmit}>
-                <input
-                    type="password"
-                    placeholder="Nueva Contraseña"
-                    className="input"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                />
-                <input
-                    type="password"
-                    placeholder="Confirmar Contraseña"
-                    className="input"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    required
-                />
-                <input className="login-button" type="submit" value="Actualizar Contraseña" />
-            </form>
-        </div>
-    );
+    const token = searchParams.get('oobCode'); // Obtén el token de la URL
+    if (!token) {
+      setError('Token inválido o no proporcionado.');
+      return;
+    }
+
+    const result = await resetPassword(token, newPassword);
+    if (result.success) {
+      setMessage('Contraseña restablecida exitosamente. Ahora puedes iniciar sesión.');
+    } else {
+      setError(result.message);
+    }
+  };
+
+  return (
+    <div className="container">
+      <h2 className="heading">Restablecer Contraseña</h2>
+      <form onSubmit={handleResetPassword} className="form">
+        <input
+          className="input"
+          type="password"
+          placeholder="Nueva Contraseña"
+          value={newPassword}
+          onChange={(e) => setNewPassword(e.target.value)}
+          required
+        />
+        {message && <p className="success" style={{ color: 'green' }}>{message}</p>}
+        {error && <p className="error" style={{ color: 'red' }}>{error}</p>}
+        <button className="login-button" type="submit">Restablecer Contraseña</button>
+        <button className="register-button" onClick={() => navigate('/login')}>Regresar</button>
+      </form>
+    </div>
+  );
 };
 
 export default ForgotPasswordReset;

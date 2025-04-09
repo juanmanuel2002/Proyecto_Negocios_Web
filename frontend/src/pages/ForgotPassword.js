@@ -1,41 +1,46 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Importar useNavigate
-import axios from 'axios';
+import { sendResetEmail} from '../services/api'; // Importa la función del servicio
+import { useNavigate } from 'react-router-dom';
 import '../styles/Auth.css';
 
 const ForgotPassword = () => {
-    const [email, setEmail] = useState('');
-    const [message, setMessage] = useState('');
-    const navigate = useNavigate(); // Hook para la navegación
+  const navigate = useNavigate();
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+  const [error, setError] = useState('');
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            const res = await axios.post('http://localhost:5000/api/auth/forgot-password', { email });
-            setMessage(res.data.message);
-        } catch (err) {
-            setMessage(err.response?.data?.message || "Error al enviar correo");
-        }
-    };
+  const handleForgotPassword = async (e) => {
+    e.preventDefault();
+    setError('');
+    setMessage('');
 
-    return (
-        <div className="forgot-container">
-            <div className="forgot-heading">Recuperar Contraseña</div>
-            {message && <p className="forgot-message">{message}</p>}
-            <form className="forgot-form" onSubmit={handleSubmit}>
-                <input
-                    type="email"
-                    className="input"
-                    placeholder="Ingrese su correo"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                />
-                <button className="forgot-button" type="submit">Enviar</button>
-            </form>
-            <button className="forgot-button back-button" onClick={() => navigate('/')}>Volver al Login</button>
-        </div>
-    );
+    const result = await sendResetEmail(email);
+    if (result.success) {
+      setMessage('Correo de restablecimiento enviado. Revisa tu bandeja de entrada.');
+    } else {
+      setError(result.message);
+    }
+  };
+
+  return (
+    <div className="container">
+      <h2 className="heading">Recuperar Contraseña</h2>
+      <form onSubmit={handleForgotPassword} className="form">
+        <input
+          className="input"
+          type="email"
+          placeholder="Correo electrónico"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        {message && <p className="success" style={{ color: 'green' }}>{message}</p>}
+        {error && <p className="error" style={{ color: 'red' }}>{error}</p>}
+        <button className="login-button" type="submit">Enviar Correo</button>
+        <button className="register-button" onClick={() => navigate('/login')}>Regresar</button>
+      </form>
+    </div>
+  );
 };
 
 export default ForgotPassword;
