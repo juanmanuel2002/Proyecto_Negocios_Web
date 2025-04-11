@@ -20,29 +20,85 @@ const SobreNosotros = () => {
     
     
     <div className="sobre-nosotros-container" data-aos="fade-up">
+      
       <section className="nosotros-banner">
-        <h1>Sobre Nosotros</h1>
-        <p>
-          En <strong>Sabores Ocultos</strong> creemos que cada experiencia debería ser inolvidable.  
-          Creamos mystery boxes con productos cuidadosamente seleccionados para los amantes del sabor y la sorpresa.
-        </p>
+        <div className="banner-texto">
+          <h1>Sobre Nosotros</h1>
+          <p>
+            En <strong>Sabores Ocultos</strong> creemos que cada experiencia debería ser inolvidable.  
+            Creamos mystery boxes con productos cuidadosamente seleccionados para los amantes del sabor y la sorpresa.
+          </p>
+        </div>
+        <div className="banner-imagen">
+          <img src="logo192.png" alt="Sobre Nosotros" />
+        </div>
+      </section>
+
+      <section className="nuestros-valores">
+        <h2>Nuestros Valores</h2>
+        <div className="valores-cards">
+          <div className="card">
+            <h3>Innovación</h3>
+            <p>Buscamos constantemente nuevas formas de sorprender a nuestros clientes.</p>
+          </div>
+          <div className="card">
+            <h3>Calidad</h3>
+            <p>Seleccionamos productos de la más alta calidad para cada caja.</p>
+          </div>
+          <div className="card">
+            <h3>Pasión</h3>
+            <p>Amamos lo que hacemos y eso se refleja en cada detalle.</p>
+          </div>
+          <div className="card">
+            <h3>Confianza</h3>
+            <p>Construimos relaciones sólidas con nuestros clientes y socios.</p>
+          </div>
+          <div className="card">
+            <h3>Sostenibilidad</h3>
+            <p>Nos preocupamos por el medio ambiente y usamos empaques responsables.</p>
+          </div>
+          <div className="card">
+            <h3>Trabajo en Equipo</h3>
+            <p>Creemos en la colaboración para lograr grandes resultados.</p>
+          </div>
+        </div>
       </section>
 
       <section className="nosotros-mision">
         <h2>Nuestra Misión</h2>
-        <p>
-          Sorprender, emocionar y conectar a las personas con nuevos sabores.  
-          Queremos que cada caja sea una aventura y que nuestros clientes vivan algo distinto en cada entrega.
-        </p>
+        <div className="mision-cards">
+          <div className="card">
+            <h3>Explorar Sabores</h3>
+            <p>Descubrimos nuevos sabores para sorprender a nuestros clientes.</p>
+          </div>
+          <div className="card">
+            <h3>Crear Experiencias</h3>
+            <p>Diseñamos cada caja para que sea una experiencia única.</p>
+          </div>
+          <div className="card">
+            <h3>Conectar Personas</h3>
+            <p>Unimos a las personas a través de la pasión por los sabores.</p>
+          </div>
+        </div>
       </section>
 
-      <section className="nosotros-mision">
+      <section className="nosotros-vision">
         <h2>Nuestra Visión</h2>
-        <p>
-          Sorprender, emocionar y conectar a las personas con nuevos sabores.  
-          Queremos que cada caja sea una aventura y que nuestros clientes vivan algo distinto en cada entrega.
-        </p>
-    </section>
+        <div className="vision-cards">
+          <div className="card">
+            <h3>Ser Líderes</h3>
+            <p>Convertirnos en la marca líder en experiencias de sabores.</p>
+          </div>
+          <div className="card">
+            <h3>Innovar Constantemente</h3>
+            <p>Estar a la vanguardia en la creación de productos únicos.</p>
+          </div>
+          <div className="card">
+            <h3>Impacto Positivo</h3>
+            <p>Dejar una huella positiva en nuestros clientes y el medio ambiente.</p>
+          </div>
+        </div>
+      </section>
 
     <section className="nosotros-equipo">
         <h2>Nuestro Equipo</h2>

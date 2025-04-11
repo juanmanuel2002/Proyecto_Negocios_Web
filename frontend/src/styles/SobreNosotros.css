@@ -7,26 +7,124 @@
   }
   
   .nosotros-banner {
-    background:  var(--card-color);
-    border: 2px solid var(--card-border-color);
-    padding: 2.5rem;
-    border-radius: 20px;
+    display: flex;
+    align-items: center; /* Alinea verticalmente el contenido */
+    justify-content: space-between; /* Espacia el texto y la imagen */
+    padding: 2rem;
+    background-color: var(--light-background-color);
+    border-radius: 10px;
     box-shadow: var(--box-shadow);
-    text-align: center;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
   }
   
-  .nosotros-banner h1 {
-    font-size: 2.8rem;
+  .banner-texto {
+    flex: 1; /* Ocupa el 50% del espacio disponible */
+    padding-right: 2rem; /* Espaciado entre el texto y la imagen */
+  }
+  
+  .banner-texto h1 {
+    font-size: 2.5rem;
+    color: var(--primary-color);
     margin-bottom: 1rem;
-    color: var(--botton-dark-color);
   }
   
-  .nosotros-banner p {
+  .banner-texto p {
     font-size: 1.2rem;
-    line-height: 1.7;
+    color: var(--text-color);
+    line-height: 1.6;
   }
   
+  .banner-imagen {
+    flex: 1; /* Ocupa el 50% del espacio disponible */
+    display: flex;
+    justify-content: center; /* Centra la imagen horizontalmente */
+  }
+  
+  .banner-imagen img {
+    max-width: 100%; /* Asegura que la imagen no exceda el contenedor */
+    height: auto;
+    border-radius: 10px;
+    box-shadow: var(--box-shadow);
+  }
+  
+  .nuestros-valores {
+    text-align: center;
+    padding: 2rem;
+    background-color: var(--light-background-color);
+    margin-top: 2rem;
+    border-radius: 10px;
+    box-shadow: var(--box-shadow);
+  }
+  
+  .nuestros-valores h2 {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+  }
+  
+  .valores-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Ajusta dinámicamente las columnas */
+    gap: 20px; /* Espaciado entre las cards */
+    justify-content: center; /* Centra las cards horizontalmente */
+  }
+  
+  .valores-cards .card {
+    background-color: #fff;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease;
+    width: 100%; /* Ocupa todo el ancho disponible */
+    max-width: 300px; /* Limita el ancho máximo */
+    box-sizing: border-box; /* Incluye el padding en el ancho total */
+  }
+  
+  .valores-cards .card:hover {
+    transform: scale(1.05);
+  }
+  
+  .valores-cards .card h3 {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+  }
+  
+  .valores-cards .card p {
+    font-size: 1rem;
+    color: var(--text-color);
+    line-height: 1.5;
+  }
+
+  .valores-cards .card:nth-child(5){
+    grid-column: 2 /span; /* Ocupa dos columnas */
+  }
+  
+  /* Responsivo para pantallas medianas */
+  @media (max-width: 1024px) {
+    .valores-cards {
+      grid-template-columns: repeat(2, 1fr); /* Dos columnas por fila */
+    }
+  }
+  
+  /* Responsivo para pantallas pequeñas */
+  @media (max-width: 768px) {
+    .valores-cards {
+      grid-template-columns: 1fr; /* Una columna por fila */
+    }
+  
+    .valores-cards .card {
+      max-width: 90%; /* Reduce el ancho máximo en pantallas pequeñas */
+    }
+  }
+
+
+
+
+
+
+
   .nosotros-equipo {
     margin-top: 5rem;
     margin-bottom: 2rem;
@@ -73,25 +171,67 @@
     color: #6b4e3d;
   }
   
-  .nosotros-mision {
-    background: var(--card-color);
-    border: 2px solid var(--card-border-color);
-    box-shadow : var(--box-shadow);
-    padding: 2rem;
-    margin: 2rem 0;
-    border-radius: 20px;
-    text-align: center;
+ /* Estilos para los banners de Misión y Visión */
+.nosotros-mision, .nosotros-vision {
+  text-align: center;
+  padding: 2rem;
+  background-color: var(--light-background-color);
+  margin-top: 2rem;
+  border-radius: 10px;
+  box-shadow: var(--box-shadow);
+}
+
+.nosotros-mision h2, .nosotros-vision h2 {
+  font-size: 2rem;
+  color: var(--primary-color);
+  margin-bottom: 1.5rem;
+}
+
+.mision-cards, .vision-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Tres columnas */
+  gap: 20px; /* Espaciado entre las cards */
+  justify-items: center;
+}
+
+.mision-cards .card, .vision-cards .card {
+  background-color: #fff;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.3s ease;
+  width: 100%; /* Ocupa todo el ancho disponible */
+  max-width: 300px; /* Ancho máximo para evitar que sean demasiado grandes */
+  box-sizing: border-box; /* Incluye el padding en el ancho total */
+}
+
+.mision-cards .card:hover, .vision-cards .card:hover {
+  transform: scale(1.05);
+}
+
+.mision-cards .card h3, .vision-cards .card h3 {
+  font-size: 1.5rem;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+}
+
+.mision-cards .card p, .vision-cards .card p {
+  font-size: 1rem;
+  color: var(--text-color);
+  line-height: 1.5;
+}
+
+/* Responsivo para pantallas medianas */
+@media (max-width: 1024px) {
+  .mision-cards, .vision-cards {
+    grid-template-columns: repeat(2, 1fr); /* Dos columnas por fila */
   }
-  
-  .nosotros-mision h2 {
-    font-size: 2rem;
-    margin-bottom: 1.5rem;
-    color: var(--botton-dark-color);
+}
+
+/* Responsivo para pantallas pequeñas */
+@media (max-width: 768px) {
+  .mision-cards, .vision-cards {
+    grid-template-columns: 1fr; /* Una columna por fila */
   }
-  
-  .nosotros-mision p {
-    font-size: 1.1rem;
-    max-width: 800px;
-    margin: 0 auto;
-    line-height: 1.6;
-  }
+}

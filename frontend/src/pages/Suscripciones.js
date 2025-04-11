@@ -56,16 +56,13 @@ const Suscripciones = () => {
         ))}
       </div>
 
-      {/* Nueva sección "¿Qué contiene?" */}
+      {/* Sección "¿Qué contiene?" */}
       <div className="que-contiene-container" data-aos="fade-up"> 
         <h2 className="titulo-que-contiene">¿Qué contiene?</h2>
         <div className="contenidos-productos">
-          {/* Imagen a la izquierda */}
           <div className="imagen-que-contiene">
             <img src="imagenes/Galeria/mezcal.jpg" alt="Imagen de ejemplo" />
           </div>
-
-          {/* Contenedor de tarjetas de productos */}
           <div className="productos-cards">
             {productos.map((producto, index) => (
               <div 
@@ -80,7 +77,7 @@ const Suscripciones = () => {
         </div>
       </div>
 
-
+      {/* Sección lo que opinan nuestros clientes */}
       <div className="opinan-container" data-aos="fade-up">
       <h2 className="titulo-opinan">Lo que opinan nuestros clientes</h2>
       <div className="opinan-cards">
@@ -112,7 +109,7 @@ const Suscripciones = () => {
         ].map((logo, index) => (
           <img
             key={index}
-            src={`imagenes/marcas/${logo}`} // Asegúrate de que la ruta sea correcta
+            src={`imagenes/marcas/${logo}`}
             alt={`Marca ${index + 1}`}
             className="logo-marca"
           />

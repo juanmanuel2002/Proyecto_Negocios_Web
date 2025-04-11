@@ -43,7 +43,6 @@
   align-items: center;
   text-align: center;
   padding: 4rem 2rem;
-  background-color: var(--card-color);
   
 }
 
@@ -175,7 +174,6 @@
 }
 
 .mystery-box-section {
-  background-color: #f5f5f5;
   padding: 4rem 2rem;
   margin-top: 3rem;
   border-radius: 20px;
@@ -196,33 +194,33 @@
 .mystery-box-text {
   flex: 1;
   min-width: 280px;
+  color:var(--text-color);
 }
 
 .mystery-box-text h2 {
   font-size: 2rem;
-  color: #6d4c41;
+  color: var(--text-color);
   margin-bottom: 1rem;
 }
 
 .mystery-box-text p {
   font-size: 1rem;
-  color: #444;
+  color: var(--text-color);
   margin-bottom: 1.5rem;
 }
 
 .descubre-btn {
   background-color: #6d4c41;
-  color: white;
+  color:var(--text-light-color);
   border: none;
   padding: 0.8rem 1.5rem;
   font-size: 1rem;
   border-radius: 10px;
   cursor: pointer;
-  transition: background 0.3s;
 }
 
 .descubre-btn:hover {
-  background-color: #5d4037;
+  background-color: var(--button-dark-color);
 }
 
 .mystery-box-cards {
@@ -234,7 +232,7 @@
 }
 
 .card-box {
-  background-color: white;
+  background-color: var(--card-border-color);
   padding: 1.2rem;
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
@@ -246,20 +244,20 @@
 }
 
 .card-box h4 {
-  color: #795548;
+  color: var(--text-color);
   margin-bottom: 0.5rem;
 }
 
 .card-box p {
   font-size: 0.95rem;
-  color: #555;
+  color: var(--text-light-color);
 }
 
 .comunidad-section {
   text-align: center;
   padding: 3rem 2rem;
   margin-top: 3rem;
-  background-color: #efebe9;
+  background-color: var(--background-color);
   border-radius: 20px;
   box-shadow: 0 8px 16px rgba(0,0,0,0.05);
   max-width: 900px;

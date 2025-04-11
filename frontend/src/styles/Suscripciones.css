@@ -82,7 +82,8 @@
 
 /* Estilo general para la sección "¿Qué contiene?" */
 .que-contiene-container {
-  background-color: #f4f4f4;
+  background-color: var(--background-color);
+  color: var(--text-color);
   padding: 40px;
   margin-top: 60px;
   display: flex;
@@ -95,19 +96,19 @@
   font-size: 36px;
   font-weight: bold;
   margin-bottom: 20px;
-  align-self: flex-start; /* Alineación a la izquierda */
+  align-self: flex-start; 
 }
 
 /* Contenedor para la imagen y las tarjetas */
 .contenidos-productos {
   display: flex;
-  justify-content: space-between; /* Mantiene la imagen y las tarjetas separadas */
+  justify-content: space-between; 
   width: 100%;
   flex-wrap: wrap;
 }
 
 .imagen-que-contiene {
-  flex: 1; /* Hace que la imagen ocupe el 40% de la pantalla */
+  flex: 1; 
   padding-right: 20px;
 }
 
@@ -120,17 +121,20 @@
 .productos-cards {
   display: grid;
   grid-template-columns: repeat(2, 1fr); /* Dos columnas */
-  gap: 20px; /* Reduce el espacio entre las columnas */
+  gap: 20px; 
   width: 60%;
-  justify-items: center; /* Alinea las tarjetas al centro de cada celda */
-  align-self: right; /* Alinea las tarjetas a la derecha */
+  justify-items: center;
+  align-self: right; 
+  background-color: var(--background-color);
+  color: var(--text-color);
 } 
 
 .card-producto {
-  background-color: #fff;
+  background-color: var(--card-color);
+  color: var(--text-color);
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--box-shadow);
   text-align: center;
   transition: transform 0.3s ease;
 }
@@ -142,25 +146,25 @@
 
 .card-producto h3 {
   font-size: 20px;
-  color: #333;
+  color: var(--text-color);
   margin-bottom: 10px;
 }
 
 .card-producto p {
   font-size: 14px;
-  color: #666;
+  color: var(--text-color);
 }
 
 /* Asegura que si hay un número impar de productos, el último esté centrado */
 .card-producto.centered {
-  grid-column: span 2; /* Esto hace que el último producto ocupe ambas columnas */
+  grid-column: span 2;
   justify-self: center;
 }
 
 /* Móvil y pantallas pequeñas */
 @media (max-width: 768px) {
   .contenidos-productos {
-    flex-direction: column; /* Pone imagen y productos uno debajo del otro */
+    flex-direction: column; 
     align-items: center;
   }
 
@@ -174,14 +178,14 @@
   }
 
   .productos-cards {
-    width: 100%; /* Que ocupe todo el ancho disponible */
-    grid-template-columns: 1fr; /* Una sola columna */
+    width: 100%;
+    grid-template-columns: 1fr;
     justify-items: center;
     max-width: 200px;
   }
 
   .card-producto {
-    width: 80%; /* Que no sean tan angostas */
+    width: 80%; 
   }
 }
 
@@ -213,25 +217,23 @@
   }
 }
 
-/* Estilo para la sección "Lo que opinan nuestros clientes" */
 .opinan-container {
   padding: 40px;
-  background-color: #f4f4f4;
+  background-color: var(--background-color);
+  color: var(--text-color);
   margin-top: 60px;
-
-  /* 👇 Agregado para alinear título + cards horizontalmente */
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
   gap: 40px;
-  flex-wrap: wrap; /* para que se adapte en pantallas pequeñas */
+  flex-wrap: wrap; 
 }
 
 .titulo-opinan {
   font-size: 36px;
   font-weight: bold;
-  margin-bottom: 0; /* 👈 quita espacio extra abajo */
+  margin-bottom: 0;
   min-width: 250px;
 }
 
@@ -244,10 +246,11 @@
 }
 
 .card-opinion {
-  background-color: #fff;
+  background-color: var(--card-color);
+  color: var(--text-color);
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--box-shadow);
   width: 250px; /* Ancho de las tarjetas */
   text-align: center;
   transition: transform 0.3s ease;
@@ -260,30 +263,30 @@
 
 .card-opinion h3 {
   font-size: 20px;
-  color: #333;
+  color: var(--text-color);
   margin-bottom: 10px;
 }
 
 .card-opinion p {
   font-size: 14px;
-  color: #666;
+  color: var(--text-color);
   line-height: 1.5;
 }
 
 /* Hacer la sección responsive */
 @media (max-width: 768px) {
   .opinan-cards {
-    justify-content: center; /* Centra las tarjetas en pantallas pequeñas */
+    justify-content: center; 
   }
-
   .card-opinion {
-    width: 80%; /* Ajusta el tamaño de las tarjetas en pantallas pequeñas */
+    width: 80%;
   }
 }
 
 .marcas-container {
   padding: 60px 40px;
-  background-color: #ffffff;
+  background-color: var(--background-color);
+  color: var(--text-color);
   text-align: center;
 }
 
