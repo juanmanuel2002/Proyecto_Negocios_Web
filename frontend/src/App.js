@@ -12,11 +12,13 @@ import ForgotPasswordReset from './pages/ForgotPasswordReset';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsAndConditions from './pages/TermsAndConditions';
 import ContactUs from './pages/ContactUs';
+import ScrollToTop from './components/ScrollToTop';
 
 const App = () => {
     return (
         <ThemeProvider> 
             <Router>
+                <ScrollToTop />
                 <Routes>
                     <Route path="/main" element={<Main />} />
                     <Route path="/login" element={<Login />} />

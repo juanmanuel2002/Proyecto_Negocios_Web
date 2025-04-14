@@ -4,126 +4,99 @@ import 'aos/dist/aos.css';
 import { useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import Card from '../components/Card'; 
 import '../styles/SobreNosotros.css';
 import '../styles/Global.css'; 
 import '../styles/Header.css';
 
 const SobreNosotros = () => {
-    useEffect(() => {
-        AOS.init({ duration: 1000, once: false });
-    }, []);
+  useEffect(() => {
+    AOS.init({ duration: 1000, once: false });
+  }, []);
+
+  const valores = [
+    { titulo: 'Innovación', descripcion: 'Buscamos constantemente nuevas formas de sorprender a nuestros clientes.' },
+    { titulo: 'Calidad', descripcion: 'Seleccionamos productos de la más alta calidad para cada caja.' },
+    { titulo: 'Pasión', descripcion: 'Amamos lo que hacemos y eso se refleja en cada detalle.' },
+    { titulo: 'Confianza', descripcion: 'Construimos relaciones sólidas con nuestros clientes y socios.' },
+    { titulo: 'Sostenibilidad', descripcion: 'Nos preocupamos por el medio ambiente y usamos empaques responsables.' },
+    { titulo: 'Trabajo en Equipo', descripcion: 'Creemos en la colaboración para lograr grandes resultados.' },
+  ];
+
+  const mision = [
+    { titulo: 'Explorar Sabores', descripcion: 'Descubrimos nuevos sabores para sorprender a nuestros clientes.' },
+    { titulo: 'Crear Experiencias', descripcion: 'Diseñamos cada caja para que sea una experiencia única.' },
+    { titulo: 'Conectar Personas', descripcion: 'Unimos a las personas a través de la pasión por los sabores.' },
+  ];
+
+  const vision = [
+    { titulo: 'Ser Líderes', descripcion: 'Convertirnos en la marca líder en experiencias de sabores.' },
+    { titulo: 'Innovar Constantemente', descripcion: 'Estar a la vanguardia en la creación de productos únicos.' },
+    { titulo: 'Impacto Positivo', descripcion: 'Dejar una huella positiva en nuestros clientes y el medio ambiente.' },
+  ];
+
+  const equipo = [
+    { titulo: 'Lucía Martínez', descripcion: 'Fundadora & Curadora de Productos', imagen: '/equipo1.jpg' },
+    { titulo: 'Andrés Gómez', descripcion: 'Diseño de Experiencia', imagen: '/equipo2.jpg' },
+    { titulo: 'Camila Ruiz', descripcion: 'Relaciones con Clientes', imagen: '/equipo3.jpg' },
+  ];
+
   return (
-    <div className="main-container" >
-    {/* Banner */}
-    <Header />
-    <div data-aos="fade-up" className="center-title">Sabores Ocultos</div>
-    
-    
-    <div className="sobre-nosotros-container" data-aos="fade-up">
-      
-      <section className="nosotros-banner">
-        <div className="banner-texto">
-          <h1>Sobre Nosotros</h1>
-          <p>
-            En <strong>Sabores Ocultos</strong> creemos que cada experiencia debería ser inolvidable.  
-            Creamos mystery boxes con productos cuidadosamente seleccionados para los amantes del sabor y la sorpresa.
-          </p>
-        </div>
-        <div className="banner-imagen">
-          <img src="logo192.png" alt="Sobre Nosotros" />
-        </div>
-      </section>
+    <div className="main-container">
+      <Header />
+      <div data-aos="fade-up" className="center-title">Sabores Ocultos</div>
 
-      <section className="nuestros-valores">
-        <h2>Nuestros Valores</h2>
-        <div className="valores-cards">
-          <div className="card">
-            <h3>Innovación</h3>
-            <p>Buscamos constantemente nuevas formas de sorprender a nuestros clientes.</p>
+      <div className="sobre-nosotros-container" data-aos="fade-up">
+        <section className="nosotros-banner">
+          <div className="banner-texto">
+            <h1>Sobre Nosotros</h1>
+            <p>
+              En <strong>Sabores Ocultos</strong> creemos que cada experiencia debería ser inolvidable.  
+              Creamos mystery boxes con productos cuidadosamente seleccionados para los amantes del sabor y la sorpresa.
+            </p>
           </div>
-          <div className="card">
-            <h3>Calidad</h3>
-            <p>Seleccionamos productos de la más alta calidad para cada caja.</p>
+          <div className="banner-imagen">
+            <img src="logo192.png" alt="Sobre Nosotros" />
           </div>
-          <div className="card">
-            <h3>Pasión</h3>
-            <p>Amamos lo que hacemos y eso se refleja en cada detalle.</p>
-          </div>
-          <div className="card">
-            <h3>Confianza</h3>
-            <p>Construimos relaciones sólidas con nuestros clientes y socios.</p>
-          </div>
-          <div className="card">
-            <h3>Sostenibilidad</h3>
-            <p>Nos preocupamos por el medio ambiente y usamos empaques responsables.</p>
-          </div>
-          <div className="card">
-            <h3>Trabajo en Equipo</h3>
-            <p>Creemos en la colaboración para lograr grandes resultados.</p>
-          </div>
-        </div>
-      </section>
+        </section>
 
-      <section className="nosotros-mision">
-        <h2>Nuestra Misión</h2>
-        <div className="mision-cards">
-          <div className="card">
-            <h3>Explorar Sabores</h3>
-            <p>Descubrimos nuevos sabores para sorprender a nuestros clientes.</p>
+        <section className="nuestros-valores">
+          <h2>Nuestros Valores</h2>
+          <div className="valores-cards">
+            {valores.map((valor, index) => (
+              <Card key={index} titulo={valor.titulo} descripcion={valor.descripcion} />
+            ))}
           </div>
-          <div className="card">
-            <h3>Crear Experiencias</h3>
-            <p>Diseñamos cada caja para que sea una experiencia única.</p>
-          </div>
-          <div className="card">
-            <h3>Conectar Personas</h3>
-            <p>Unimos a las personas a través de la pasión por los sabores.</p>
-          </div>
-        </div>
-      </section>
+        </section>
 
-      <section className="nosotros-vision">
-        <h2>Nuestra Visión</h2>
-        <div className="vision-cards">
-          <div className="card">
-            <h3>Ser Líderes</h3>
-            <p>Convertirnos en la marca líder en experiencias de sabores.</p>
+        <section className="nosotros-mision">
+          <h2>Nuestra Misión</h2>
+          <div className="mision-cards">
+            {mision.map((item, index) => (
+              <Card key={index} titulo={item.titulo} descripcion={item.descripcion} />
+            ))}
           </div>
-          <div className="card">
-            <h3>Innovar Constantemente</h3>
-            <p>Estar a la vanguardia en la creación de productos únicos.</p>
-          </div>
-          <div className="card">
-            <h3>Impacto Positivo</h3>
-            <p>Dejar una huella positiva en nuestros clientes y el medio ambiente.</p>
-          </div>
-        </div>
-      </section>
+        </section>
 
-    <section className="nosotros-equipo">
-        <h2>Nuestro Equipo</h2>
-        <div className="equipo-cards">
-          <div className="card">
-            <img src="/equipo1.jpg" alt="Miembro del equipo 1" />
-            <h3>Lucía Martínez</h3>
-            <p>Fundadora & Curadora de Productos</p>
+        <section className="nosotros-vision">
+          <h2>Nuestra Visión</h2>
+          <div className="vision-cards">
+            {vision.map((item, index) => (
+              <Card key={index} titulo={item.titulo} descripcion={item.descripcion} />
+            ))}
           </div>
-          <div className="card">
-            <img src="/equipo2.jpg" alt="Miembro del equipo 2" />
-            <h3>Andrés Gómez</h3>
-            <p>Diseño de Experiencia</p>
-          </div>
-          <div className="card">
-            <img src="/equipo3.jpg" alt="Miembro del equipo 3" />
-            <h3>Camila Ruiz</h3>
-            <p>Relaciones con Clientes</p>
-          </div>
-        </div>
-      </section>
+        </section>
 
-    </div>
-    <Footer />
-
+        <section className="nosotros-equipo">
+          <h2>Nuestro Equipo</h2>
+          <div className="equipo-cards">
+            {equipo.map((miembro, index) => (
+              <Card key={index} titulo={miembro.titulo} descripcion={miembro.descripcion} imagen={miembro.imagen} />
+            ))}
+          </div>
+        </section>
+      </div>
+      <Footer />
     </div>
   );
 };

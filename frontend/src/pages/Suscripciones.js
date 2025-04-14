@@ -56,6 +56,28 @@ const Suscripciones = () => {
         ))}
       </div>
 
+      <div className = "conoce-mas-banner"> 
+        <p>Conoce mas sobre nuestros servicios</p>
+        <div className="flecha-down">⬇</div>
+      </div>
+
+      {/* Sección "¿Cómo Funciona?" */}
+      <div className="como-funciona-container" data-aos="fade-up">
+        <h2 className="titulo-como-funciona">¿Cómo Funciona?</h2>
+        <div className="pasos-container">
+          {[
+            { paso: '1', titulo: 'Elige tu paquete', descripcion: 'Selecciona el paquete que mejor se adapte a tus gustos.' },
+            { paso: '2', titulo: 'Realiza tu pedido', descripcion: 'Completa tu pedido y elige la fecha de entrega.' },
+            { paso: '3', titulo: 'Disfruta', descripcion: 'Recibe tu caja y disfruta de los sabores ocultos.' },
+          ].map((paso) => (
+            <div key={paso.paso} className="paso-card">
+              <h3>Paso {paso.paso}: {paso.titulo}</h3>
+              <p>{paso.descripcion}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* Sección "¿Qué contiene?" */}
       <div className="que-contiene-container" data-aos="fade-up"> 
         <h2 className="titulo-que-contiene">¿Qué contiene?</h2>

@@ -11,9 +11,8 @@
     align-items: center; /* Alinea verticalmente el contenido */
     justify-content: space-between; /* Espacia el texto y la imagen */
     padding: 2rem;
-    background-color: var(--light-background-color);
+    background-color: var(--background-color);
     border-radius: 10px;
-    box-shadow: var(--box-shadow);
     margin-bottom: 2rem;
   }
   
@@ -24,7 +23,7 @@
   
   .banner-texto h1 {
     font-size: 2.5rem;
-    color: var(--primary-color);
+    color: var(--tit-text-color);
     margin-bottom: 1rem;
   }
   
@@ -50,15 +49,14 @@
   .nuestros-valores {
     text-align: center;
     padding: 2rem;
-    background-color: var(--light-background-color);
+    background-color: var(--background-color);
     margin-top: 2rem;
     border-radius: 10px;
-    box-shadow: var(--box-shadow);
   }
   
   .nuestros-valores h2 {
     font-size: 2rem;
-    color: var(--primary-color);
+    color: var(--tit-text-color);
     margin-bottom: 1.5rem;
   }
   
@@ -67,13 +65,15 @@
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Ajusta dinámicamente las columnas */
     gap: 20px; /* Espaciado entre las cards */
     justify-content: center; /* Centra las cards horizontalmente */
+    max-width: 1200px;
+    margin: 0 auto;
   }
   
   .valores-cards .card {
-    background-color: #fff;
+    background-color: var(--card-color);
     padding: 1.5rem;
     border-radius: 10px;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--box-shadow);
     text-align: center;
     transition: transform 0.3s ease;
     width: 100%; /* Ocupa todo el ancho disponible */
@@ -87,7 +87,7 @@
   
   .valores-cards .card h3 {
     font-size: 1.5rem;
-    color: var(--primary-color);
+    color: var(--tit-text-color);
     margin-bottom: 0.5rem;
   }
   
@@ -105,25 +105,25 @@
   @media (max-width: 1024px) {
     .valores-cards {
       grid-template-columns: repeat(2, 1fr); /* Dos columnas por fila */
+      justify-content: center;
+      max-width: 600px;
+      margin: 0 auto; /* Centra el contenedor horizontalmente */
     }
   }
   
-  /* Responsivo para pantallas pequeñas */
+ /* Responsivo para pantallas pequeñas */
   @media (max-width: 768px) {
     .valores-cards {
       grid-template-columns: 1fr; /* Una columna por fila */
+      justify-content: center; /* Centra las columnas dentro del contenedor */
+      max-width: 90%; /* Reduce el ancho máximo del contenedor */
+      margin: 0 auto; /* Centra el contenedor horizontalmente */
     }
-  
+
     .valores-cards .card {
-      max-width: 90%; /* Reduce el ancho máximo en pantallas pequeñas */
+      max-width: 100%; /* Asegura que las cards ocupen todo el ancho disponible */
     }
   }
-
-
-
-
-
-
 
   .nosotros-equipo {
     margin-top: 5rem;
@@ -134,6 +134,7 @@
   .nosotros-equipo h2 {
     font-size: 2rem;
     margin-bottom: 2rem;
+    color : var(--tit-text-color);
   }
   
   .equipo-cards {
@@ -151,6 +152,7 @@
     padding: 1.5rem;
     width: 250px;
     text-align: center;
+    color : var(--tit-text-color);
   }
   
   .card img {
@@ -168,22 +170,21 @@
   
   .card p {
     font-size: 0.95rem;
-    color: #6b4e3d;
+    color: var(--text-color);
   }
   
  /* Estilos para los banners de Misión y Visión */
 .nosotros-mision, .nosotros-vision {
   text-align: center;
   padding: 2rem;
-  background-color: var(--light-background-color);
+  background-color: var(--background-color);
   margin-top: 2rem;
   border-radius: 10px;
-  box-shadow: var(--box-shadow);
 }
 
 .nosotros-mision h2, .nosotros-vision h2 {
   font-size: 2rem;
-  color: var(--primary-color);
+  color: var(--tit-text-color);
   margin-bottom: 1.5rem;
 }
 
@@ -192,13 +193,14 @@
   grid-template-columns: repeat(3, 1fr); /* Tres columnas */
   gap: 20px; /* Espaciado entre las cards */
   justify-items: center;
+  color : var(--tit-text-color);
 }
 
 .mision-cards .card, .vision-cards .card {
-  background-color: #fff;
+  background-color: var(--card-color);
   padding: 1.5rem;
   border-radius: 10px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--box-shadow);
   text-align: center;
   transition: transform 0.3s ease;
   width: 100%; /* Ocupa todo el ancho disponible */
@@ -210,17 +212,6 @@
   transform: scale(1.05);
 }
 
-.mision-cards .card h3, .vision-cards .card h3 {
-  font-size: 1.5rem;
-  color: var(--primary-color);
-  margin-bottom: 0.5rem;
-}
-
-.mision-cards .card p, .vision-cards .card p {
-  font-size: 1rem;
-  color: var(--text-color);
-  line-height: 1.5;
-}
 
 /* Responsivo para pantallas medianas */
 @media (max-width: 1024px) {
