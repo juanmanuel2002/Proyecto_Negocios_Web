@@ -9,6 +9,7 @@ import Carousel from '../components/Carousel';
 import MysteryBoxCard from '../components/MysteryBoxCards';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import ScrollToTopButton from '../components/ScrollTopButton';
 import '../styles/Global.css';
 import '../styles/Main.css';
 import { FaCrown, FaGift, FaBoxOpen, FaStar } from 'react-icons/fa'; 
@@ -20,7 +21,6 @@ const Main = () => {
     }, []);
     const navigate = useNavigate();
 
-    // Aquí estás usando imágenes que deben estar en public/images
     const images = [
         '/imagenes/Galeria/cafe.jpg',
         '/imagenes/Galeria/cerveza.jpg',
@@ -87,6 +87,7 @@ const Main = () => {
                         icon={FaBoxOpen}
                         title="Ediciones Limitadas"
                         description="Productos que no encontrarás en ningún otro lugar, por tiempo limitado."
+                        onClick={() => navigate('/tienda')} // Redirige a la página de ediciones limitadas
                     />
                     <MysteryBoxCard
                         icon={FaGift}
@@ -105,7 +106,7 @@ const Main = () => {
                 Suscribirse
             </button>
             </div>
-
+            <ScrollToTopButton />
             <Footer />
         </div>
     );

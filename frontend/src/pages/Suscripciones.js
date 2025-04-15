@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import ScrollToTopButton from '../components/ScrollTopButton'; 
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import '../styles/Suscripciones.css'; 
@@ -138,6 +139,9 @@ const Suscripciones = () => {
         ))}
       </div>
     </div>
+
+    {/* Botón flotante para volver al inicio */}
+    <ScrollToTopButton />
 
       <Footer />
     </div>
