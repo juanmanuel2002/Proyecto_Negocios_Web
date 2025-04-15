@@ -74,21 +74,21 @@
 .conoce-mas-banner p {
   font-size: 24px;
   margin-bottom: 10px;
-  color: var(--tit-text-color); /* Color del texto */
+  color: var(--tit-text-color); 
   font-weight: bold;
 }
 
 .flecha-down {
-  font-size: 60px; /* Aumenta el tamaño de la flecha */
+  font-size: 60px; 
   cursor: pointer;
-  color: var(--text-color); /* Usa un color destacado */
+  color: var(--text-color); 
   transition: transform 0.3s ease, color 0.3s ease;
-  animation: bounce 2s infinite; /* Agrega animación de rebote */
+  animation: bounce 2s infinite;
 }
 
 .flecha-down:hover {
-  color: var(--secondary-color); /* Cambia de color al pasar el cursor */
-  transform: scale(1.2); /* Aumenta ligeramente el tamaño al pasar el cursor */
+  color: var(--secondary-color); 
+  transform: scale(1.2); 
 }
 
 /* Animación de rebote */
@@ -130,7 +130,7 @@
   background-color: var(--card-color);
   padding: 1.5rem;
   border-radius: 10px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--box-shadow);
   text-align: center;
   transition: transform 0.3s ease;
 }

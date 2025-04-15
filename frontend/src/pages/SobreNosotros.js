@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Card from '../components/Card'; 
+import ScrollToTopButton from '../components/ScrollTopButton'; 
 import '../styles/SobreNosotros.css';
 import '../styles/Global.css'; 
 import '../styles/Header.css';
@@ -96,6 +97,9 @@ const SobreNosotros = () => {
           </div>
         </section>
       </div>
+
+      <ScrollToTopButton />
+      
       <Footer />
     </div>
   );
