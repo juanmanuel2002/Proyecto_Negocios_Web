@@ -1,3 +1,16 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.main-container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0;
+  box-sizing: border-box;
+}
 /* Título central */
 .center-title {
   flex: 1 1 100%;
@@ -193,6 +206,7 @@
   margin-right: auto;
   box-sizing: border-box; /* Incluye el padding en el cálculo del ancho */
   overflow: hidden; /* Evita que el contenido se desborde */
+  width: 100%; /* Asegura que el contenedor ocupe todo el ancho disponible */
 }
 
 /* Opiniones */
@@ -256,33 +270,37 @@
   font-size: 0.95rem;
 }
 
-.comunidad-contenido {
+/* Contenedor de la sección Comunidad */
+.comunidad {
   display: flex;
-  justify-content: space-between; /* separa imagen y botón */
-  align-items: center;
-  flex-wrap: wrap; /* para responsividad en pantallas pequeñas */
-  margin-top: 1rem;
+  flex-direction: column; /* Apila los elementos verticalmente */
+  align-items: center; /* Centra los elementos horizontalmente */
+  text-align: center;
+  background-color: var(--background-color-light);
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .imagen-comunidad {
   max-width: 200px;
   height: auto;
-  flex-shrink: 0;
+  margin-bottom: 1rem; /* Espacio entre la imagen y el botón */
 }
 
 .suscribirse-btn {
-  padding: 0.5rem 1.25rem;
-  background-color: var(--button-dark-color);
-  color: var(--text-color);
+  background-color: #6d4c41;
+  color: #fff;
   border: none;
-  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin-left: auto; /* fuerza a que se pegue a la derecha */
+  font-size: 1rem;
+  margin-top: 1rem; /* Espacio adicional si es necesario */
 }
 
 .suscribirse-btn:hover {
-  background-color: var(--color-secundario); /* tu color deseado al hacer hover */
+  background-color: #5a3a33;
 }
 
 

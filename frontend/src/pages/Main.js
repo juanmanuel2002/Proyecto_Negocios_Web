@@ -33,19 +33,23 @@ const Main = () => {
     const testimonios = [
         {
           texto: "¡Una experiencia increíble! Cada caja es una sorpresa deliciosa.",
-          autor: "Carla M."
+          autor: "Carla M.",
+          calificacion: "⭐⭐⭐⭐⭐"
         },
         {
           texto: "Me encanta descubrir nuevos productos cada mes.",
-          autor: "Luis R."
+          autor: "Luis R.",
+          calificacion: "⭐⭐⭐⭐"
         },
         {
           texto: "Sabores Ocultos ha cambiado la forma en la que disfruto mis snacks.",
-          autor: "Fernanda G."
+          autor: "Fernanda G.",
+          calificacion: "⭐⭐⭐⭐"
         },
         {
           texto: "¡Excelente atención y productos de calidad!",
-          autor: "David P."
+          autor: "David P.",
+          calificacion: "⭐⭐⭐⭐⭐"
         }
       ];
 
@@ -130,6 +134,7 @@ const Main = () => {
                     <div className="opinion" key={index}>
                     <p>"{testimonio.texto}"</p>
                     <p>- {testimonio.autor}</p>
+                    <p>{testimonio.calificacion}</p>
                     </div>
                 ))}
                 </div>
@@ -139,7 +144,9 @@ const Main = () => {
             <div className="comunidad" data-aos="fade-left">
                 <h2 className="seccion-titulo">Únete a nuestra comunidad</h2>
                 <p>Conviértete en parte de una comunidad que celebra la autenticidad, el sabor y el descubrimiento.</p>
-                <img src={logo} alt="Comunidad" className="imagen-comunidad" />
+                <div className="logo-circle">
+                    <img src={logo} alt="Logo" />
+                </div>
                 <button className="suscribirse-btn" onClick={() => navigate('/suscripciones')}>Suscríbete</button>
             </div>
             </div>

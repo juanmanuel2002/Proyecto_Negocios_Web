@@ -13,10 +13,14 @@ const Tienda = () => {
   const [productos, setProductos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [selectedProduct, setSelectedProduct] = useState(null); // Producto seleccionado
-  const [galleryImages, setGalleryImages] = useState([]); // Imágenes de la galería
-  const [isModalOpen, setIsModalOpen] = useState(false); // Estado del modal
-  const [currentImageIndex, setCurrentImageIndex] = useState(0); // Índice de la imagen actual
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [galleryImages, setGalleryImages] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const [isQuantityModalOpen, setIsQuantityModalOpen] = useState(false);
+  const [selectedQuantityProduct, setSelectedQuantityProduct] = useState(null);
+  const [quantity, setQuantity] = useState(1);
 
   const { addToCart } = useCart();
 
@@ -37,13 +41,31 @@ const Tienda = () => {
   }, []);
 
   const handleAgregarCarrito = (producto) => {
-    addToCart(producto); // Agrega el producto al carrito
+    setSelectedQuantityProduct(producto);
+    setQuantity(1);
+    setIsQuantityModalOpen(true);
+  };
+
+  const handleConfirmQuantity = () => {
+    const productoConCantidad = {
+      ...selectedQuantityProduct,
+      cantidad: quantity,
+    };
+    addToCart(productoConCantidad);
+    setIsQuantityModalOpen(false);
+    setSelectedQuantityProduct(null);
+  };
+
+  const increaseQuantity = () => {
+    setQuantity((prev) => prev + 1);
+  };
+
+  const decreaseQuantity = () => {
+    setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
   };
 
   const handleImageClick = (producto) => {
-    const folderPath = `/imagenes/Galeria/${producto.nombre}`; // Ruta de la carpeta del producto
-
-    // Simula la carga de imágenes (en producción, podrías usar una API o un método más dinámico)
+    const folderPath = `/imagenes/Galeria/${producto.nombre}`;
     const images = [
       `${folderPath}/imagen1.jpg`,
       `${folderPath}/imagen2.jpg`,
@@ -52,7 +74,7 @@ const Tienda = () => {
 
     setSelectedProduct(producto);
     setGalleryImages(images);
-    setCurrentImageIndex(0); // Reinicia el índice al abrir el modal
+    setCurrentImageIndex(0);
     setIsModalOpen(true);
   };
 
@@ -104,6 +126,8 @@ const Tienda = () => {
           ))}
         </div>
       )}
+
+      {/* Modal galería de imágenes */}
       {isModalOpen && (
         <div className="modal-overlay" onClick={closeModal}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
@@ -118,6 +142,24 @@ const Tienda = () => {
               <button className="next-button" onClick={handleNextImage}>➡</button>
             </div>
             <button className="close-modal" onClick={closeModal}>Cerrar</button>
+          </div>
+        </div>
+      )}
+
+      {/* Modal selección de cantidad */}
+      {isQuantityModalOpen && (
+        <div className="modal-overlay" onClick={() => setIsQuantityModalOpen(false)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <h3>{selectedQuantityProduct?.nombre}</h3>
+            <p>¿Cuántas unidades deseas agregar?</p>
+            <div className="quantity-controls">
+              <button onClick={decreaseQuantity}>-</button>
+              <span>{quantity}</span>
+              <button onClick={increaseQuantity}>+</button>
+            </div>
+            <button onClick={handleConfirmQuantity} className="confirm-button">
+              Agregar {quantity} al carrito
+            </button>
           </div>
         </div>
       )}

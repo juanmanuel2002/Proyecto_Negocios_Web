@@ -147,3 +147,42 @@
   .close-modal:hover {
     background-color: var(--card-color);
   }
+
+  .quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 1rem 0;
+  }
+  
+  .quantity-controls button {
+    background-color: var(--botton-dark-color);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+  
+  .quantity-controls span {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  
+  .confirm-button {
+    padding: 0.5rem 1rem;
+    background-color: var(--botton-dark-color);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: background-color 0.2s ease;
+  }
+  
+  .confirm-button:hover {
+    background-color: #a0522d;
+  }
+  
