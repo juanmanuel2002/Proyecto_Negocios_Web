@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { ClipLoader } from 'react-spinners';
+import { useCart } from '../context/CartContext';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { fetchProductos } from '../services/api';
@@ -16,6 +17,8 @@ const Tienda = () => {
   const [galleryImages, setGalleryImages] = useState([]); // Imágenes de la galería
   const [isModalOpen, setIsModalOpen] = useState(false); // Estado del modal
   const [currentImageIndex, setCurrentImageIndex] = useState(0); // Índice de la imagen actual
+
+  const { addToCart } = useCart();
 
   useEffect(() => {
     AOS.init({ duration: 1000, once: false });
@@ -33,12 +36,8 @@ const Tienda = () => {
     obtenerProductos();
   }, []);
 
-  const handleAgregarCarrito = (nombre) => {
-    alert(`Agregado al carrito: ${nombre}`);
-  };
-
-  const handleComprar = (nombre) => {
-    alert(`Has comprado: ${nombre}`);
+  const handleAgregarCarrito = (producto) => {
+    addToCart(producto); // Agrega el producto al carrito
   };
 
   const handleImageClick = (producto) => {
@@ -92,12 +91,12 @@ const Tienda = () => {
               />
               <h3>{producto.nombre}</h3>
               <p className="descripcion">{producto.descripcion}</p>
-              <p className="precio">{producto.precio}</p>
+              <p className="precio">${producto.precio}</p>
               <div className="botones-producto">
-                <button onClick={() => handleAgregarCarrito(producto.nombre)}>
+                <button onClick={() => handleAgregarCarrito(producto)}>
                   Agregar al carrito
                 </button>
-                <button onClick={() => handleComprar(producto.nombre)}>
+                <button onClick={() => alert(`Has comprado: ${producto.nombre}`)}>
                   Comprar
                 </button>
               </div>

@@ -100,26 +100,6 @@ const Suscripciones = () => {
         </div>
       </div>
 
-      {/* Sección lo que opinan nuestros clientes */}
-      <div className="opinan-container" data-aos="fade-up">
-      <h2 className="titulo-opinan">Lo que opinan nuestros clientes</h2>
-      <div className="opinan-cards">
-        {[{
-          nombre: 'Juan Pérez',
-          descripcion: 'Me encantaron los productos, el servicio es excelente y la calidad es insuperable.'
-        },
-        {
-          nombre: 'Ana García',
-          descripcion: '¡Una experiencia única! Recibí todo justo a tiempo y los productos son deliciosos.'
-        }].map((opinion, index) => (
-          <div className="card-opinion" key={index}>
-            <h3>{opinion.nombre}</h3>
-            <p>{opinion.descripcion}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-
     {/* Sección de marcas */}
     <div className="marcas-container" data-aos="fade-up">
       <h2 className="titulo-marcas">Las marcas que puedes encontrar</h2>

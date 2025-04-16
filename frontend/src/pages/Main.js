@@ -30,18 +30,36 @@ const Main = () => {
         '/imagenes/Galeria/vino_chocolate.jpg'
     ];
 
+    const testimonios = [
+        {
+          texto: "¡Una experiencia increíble! Cada caja es una sorpresa deliciosa.",
+          autor: "Carla M."
+        },
+        {
+          texto: "Me encanta descubrir nuevos productos cada mes.",
+          autor: "Luis R."
+        },
+        {
+          texto: "Sabores Ocultos ha cambiado la forma en la que disfruto mis snacks.",
+          autor: "Fernanda G."
+        },
+        {
+          texto: "¡Excelente atención y productos de calidad!",
+          autor: "David P."
+        }
+      ];
+
     return (
-        <div className="main-container" >
+        <div className="main-container">
             {/* Banner */}
             <Header />
             <div data-aos="fade-up" className="center-title">Sabores Ocultos</div>
 
             {/* Bloque de la pregunta + imagen */}
             <div className="pregunta-banner" data-aos="fade-up">
-            <div className="overlay-text" data-aos="fade-up">
-
-                <h2 data-aos="fade-up">¿Estás listo para abrir una caja llena de sabor y misterio? </h2>
-            </div>
+                <div className="overlay-text" data-aos="fade-up">
+                    <h2 data-aos="fade-up">¿Estás listo para abrir una caja llena de sabor y misterio?</h2>
+                </div>
             </div>
 
             {/* Logo + descripción */}
@@ -56,56 +74,77 @@ const Main = () => {
                 </div>
             </div>
 
-            <Carousel images={images} />
-            
-            {/* Definicion de mistery box */}
+            {/* Carrusel de imágenes */}
+            <Carousel
+                items={images}
+                renderItem={(image, idx) => <img src={image} alt={`Imagen ${idx + 1}`} />}
+            />
+
+            {/* Definición de mystery box */}
             <div className="mystery-box-section" data-aos="fade-up">
-            <div className="mystery-box-content">
-                {/* Columna Izquierda */}
-                <div className="mystery-box-text">
-                <h2>¿Qué son las mystery boxes?</h2>
-                <p>
-                    Nuestras mystery boxes son una selección única de productos exclusivos cuidadosamente elegidos para sorprenderte. 
-                    Descubre sabores auténticos y experiencias inolvidables.
-                </p>
-                <button onClick = {() => navigate('/tienda')} className="descubre-btn">Descubre más </button>
-                </div>
+                <div className="mystery-box-content">
+                    {/* Columna Izquierda */}
+                    <div className="mystery-box-text">
+                        <h2>¿Qué son las mystery boxes?</h2>
+                        <p>
+                            Nuestras mystery boxes son una selección única de productos exclusivos cuidadosamente elegidos para sorprenderte.
+                            Descubre sabores auténticos y experiencias inolvidables.
+                        </p>
+                        <button onClick={() => navigate('/tienda')} className="descubre-btn">Descubre más</button>
+                    </div>
 
-                {/* Columna Derecha - Cards */}
-                <div className="mystery-box-cards">
-                    <MysteryBoxCard
-                        icon={FaCrown}
-                        title="Selección Premium"
-                        description="Disfruta de productos seleccionados con altos estándares de calidad."
-                    />
-                    <MysteryBoxCard
-                        icon={FaStar}
-                        title="Sorpresa Garantizada"
-                        description="Cada caja está pensada para brindarte una experiencia única e inesperada."
-                    />
-                    <MysteryBoxCard
-                        icon={FaBoxOpen}
-                        title="Ediciones Limitadas"
-                        description="Productos que no encontrarás en ningún otro lugar, por tiempo limitado."
-                        onClick={() => navigate('/tienda')} // Redirige a la página de ediciones limitadas
-                    />
-                    <MysteryBoxCard
-                        icon={FaGift}
-                        title="Regalo Perfecto"
-                        description="Ideal para compartir y sorprender a alguien especial."
-                    />
+                    {/* Columna Derecha - Cards */}
+                    <div className="mystery-box-cards">
+                        <MysteryBoxCard
+                            icon={FaCrown}
+                            title="Selección Premium"
+                            description="Disfruta de productos seleccionados con altos estándares de calidad."
+                        />
+                        <MysteryBoxCard
+                            icon={FaStar}
+                            title="Sorpresa Garantizada"
+                            description="Cada caja está pensada para brindarte una experiencia única e inesperada."
+                        />
+                        <MysteryBoxCard
+                            icon={FaBoxOpen}
+                            title="Ediciones Limitadas"
+                            description="Productos que no encontrarás en ningún otro lugar, por tiempo limitado."
+                            onClick={() => navigate('/tienda')}
+                        />
+                        <MysteryBoxCard
+                            icon={FaGift}
+                            title="Regalo Perfecto"
+                            description="Ideal para compartir y sorprender a alguien especial."
+                        />
+                    </div>
                 </div>
+            </div>
+
+            {/* Sección de Opiniones + Comunidad */}
+            <div className="opiniones-comunidad">
+            {/* Columna 1 - Opiniones */}
+            <div className="opiniones" data-aos="fade-left">
+                <h2 className="seccion-titulo" data-aos="fade-up">Lo que opinan nuestros clientes</h2>
+                <div className="opiniones-grid">
+                {testimonios.map((testimonio, index) => (
+                    <div className="opinion" key={index}>
+                    <p>"{testimonio.texto}"</p>
+                    <p>- {testimonio.autor}</p>
+                    </div>
+                ))}
+                </div>
+            </div>
+
+            {/* Columna 2 - Comunidad */}
+            <div className="comunidad" data-aos="fade-left">
+                <h2 className="seccion-titulo">Únete a nuestra comunidad</h2>
+                <p>Conviértete en parte de una comunidad que celebra la autenticidad, el sabor y el descubrimiento.</p>
+                <img src={logo} alt="Comunidad" className="imagen-comunidad" />
+                <button className="suscribirse-btn" onClick={() => navigate('/suscripciones')}>Suscríbete</button>
             </div>
             </div>
 
-            {/* Unete a nuestra comunidad */}
-            <div className="comunidad-section" data-aos="fade-up">
-            <h2>Únete a nuestra comunidad</h2>
-            <p>Recibe noticias, promociones y contenido exclusivo antes que nadie.</p>
-            <button className="suscribirse-btn" onClick={() => window.location.href = '/suscripciones'}>
-                Suscribirse
-            </button>
-            </div>
+
             <ScrollToTopButton />
             <Footer />
         </div>

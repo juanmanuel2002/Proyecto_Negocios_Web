@@ -1,3 +1,4 @@
+/* Título central */
 .center-title {
   flex: 1 1 100%;
   text-align: center;
@@ -7,6 +8,7 @@
   margin: 1rem 0;
 }
 
+/* Pregunta + imagen de fondo */
 .pregunta-banner {
   position: relative;
   height: 350px;
@@ -34,7 +36,6 @@
   line-height: 1.4;
 }
 
-
 /* Logo + descripción */
 .about-box {
   display: flex;
@@ -43,7 +44,6 @@
   align-items: center;
   text-align: center;
   padding: 4rem 2rem;
-  
 }
 
 .logo-circle {
@@ -51,7 +51,7 @@
   height: 150px;
   border-radius: 50%;
   background-color: #efebe9;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -73,35 +73,7 @@
   color: var(--text-color);
 }
 
-.right-nav {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-left: auto;
-}
-
-.image-gallery {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  justify-content: center;
-  padding: 3rem 2rem;
-  background-color: #efebe9;
-}
-
-.gallery-item img {
-  width: 220px;
-  height: 150px;
-  object-fit: cover;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-  transition: transform 0.3s ease;
-}
-
-.gallery-item img:hover {
-  transform: scale(1.05);
-}
-
+/* Carrusel */
 .carousel-wrapper {
   overflow: hidden;
   width: 100%;
@@ -125,54 +97,10 @@
   height: 150px;
   object-fit: cover;
   border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
-.footer-banner {
-  background-color: #3b2f2f;
-  color: #f5f5f5;
-  text-align: center;
-  padding: 1rem 2rem;
-  font-size: 0.9rem;
-}
-
-.footer-links {
-  background-color: #5d4037;
-  color: #f5f5f5;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1.5rem;
-  padding: 1.5rem 2rem;
-  font-size: 0.95rem;
-}
-
-.footer-links a {
-  color: #f5f5f5;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.footer-links a:hover {
-  color: #d7ccc8;
-}
-
-.social-icons {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.social-icons svg {
-  color: #f5f5f5;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-}
-
-.social-icons svg:hover {
-  transform: scale(1.2);
-}
-
+/* Mystery Box Section */
 .mystery-box-section {
   padding: 4rem 2rem;
   margin-top: 3rem;
@@ -193,24 +121,22 @@
 .mystery-box-text {
   flex: 1;
   min-width: 280px;
-  color:var(--text-color);
+  color: var(--text-color);
 }
 
 .mystery-box-text h2 {
   font-size: 2rem;
-  color: var(--text-color);
   margin-bottom: 1rem;
 }
 
 .mystery-box-text p {
   font-size: 1rem;
-  color: var(--text-color);
   margin-bottom: 1.5rem;
 }
 
 .descubre-btn {
   background-color: #a0522d;
-  color:var(--text-light-color);
+  color: var(--text-light-color);
   border: none;
   padding: 0.8rem 1.5rem;
   font-size: 1rem;
@@ -243,51 +169,145 @@
 }
 
 .card-box h4 {
-  color: var(--text-color);
   margin-bottom: 0.5rem;
 }
 
 .card-box p {
   font-size: 0.95rem;
-  color: var(--text-color);
 }
 
-.comunidad-section {
-  text-align: center;
-  padding: 3rem 2rem;
-  margin-top: 3rem;
-  background-color: var(--background-color);
-  border-radius: 20px;
-  max-width: 900px;
+
+/* Contenedor principal para Opiniones y Comunidad */
+.opinan-comunidad-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch; /* Asegura que ambas secciones tengan la misma altura */
+  gap: 2rem;
+  background-color: var(--background-color-light);
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 2rem;
+  max-width: 5000px; /* Limita el ancho máximo del contenedor */
   margin-left: auto;
   margin-right: auto;
+  box-sizing: border-box; /* Incluye el padding en el cálculo del ancho */
+  overflow: hidden; /* Evita que el contenido se desborde */
 }
 
-.comunidad-section h2 {
-  color: var(--tit-text-color);
-  font-size: 2rem;
+/* Opiniones */
+.opinan-container {
+  flex: 1; /* Ocupa la mitad del espacio */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  max-width: 100%; /* Asegura que no exceda el ancho del contenedor */
+  box-sizing: border-box;
+}
+
+.titulo-opinan {
+  font-size: 1.5rem;
   margin-bottom: 1rem;
 }
 
-.comunidad-section p {
-  color: var(--text-color);
+.card-opinion {
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.card-opinion h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.card-opinion p {
   font-size: 1rem;
-  margin-bottom: 1.5rem;
+}
+
+
+.opiniones-comunidad {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  padding: 4rem 10%;
+  align-items: center;
+}
+
+.opiniones {
+  display: flex;
+  flex-direction: column;
+}
+
+.opiniones-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
+
+.opinion {
+  background-color: var(--card-color);
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-size: 0.95rem;
+}
+
+.comunidad-contenido {
+  display: flex;
+  justify-content: space-between; /* separa imagen y botón */
+  align-items: center;
+  flex-wrap: wrap; /* para responsividad en pantallas pequeñas */
+  margin-top: 1rem;
+}
+
+.imagen-comunidad {
+  max-width: 200px;
+  height: auto;
+  flex-shrink: 0;
 }
 
 .suscribirse-btn {
-  background-color: #a0522d;
-  color: white;
+  padding: 0.5rem 1.25rem;
+  background-color: var(--button-dark-color);
+  color: var(--text-color);
   border: none;
-  padding: 0.8rem 1.8rem;
-  font-size: 1rem;
-  border-radius: 10px;
+  border-radius: 0.5rem;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: background-color 0.3s ease;
+  margin-left: auto; /* fuerza a que se pegue a la derecha */
 }
 
 .suscribirse-btn:hover {
-  background-color: #5d4037;
+  background-color: var(--color-secundario); /* tu color deseado al hacer hover */
 }
 
 
+/* 📱 Responsivo para pantallas menores a 768px */
+@media (max-width: 768px) {
+  .opiniones-comunidad {
+    grid-template-columns: 1fr;
+    padding: 2rem 1rem;
+  }
+
+  .opiniones-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .imagen-comunidad {
+    width: 80%;
+  }
+
+  .comunidad-contenido {
+    flex-direction: column;      /* Cambia la dirección a columna en pantallas pequeñas */
+    align-items: center;         /* Centra tanto la imagen como el botón */
+    gap: 1.5rem;                 /* Ajusta el espacio entre los elementos */
+  }
+
+  .suscribirse-btn {
+    margin-left: 0;              /* Elimina el margen izquierdo cuando está en columna */
+  }
+}

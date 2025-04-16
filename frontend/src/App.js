@@ -13,27 +13,32 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsAndConditions from './pages/TermsAndConditions';
 import ContactUs from './pages/ContactUs';
 import ScrollToTop from './components/ScrollToTop';
+import { CartProvider } from './context/CartContext';
+import Carrito from './pages/Carrito';
 
 const App = () => {
     return (
-        <ThemeProvider> 
-            <Router>
-                <ScrollToTop />
-                <Routes>
-                    <Route path="/main" element={<Main />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/tienda" element={<Tienda />} />
-                    <Route path="/register" element={<Register />} />
-                    <Route path="/suscripciones" element={<Suscripciones />} />
-                    <Route path="/nosotros" element={<SobreNosotros />} />
-                    <Route path="/forgot-password" element={<ForgotPassword />} />
-                    <Route path="__/auth/action/*" element={<ForgotPasswordReset />} />
-                    <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-                    <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
-                    <Route path="/contact-us" element={<ContactUs />} />
-                    <Route path="/" element={<Navigate to="/main" />} />
-                </Routes>
-            </Router>
+        <ThemeProvider>
+             <CartProvider>
+                <Router>
+                    <ScrollToTop />
+                    <Routes>
+                        <Route path="/main" element={<Main />} />
+                        <Route path="/login" element={<Login />} />
+                        <Route path="/tienda" element={<Tienda />} />
+                        <Route path="/register" element={<Register />} />
+                        <Route path="/suscripciones" element={<Suscripciones />} />
+                        <Route path="/nosotros" element={<SobreNosotros />} />
+                        <Route path="/forgot-password" element={<ForgotPassword />} />
+                        <Route path="__/auth/action/*" element={<ForgotPasswordReset />} />
+                        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+                        <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
+                        <Route path="/contact-us" element={<ContactUs />} />
+                        <Route path="/" element={<Navigate to="/main" />} />
+                        <Route path="/carrito" element={<Carrito />} />
+                    </Routes>
+                </Router>
+            </CartProvider>
         </ThemeProvider>
     );
 };
