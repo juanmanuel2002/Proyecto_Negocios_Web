@@ -63,8 +63,13 @@ const Cart = () => {
               <strong>Total:</strong> ${subtotal.toFixed(2)}
             </p>
           </div>
+          
+
           <div className="cart-actions">
             <button onClick={clearCart}>Vaciar Carrito</button>
+            <button className="checkout-button" onClick={() => alert('Redirigiendo a checkout...')}>
+              Continuar Compra
+            </button>
           </div>
         </>
       )}
