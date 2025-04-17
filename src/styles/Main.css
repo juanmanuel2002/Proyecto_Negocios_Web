@@ -191,22 +191,16 @@ body, html {
 
 
 /* Contenedor principal para Opiniones y Comunidad */
-.opinan-comunidad-container {
+.opiniones-comunidad {
   display: flex;
+  flex-wrap: wrap; /* Permite que las columnas se ajusten en pantallas pequeñas */
   justify-content: space-between;
-  align-items: stretch; /* Asegura que ambas secciones tengan la misma altura */
-  gap: 2rem;
-  background-color: var(--background-color-light);
-  padding: 2rem;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-top: 2rem;
-  max-width: 5000px; /* Limita el ancho máximo del contenedor */
-  margin-left: auto;
-  margin-right: auto;
+  gap: 2rem; /* Espaciado entre las columnas */
+  width: 100%; /* Asegura que no exceda el ancho de la pantalla */
+  margin: 0 auto; /* Centra el contenedor */
+  padding: 2rem 1rem; /* Ajusta el padding para pantallas pequeñas */
   box-sizing: border-box; /* Incluye el padding en el cálculo del ancho */
-  overflow: hidden; /* Evita que el contenido se desborde */
-  width: 100%; /* Asegura que el contenedor ocupe todo el ancho disponible */
+  overflow-x: hidden; /* Evita el desbordamiento horizontal */
 }
 
 /* Opiniones */
@@ -303,6 +297,17 @@ body, html {
   background-color: #5a3a33;
 }
 
+/* Responsividad */
+@media (max-width: 680px) {
+  .opiniones-comunidad {
+    flex-direction: column; /* Apila las columnas verticalmente */
+    gap: 1rem;
+  }
+
+  .opiniones-grid {
+    grid-template-columns: 1fr; /* Una sola columna en pantallas pequeñas */
+  }
+}
 
 /* 📱 Responsivo para pantallas menores a 768px */
 @media (max-width: 768px) {

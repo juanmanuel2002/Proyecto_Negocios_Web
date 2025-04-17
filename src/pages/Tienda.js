@@ -6,6 +6,7 @@ import { useCart } from '../context/CartContext';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { fetchProductos } from '../services/api';
+import ScrollToTopButton from '../components/ScrollTopButton';
 import '../styles/Main.css';
 import '../styles/Tienda.css';
 
@@ -163,6 +164,7 @@ const Tienda = () => {
           </div>
         </div>
       )}
+      <ScrollToTopButton />
       <Footer />
     </div>
   );
