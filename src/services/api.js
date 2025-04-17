@@ -1,4 +1,4 @@
-const API_URL = 'https://proyecto-negocios-web-1.onrender.com/api'; // Cambia esto por la URL de tu API
+const API_URL = 'https://proyecto-negocios-web-1.onrender.com/api'; 
 
 export const loginUser = async (email, password) => {
     try {
