@@ -15,6 +15,7 @@ import ContactUs from './pages/ContactUs';
 import ScrollToTop from './components/ScrollToTop';
 import { CartProvider } from './context/CartContext';
 import Carrito from './pages/Carrito';
+import Paypal from './pages/Paypal';
 
 const App = () => {
     return (
@@ -36,6 +37,7 @@ const App = () => {
                         <Route path="/contact-us" element={<ContactUs />} />
                         <Route path="/" element={<Navigate to="/main" />} />
                         <Route path="/carrito" element={<Carrito />} />
+                        <Route path="/paypal" element={<Paypal />} />
                     </Routes>
                 </Router>
             </CartProvider>

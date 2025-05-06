@@ -1,10 +1,11 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import '../styles/Cart.css';
 
 const Cart = () => {
   const { cartItems, removeFromCart, clearCart, updateCartItemQuantity } = useCart();
-
+  const navigate = useNavigate();
   // Calcular el subtotal general sumando los subtotales de todos los productos
   const subtotal = cartItems.reduce(
     (acc, item) => acc + item.precio * item.cantidad,
@@ -67,7 +68,9 @@ const Cart = () => {
 
           <div className="cart-actions">
             <button onClick={clearCart}>Vaciar Carrito</button>
-            <button className="checkout-button" onClick={() => alert('Redirigiendo a checkout...')}>
+            <button
+              className="checkout-button"
+              onClick={() => navigate('/paypal')}>
               Continuar Compra
             </button>
           </div>
