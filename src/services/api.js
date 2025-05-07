@@ -90,3 +90,24 @@ export const scrapePrices = async (productName) => {
       return { success: false, message: 'Error al comparar precios' };
     }
   };
+
+  export const fetchPayPalClientId = async () => {
+    try {
+      const response = await fetch(`${API_URL}/clientPaypal`);
+        
+      if (!response.ok) {
+        throw new Error(`Error en la respuesta del servidor: ${response.status}`);
+      }
+  
+      const data = await response.json();
+      
+      if (!data.clientId) {
+        throw new Error('El client-id no está presente en la respuesta del servidor');
+      }
+  
+      return data.clientId;
+    } catch (error) {
+      console.error('Error al obtener el client-id de PayPal:', error);
+      throw error;
+    }
+  };
