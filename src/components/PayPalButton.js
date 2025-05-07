@@ -3,7 +3,6 @@ import React, { useEffect, useRef } from 'react';
 const PayPalButton = ({ total }) => {
   const hasRendered = useRef(false); 
 
-  // eslint-disable-next-line
   useEffect(() => {
     if (!window.paypal || hasRendered.current) return;
 
@@ -31,6 +30,7 @@ const PayPalButton = ({ total }) => {
     }).render('#paypal-button-container');
 
     hasRendered.current = true; 
+    // eslint-disable-next-line
   }, []);
 
   return <div id="paypal-button-container"></div>;

@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { loginUser } from '../services/api'; // Importa la función del servicio
+import { useAuth } from '../context/AuthContext'; 
 import '../styles/Auth.css';
 
 const Login = () => {
+  const { login } = useAuth();
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -15,6 +17,7 @@ const Login = () => {
 
     const result = await loginUser(email, password);
     if (result.success) {
+      login()
       navigate('/main');
     } else {
       setError(result.message);

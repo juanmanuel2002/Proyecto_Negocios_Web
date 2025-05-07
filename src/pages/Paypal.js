@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useCart } from '../context/CartContext';
 import PayPalButton from '../components/PayPalButton';
 import Header from '../components/Header';
@@ -10,10 +10,19 @@ const PayPal = () => {
   const { cartItems } = useCart();
   const navigate = useNavigate();
 
+  // Calcular el subtotal general
   const subtotal = cartItems.reduce(
     (acc, item) => acc + item.precio * item.cantidad,
     0
   );
+
+  // Estado para forzar la re-renderización del botón de PayPal
+  const [paypalKey, setPaypalKey] = useState(0);
+
+  // Actualiza la clave del botón de PayPal cada vez que el subtotal cambie
+  useEffect(() => {
+    setPaypalKey((prevKey) => prevKey + 1);
+  }, [subtotal]);
 
   return (
     <>
@@ -44,7 +53,8 @@ const PayPal = () => {
                   <strong>Total:</strong> ${subtotal.toFixed(2)}
                 </p>
               </div>
-              <PayPalButton total={subtotal} />
+              {/* Botón de PayPal con clave única */}
+              <PayPalButton key={paypalKey} total={subtotal} />
               <div className="checkout-actions">
                 <button className="back-button" onClick={() => navigate('/tienda')}>
                   Regresar

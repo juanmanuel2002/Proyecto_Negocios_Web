@@ -1,16 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
+import { useAuth } from '../context/AuthContext'; 
 import '../styles/Cart.css';
 
 const Cart = () => {
   const { cartItems, removeFromCart, clearCart, updateCartItemQuantity } = useCart();
+  const { isLoggedIn } = useAuth(); 
   const navigate = useNavigate();
+  const [showMessage, setShowMessage] = useState(false); 
+
   // Calcular el subtotal general sumando los subtotales de todos los productos
   const subtotal = cartItems.reduce(
     (acc, item) => acc + item.precio * item.cantidad,
     0
   );
+
+  const handleCheckout = () => {
+    if (isLoggedIn) {
+      navigate('/paypal'); 
+    } else {
+      setShowMessage(true); 
+      setTimeout(() => {
+        navigate('/login'); 
+      }, 3000);
+    }
+  };
 
   return (
     <div className="cart-container">
@@ -64,17 +79,24 @@ const Cart = () => {
               <strong>Total:</strong> ${subtotal.toFixed(2)}
             </p>
           </div>
-          
 
           <div className="cart-actions">
             <button onClick={clearCart}>Vaciar Carrito</button>
             <button
               className="checkout-button"
-              onClick={() => navigate('/paypal')}>
+              onClick={handleCheckout} 
+            >
               Continuar Compra
             </button>
           </div>
         </>
+      )}
+
+      {/* Mensaje de inicio de sesión */}
+      {showMessage && (
+        <div className="login-message">
+          <p>Es necesario iniciar sesión para continuar con la compra. Redirigiendo...</p>
+        </div>
       )}
     </div>
   );

@@ -16,9 +16,11 @@ import ScrollToTop from './components/ScrollToTop';
 import { CartProvider } from './context/CartContext';
 import Carrito from './pages/Carrito';
 import Paypal from './pages/Paypal';
+import { AuthProvider } from './context/AuthContext';
 
 const App = () => {
     return (
+        <AuthProvider>
         <ThemeProvider>
              <CartProvider>
                 <Router>
@@ -42,6 +44,7 @@ const App = () => {
                 </Router>
             </CartProvider>
         </ThemeProvider>
+        </AuthProvider>
     );
 };
 
