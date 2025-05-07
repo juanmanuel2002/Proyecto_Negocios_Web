@@ -111,3 +111,14 @@ export const scrapePrices = async (productName) => {
       throw error;
     }
   };
+
+  export const handleSearchTweets = async (query) => {
+    try {
+      const response = await fetch(`${API_URL}/search-tweets?query=${encodeURIComponent(query)}`);
+      const tweets = await response.json();
+      console.log('Tweets encontrados:', tweets);
+      return tweets;
+    } catch (error) {
+      console.error('Error al buscar tweets:', error);
+    }
+  };

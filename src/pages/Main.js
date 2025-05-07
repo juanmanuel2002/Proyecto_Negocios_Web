@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import { useEffect } from 'react';
 import logo from '../asserts/logo.jpg';
 import Carousel from '../components/Carousel';
 import MysteryBoxCard from '../components/MysteryBoxCards';
@@ -13,13 +12,18 @@ import ScrollToTopButton from '../components/ScrollTopButton';
 import '../styles/Global.css';
 import '../styles/Main.css';
 import { FaCrown, FaGift, FaBoxOpen, FaStar } from 'react-icons/fa'; 
-
+import { handleSearchTweets } from '../services/api';
+import TweetList from '../components/TweetList'; // Importar el componente TweetList
 
 const Main = () => {
     useEffect(() => {
         AOS.init({ duration: 1000, once: false });
     }, []);
+
     const navigate = useNavigate();
+
+    const [tweetIds, setTweetIds] = useState([]);
+    const [loadingTweets, setLoadingTweets] = useState(false);
 
     const images = [
         '/imagenes/Galeria/cafe.jpg',
@@ -51,7 +55,20 @@ const Main = () => {
           autor: "David P.",
           calificacion: "⭐⭐⭐⭐⭐"
         }
-      ];
+    ];
+
+    const fetchTweets = async (query) => {
+        setLoadingTweets(true);
+        try {
+            const tweets = await handleSearchTweets(query);
+            const ids = tweets.data.map((tweet) => tweet.id); // Extraer los IDs de los tweets
+            setTweetIds(ids);
+        } catch (error) {
+            console.error('Error al obtener tweets:', error);
+        } finally {
+            setLoadingTweets(false);
+        }
+    };
 
     return (
         <div className="main-container">
@@ -126,31 +143,45 @@ const Main = () => {
 
             {/* Sección de Opiniones + Comunidad */}
             <div className="opiniones-comunidad">
-            {/* Columna 1 - Opiniones */}
-            <div className="opiniones" data-aos="fade-left">
-                <h2 className="seccion-titulo" data-aos="fade-up">Lo que opinan nuestros clientes</h2>
-                <div className="opiniones-grid">
-                {testimonios.map((testimonio, index) => (
-                    <div className="opinion" key={index}>
-                    <p>"{testimonio.texto}"</p>
-                    <p>- {testimonio.autor}</p>
-                    <p>{testimonio.calificacion}</p>
+                {/* Columna 1 - Opiniones */}
+                <div className="opiniones" data-aos="fade-left">
+                    <h2 className="seccion-titulo" data-aos="fade-up">Lo que opinan nuestros clientes</h2>
+                    <div className="opiniones-grid">
+                        {testimonios.map((testimonio, index) => (
+                            <div className="opinion" key={index}>
+                                <p>"{testimonio.texto}"</p>
+                                <p>- {testimonio.autor}</p>
+                                <p>{testimonio.calificacion}</p>
+                            </div>
+                        ))}
                     </div>
-                ))}
+                </div>
+
+                {/* Botón para buscar tweets */}
+                <button
+                    onClick={() => fetchTweets('Mystery%20Box')}
+                    className="search-tweets-button"
+                >
+                    Buscar Tweets Relacionados
+                </button>
+
+                {/* Mostrar tweets */}
+                {loadingTweets ? (
+                    <p>Cargando tweets...</p>
+                ) : (
+                    <TweetList tweetIds={tweetIds} />
+                )}
+
+                {/* Columna 2 - Comunidad */}
+                <div className="comunidad" data-aos="fade-left">
+                    <h2 className="seccion-titulo">Únete a nuestra comunidad</h2>
+                    <p>Conviértete en parte de una comunidad que celebra la autenticidad, el sabor y el descubrimiento.</p>
+                    <div className="logo-circle">
+                        <img src={logo} alt="Logo" />
+                    </div>
+                    <button className="suscribirse-btn" onClick={() => navigate('/suscripciones')}>Suscríbete</button>
                 </div>
             </div>
-
-            {/* Columna 2 - Comunidad */}
-            <div className="comunidad" data-aos="fade-left">
-                <h2 className="seccion-titulo">Únete a nuestra comunidad</h2>
-                <p>Conviértete en parte de una comunidad que celebra la autenticidad, el sabor y el descubrimiento.</p>
-                <div className="logo-circle">
-                    <img src={logo} alt="Logo" />
-                </div>
-                <button className="suscribirse-btn" onClick={() => navigate('/suscripciones')}>Suscríbete</button>
-            </div>
-            </div>
-
 
             <ScrollToTopButton />
             <Footer />
