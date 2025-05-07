@@ -2,6 +2,8 @@ import express from 'express';
 import cors from 'cors';
 import { registerUser, loginUser, sendResetEmail, resetPassword } from './services/firebase/auth.js';
 import {getProductos} from './services/firebase/getProduct.js';
+import { scrapePrices } from './services/utils/scraper.js'; // Importa tu función de scraping
+
 
 
 const app = express();
@@ -59,6 +61,20 @@ app.get('/api/productos', async (req,res) => {
     res.status(200).json(result.data);
   } else {
     res.status(500).json({ error: result.message });
+  }
+});
+
+app.post('/api/scrape-prices', async (req, res) => {
+  const { productName } = req.body; // Recibe el nombre del producto desde el cuerpo de la solicitud
+  if (!productName) {
+    return res.status(400).json({ error: 'El nombre del producto es requerido' });
+  }
+
+  try {
+    const scrapedData = await scrapePrices(productName); // Llama a la función de scraping
+    res.status(200).json(scrapedData);
+  } catch (error) {
+    res.status(500).json({ error: 'Error al realizar el scraping', details: error.message });
   }
 });
 
