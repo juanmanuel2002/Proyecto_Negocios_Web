@@ -4,6 +4,7 @@ import { registerUser, loginUser, sendResetEmail, resetPassword } from './servic
 import {getProductos} from './services/firebase/getProduct.js';
 import { scrapePrices } from './services/utils/scraper.js'; 
 import config from './config.js';
+import { searchTweets } from './services/utils/twitter.js'; 
 
 const app = express();
 app.use(cors());
@@ -49,7 +50,6 @@ app.post('/api/reset-password', async (res) => {
     }
 });
 
-
 app.get('/api/productos', async (req,res) => {
   const result = await getProductos();
   if (result.success) {
@@ -76,6 +76,21 @@ app.post('/api/scrape-prices', async (req, res) => {
 app.get('/api/clientPaypal', (req, res) => {
     res.status(200).json({ clientId: config.paypal.paypalClientId });
 });
+
+// Endpoint para buscar tweets
+app.get('/api/search-tweets', async (req, res) => {
+    const { query } = req.query; 
+    if (!query) {
+      return res.status(400).json({ error: 'El parámetro "query" es requerido' });
+    }
+  
+    try {
+      const tweets = await searchTweets(query); 
+      res.status(200).json(tweets);
+    } catch (error) {
+      res.status(500).json({ error: 'Error al buscar tweets', details: error.message });
+    }
+  });
 
 // Iniciar el servidor
 const PORT = 5000;

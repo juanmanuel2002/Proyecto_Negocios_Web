@@ -14,6 +14,14 @@ const config = {
     paypal: {
         paypalClientId: process.env.PAYPAL_CLIENT_ID,
     },
+    twitter:{
+        key: process.env.X_KEY,
+        secret: process.env.X_SECRET,
+        bearer: process.env.X_BEARER,
+        id: process.env.X_ID,
+        token: process.env.X_TOKEN,
+        tokenSecret: process.env.X_TOKEN_SECRET,
+    }
 };
 
 export default config;
