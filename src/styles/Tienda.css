@@ -186,3 +186,9 @@
     background-color: #a0522d;
   }
   
+  .leyenda-fotos {
+    text-align: center;
+    font-size: 1rem;
+    color: #6d4c41;
+    margin-bottom: 20px;
+  }

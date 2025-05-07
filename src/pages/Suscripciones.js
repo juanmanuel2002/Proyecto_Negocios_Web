@@ -1,14 +1,22 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import ScrollToTopButton from '../components/ScrollTopButton'; 
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import { useAuth } from '../context/AuthContext';
+import { useCart } from '../context/CartContext';
+import { useNavigate } from 'react-router-dom';
+import ModalMensaje from '../components/ModalMensaje'; 
 import '../styles/Suscripciones.css'; 
 import '../styles/Global.css'; 
 import '../styles/Header.css';
 
 const Suscripciones = () => {
+  const { isLoggedIn } = useAuth();
+  const { clearCart, addToCart } = useCart();
+  const navigate = useNavigate();
+  const [showMessage, setShowMessage] = useState(false);
 
   useEffect(() => {
     AOS.init({ duration: 1000, once: false });
@@ -16,7 +24,24 @@ const Suscripciones = () => {
   }, []);
 
   const handleCardClick = (paquete) => {
-    alert(`Paquete ${paquete} seleccionado`);
+    if (isLoggedIn) {
+      
+      clearCart();
+      addToCart({
+        nombre: `Paquete ${paquete.nombre}`,
+        precio: paquete.precio,
+        cantidad: 1,
+        items: paquete.items,
+      });
+      navigate('/paypal', { state: { from: '/suscripciones' } }); 
+    } else {
+      // Mostrar mensaje de inicio de sesión en un modal
+      setShowMessage(true);
+      setTimeout(() => {
+        setShowMessage(false); 
+        navigate('/login'); 
+      }, 3000);
+    }
   };
 
   const productos = ['Mermelada', 'Tequila', 'Mezcal', 'Chocolate', 'Cerveza', 'Vino', 'Cafe'];
@@ -36,7 +61,7 @@ const Suscripciones = () => {
           <div
             key={paquete.nombre}
             className="paquete-card"
-            onClick={() => handleCardClick(paquete.nombre)}
+            onClick={() => handleCardClick(paquete)}
           >
             <h3>{paquete.nombre}</h3>
             <p>${paquete.precio}</p>
@@ -47,8 +72,8 @@ const Suscripciones = () => {
             </ul>
             <button
               onClick={(e) => {
-                e.stopPropagation(); // Prevenir que el clic se dispare dos veces
-                handleCardClick(paquete.nombre);
+                e.stopPropagation(); 
+                handleCardClick(paquete);
               }}
             >
               Ordenar
@@ -57,8 +82,17 @@ const Suscripciones = () => {
         ))}
       </div>
 
-      <div className = "conoce-mas-banner"> 
-        <p>Conoce mas sobre nuestros servicios</p>
+      {/* Modal para el mensaje de inicio de sesión */}
+      {showMessage && (
+        <ModalMensaje
+          titulo="Inicio de Sesión Requerido"
+          mensaje="Es necesario iniciar sesión para continuar con la compra. Redirigiendo..."
+          onClose={() => setShowMessage(false)}
+        />
+      )}
+
+      <div className="conoce-mas-banner"> 
+        <p>Conoce más sobre nuestros servicios</p>
         <div className="flecha-down">⬇</div>
       </div>
 
@@ -100,28 +134,27 @@ const Suscripciones = () => {
         </div>
       </div>
 
-    {/* Sección de marcas */}
-    <div className="marcas-container" data-aos="fade-up">
-      <h2 className="titulo-marcas">Las marcas que puedes encontrar</h2>
-      <div className="marcas-logos">
-        {[
-          'marca1.jpg',
-          'marca2.jpg',
-          'marca3.jpg',
-          'marca4.jpg',
-        ].map((logo, index) => (
-          <img
-            key={index}
-            src={`imagenes/marcas/${logo}`}
-            alt={`Marca ${index + 1}`}
-            className="logo-marca"
-          />
-        ))}
+      {/* Sección de marcas */}
+      <div className="marcas-container" data-aos="fade-up">
+        <h2 className="titulo-marcas">Las marcas que puedes encontrar</h2>
+        <div className="marcas-logos">
+          {[
+            'marca1.jpg',
+            'marca2.jpg',
+            'marca3.jpg',
+            'marca4.jpg',
+          ].map((logo, index) => (
+            <img
+              key={index}
+              src={`imagenes/marcas/${logo}`}
+              alt={`Marca ${index + 1}`}
+              className="logo-marca"
+            />
+          ))}
+        </div>
       </div>
-    </div>
 
-    {/* Botón flotante para volver al inicio */}
-    <ScrollToTopButton />
+      <ScrollToTopButton />
 
       <Footer />
     </div>

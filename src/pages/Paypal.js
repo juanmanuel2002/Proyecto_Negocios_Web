@@ -3,12 +3,13 @@ import { useCart } from '../context/CartContext';
 import PayPalButton from '../components/PayPalButton';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import '../styles/PayPal.css';
 
 const PayPal = () => {
   const { cartItems } = useCart();
   const navigate = useNavigate();
+  const location = useLocation(); // Hook para obtener el estado de navegación
 
   // Calcular el subtotal general
   const subtotal = cartItems.reduce(
@@ -23,6 +24,9 @@ const PayPal = () => {
   useEffect(() => {
     setPaypalKey((prevKey) => prevKey + 1);
   }, [subtotal]);
+
+  // Determinar la página anterior
+  const previousPage = location.state?.from || '/tienda'; // Por defecto, redirige a Tienda
 
   return (
     <>
@@ -56,7 +60,7 @@ const PayPal = () => {
               {/* Botón de PayPal con clave única */}
               <PayPalButton key={paypalKey} total={subtotal} />
               <div className="checkout-actions">
-                <button className="back-button" onClick={() => navigate('/tienda')}>
+                <button className="back-button" onClick={() => navigate(previousPage)}>
                   Regresar
                 </button>
               </div>

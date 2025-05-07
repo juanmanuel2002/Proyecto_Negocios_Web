@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext'; 
+import ModalMensaje from '../components/ModalMensaje'; // Importamos el nuevo componente
 import '../styles/Cart.css';
 
 const Cart = () => {
@@ -22,6 +23,7 @@ const Cart = () => {
     } else {
       setShowMessage(true); 
       setTimeout(() => {
+        setShowMessage(false); // Ocultar el modal después de 3 segundos
         navigate('/login'); 
       }, 3000);
     }
@@ -100,11 +102,13 @@ const Cart = () => {
         </>
       )}
 
-      {/* Mensaje de inicio de sesión */}
+      {/* Modal para el mensaje de inicio de sesión */}
       {showMessage && (
-        <div className="login-message">
-          <p>Es necesario iniciar sesión para continuar con la compra. Redirigiendo...</p>
-        </div>
+        <ModalMensaje
+          titulo="Inicio de Sesión Requerido"
+          mensaje="Es necesario iniciar sesión para continuar con la compra. Redirigiendo..."
+          onClose={() => setShowMessage(false)}
+        />
       )}
     </div>
   );

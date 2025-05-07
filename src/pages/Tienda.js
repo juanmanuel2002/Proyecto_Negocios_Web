@@ -9,6 +9,7 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { fetchProductos } from '../services/api';
 import ScrollToTopButton from '../components/ScrollTopButton';
+import ModalMensaje from '../components/ModalMensaje'; 
 import '../styles/Main.css';
 import '../styles/Tienda.css';
 
@@ -25,8 +26,9 @@ const Tienda = () => {
   const [selectedQuantityProduct, setSelectedQuantityProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [showMessage, setShowMessage] = useState(false);
+  const [actionType, setActionType] = useState('');
 
-  const { addToCart, clearCart } = useCart(); // Agregamos clearCart para limpiar el carrito
+  const { addToCart, clearCart } = useCart();
   const { isLoggedIn } = useAuth();
   const navigate = useNavigate();
 
@@ -49,41 +51,51 @@ const Tienda = () => {
   const handleAgregarCarrito = (producto) => {
     setSelectedQuantityProduct(producto);
     setQuantity(1);
+    setActionType('addToCart');
     setIsQuantityModalOpen(true);
   };
 
   const handleBuyNow = (producto) => {
     setSelectedQuantityProduct(producto);
     setQuantity(1);
+    setActionType('buyNow');
     setIsQuantityModalOpen(true);
   };
 
-  const handleConfirmPurchase = () => {
+  const handleConfirmQuantity = () => {
     if (quantity > selectedQuantityProduct.unidadesDisponibles) {
       alert(
-        `No puedes comprar más unidades de "${selectedQuantityProduct.nombre}". Solo hay ${selectedQuantityProduct.unidadesDisponibles} disponibles.`
+        `No puedes agregar más unidades de "${selectedQuantityProduct.nombre}". Solo hay ${selectedQuantityProduct.unidadesDisponibles} disponibles.`
       );
       return;
     }
 
-    // Limpiar el carrito y agregar solo el producto seleccionado
-    clearCart();
-    addToCart({
-      ...selectedQuantityProduct,
-      cantidad: quantity,
-    });
+    if (actionType === 'addToCart') {
+      addToCart({
+        ...selectedQuantityProduct,
+        cantidad: quantity,
+      });
+      setIsQuantityModalOpen(false);
+      setSelectedQuantityProduct(null);
+    } else if (actionType === 'buyNow') {
+      clearCart();
+      addToCart({
+        ...selectedQuantityProduct,
+        cantidad: quantity,
+      });
 
-    if (isLoggedIn) {
-      navigate('/paypal'); // Redirige a PayPal si el usuario está logueado
-    } else {
-      setShowMessage(true);
-      setTimeout(() => {
-        navigate('/login'); // Redirige a la página de inicio de sesión si no está logueado
-      }, 3000);
+      if (isLoggedIn) {
+        navigate('/paypal', { state: { from: '/tienda' } });
+      } else {
+        setShowMessage(true);
+        setTimeout(() => {
+          navigate('/login');
+        }, 3000);
+      }
+
+      setIsQuantityModalOpen(false);
+      setSelectedQuantityProduct(null);
     }
-
-    setIsQuantityModalOpen(false);
-    setSelectedQuantityProduct(null);
   };
 
   const increaseQuantity = () => {
@@ -133,6 +145,9 @@ const Tienda = () => {
       <Header />
       <div data-aos="fade-up" className="center-title">Sabores Ocultos</div>
       <h1 data-aos="fade-up" className="titulo-tienda">Nuestros Productos</h1>
+      <p className="leyenda-fotos" data-aos="fade-up">
+        Selecciona la foto del producto para ver más fotos.
+      </p>
       {loading ? (
         <p className="loading"><ClipLoader color="#6d4c41" size={50} /></p>
       ) : error ? (
@@ -163,16 +178,16 @@ const Tienda = () => {
         </div>
       )}
 
-      {/* Modal galería de imágenes */}
+      {/* Modal de galería de imágenes */}
       {isModalOpen && (
         <div className="modal-overlay" onClick={closeModal}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <h2>{selectedProduct.nombre}</h2>
+            <h2>{selectedProduct?.nombre}</h2>
             <div className="gallery-large">
               <button className="prev-button" onClick={handlePrevImage}>⬅</button>
               <img
                 src={galleryImages[currentImageIndex]}
-                alt={`${selectedProduct.nombre} ${currentImageIndex + 1}`}
+                alt={`${selectedProduct?.nombre} ${currentImageIndex + 1}`}
                 className="gallery-large-image"
               />
               <button className="next-button" onClick={handleNextImage}>➡</button>
@@ -187,24 +202,26 @@ const Tienda = () => {
         <div className="modal-overlay" onClick={() => setIsQuantityModalOpen(false)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <h3>{selectedQuantityProduct?.nombre}</h3>
-            <p>¿Cuántas unidades deseas comprar?</p>
+            <p>¿Cuántas unidades deseas agregar?</p>
             <div className="quantity-controls">
               <button onClick={decreaseQuantity}>-</button>
               <span>{quantity}</span>
               <button onClick={increaseQuantity}>+</button>
             </div>
-            <button onClick={handleConfirmPurchase} className="confirm-button">
-              Comprar {quantity} unidades
+            <button onClick={handleConfirmQuantity} className="confirm-button">
+              {actionType === 'addToCart' ? 'Agregar al carrito' : 'Comprar'} {quantity} unidades
             </button>
           </div>
         </div>
       )}
 
-      {/* Mensaje de inicio de sesión */}
+      {/* Modal para el mensaje de inicio de sesión */}
       {showMessage && (
-        <div className="login-message">
-          <p>Es necesario iniciar sesión para continuar con la compra. Redirigiendo...</p>
-        </div>
+        <ModalMensaje
+          titulo="Inicio de Sesión Requerido"
+          mensaje="Es necesario iniciar sesión para continuar con la compra. Redirigiendo..."
+          onClose={() => setShowMessage(false)}
+        />
       )}
 
       <ScrollToTopButton />
