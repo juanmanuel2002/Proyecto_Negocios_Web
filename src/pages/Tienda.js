@@ -3,6 +3,8 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { ClipLoader } from 'react-spinners';
 import { useCart } from '../context/CartContext';
+import { useAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { fetchProductos } from '../services/api';
@@ -22,8 +24,11 @@ const Tienda = () => {
   const [isQuantityModalOpen, setIsQuantityModalOpen] = useState(false);
   const [selectedQuantityProduct, setSelectedQuantityProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
+  const [showMessage, setShowMessage] = useState(false);
 
-  const { addToCart } = useCart();
+  const { addToCart, clearCart } = useCart(); // Agregamos clearCart para limpiar el carrito
+  const { isLoggedIn } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     AOS.init({ duration: 1000, once: false });
@@ -47,18 +52,48 @@ const Tienda = () => {
     setIsQuantityModalOpen(true);
   };
 
-  const handleConfirmQuantity = () => {
-    const productoConCantidad = {
+  const handleBuyNow = (producto) => {
+    setSelectedQuantityProduct(producto);
+    setQuantity(1);
+    setIsQuantityModalOpen(true);
+  };
+
+  const handleConfirmPurchase = () => {
+    if (quantity > selectedQuantityProduct.unidadesDisponibles) {
+      alert(
+        `No puedes comprar más unidades de "${selectedQuantityProduct.nombre}". Solo hay ${selectedQuantityProduct.unidadesDisponibles} disponibles.`
+      );
+      return;
+    }
+
+    // Limpiar el carrito y agregar solo el producto seleccionado
+    clearCart();
+    addToCart({
       ...selectedQuantityProduct,
       cantidad: quantity,
-    };
-    addToCart(productoConCantidad);
+    });
+
+    if (isLoggedIn) {
+      navigate('/paypal'); // Redirige a PayPal si el usuario está logueado
+    } else {
+      setShowMessage(true);
+      setTimeout(() => {
+        navigate('/login'); // Redirige a la página de inicio de sesión si no está logueado
+      }, 3000);
+    }
+
     setIsQuantityModalOpen(false);
     setSelectedQuantityProduct(null);
   };
 
   const increaseQuantity = () => {
-    setQuantity((prev) => prev + 1);
+    if (quantity < selectedQuantityProduct.unidadesDisponibles) {
+      setQuantity((prev) => prev + 1);
+    } else {
+      alert(
+        `No puedes agregar más unidades de "${selectedQuantityProduct.nombre}". Solo hay ${selectedQuantityProduct.unidadesDisponibles} disponibles.`
+      );
+    }
   };
 
   const decreaseQuantity = () => {
@@ -119,7 +154,7 @@ const Tienda = () => {
                 <button onClick={() => handleAgregarCarrito(producto)}>
                   Agregar al carrito
                 </button>
-                <button onClick={() => alert(`Has comprado: ${producto.nombre}`)}>
+                <button onClick={() => handleBuyNow(producto)}>
                   Comprar
                 </button>
               </div>
@@ -152,18 +187,26 @@ const Tienda = () => {
         <div className="modal-overlay" onClick={() => setIsQuantityModalOpen(false)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <h3>{selectedQuantityProduct?.nombre}</h3>
-            <p>¿Cuántas unidades deseas agregar?</p>
+            <p>¿Cuántas unidades deseas comprar?</p>
             <div className="quantity-controls">
               <button onClick={decreaseQuantity}>-</button>
               <span>{quantity}</span>
               <button onClick={increaseQuantity}>+</button>
             </div>
-            <button onClick={handleConfirmQuantity} className="confirm-button">
-              Agregar {quantity} al carrito
+            <button onClick={handleConfirmPurchase} className="confirm-button">
+              Comprar {quantity} unidades
             </button>
           </div>
         </div>
       )}
+
+      {/* Mensaje de inicio de sesión */}
+      {showMessage && (
+        <div className="login-message">
+          <p>Es necesario iniciar sesión para continuar con la compra. Redirigiendo...</p>
+        </div>
+      )}
+
       <ScrollToTopButton />
       <Footer />
     </div>

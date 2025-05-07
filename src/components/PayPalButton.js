@@ -12,6 +12,7 @@ const PayPalButton = ({ total }) => {
           purchase_units: [
             {
               amount: {
+                currency_code: 'MXN',
                 value: total.toFixed(2),
               },
             },

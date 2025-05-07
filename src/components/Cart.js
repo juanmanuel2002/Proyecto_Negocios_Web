@@ -27,6 +27,14 @@ const Cart = () => {
     }
   };
 
+  const handleIncrement = (item) => {
+    if (item.cantidad < item.unidadesDisponibles) {
+      updateCartItemQuantity(item.nombre, item.cantidad + 1);
+    } else {
+      alert(`No puedes agregar más unidades de "${item.nombre}". Solo hay ${item.unidadesDisponibles} disponibles.`);
+    }
+  };
+
   return (
     <div className="cart-container">
       <h2>Carrito de Compras</h2>
@@ -53,7 +61,7 @@ const Cart = () => {
                   <span>{item.cantidad}</span>
                   <button
                     className="quantity-button"
-                    onClick={() => updateCartItemQuantity(item.nombre, item.cantidad + 1)}
+                    onClick={() => handleIncrement(item)} // Llama a la función handleIncrement
                   >
                     +
                   </button>
