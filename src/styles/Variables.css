@@ -23,7 +23,7 @@
     /* Espaciado */
     --padding-base: 1rem;
     --margin-base: 1rem;
-  
+    --color-table: white;
     /* Bordes */
     --border-radius: 20px;
     --box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
@@ -45,4 +45,5 @@
     --botton-dark-color: #8b4513;
     --card-color: #2c2c2c;
     --card-border-color: #444;
+    --color-table: #424242;
   }

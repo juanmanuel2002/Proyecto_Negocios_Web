@@ -230,12 +230,14 @@
 }
 
 .comparison-table th {
-  background-color: #f4f4f4;
+  background-color:#a89791;
   font-weight: bold;
+  font-size: 1.2rem; /* Tamaño más grande para los títulos */
+  text-transform: uppercase;
 }
 
 .comparison-table tr:nth-child(even) {
-  background-color: #f9f9f9;
+  background-color: var(--color-table);
 }
 
 .comparison-table tr:hover {
@@ -243,7 +245,7 @@
 }
 
 .comparison-table a {
-  color: #6d4c41;
+  color: var(--text-color);
   text-decoration: none;
 }
 
