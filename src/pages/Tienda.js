@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
 import { ClipLoader } from 'react-spinners';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
-import { fetchProductos } from '../services/api';
+import { fetchProductos, scrapePrices } from '../services/api'; 
 import ScrollToTopButton from '../components/ScrollTopButton';
 import ModalMensaje from '../components/ModalMensaje'; 
+import Header from '../components/Header';
+import Footer from '../components/Footer';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 import '../styles/Main.css';
 import '../styles/Tienda.css';
 
@@ -29,6 +29,11 @@ const Tienda = () => {
   const [quantity, setQuantity] = useState(1);
   const [showMessage, setShowMessage] = useState(false);
   const [actionType, setActionType] = useState('');
+
+  const [comparisonResults, setComparisonResults] = useState([]); 
+  const [isComparisonModalOpen, setIsComparisonModalOpen] = useState(false); 
+  const [isComparing, setIsComparing] = useState(false);
+
 
   const { addToCart, clearCart } = useCart();
   const { isLoggedIn } = useAuth();
@@ -59,6 +64,18 @@ const Tienda = () => {
     );
     setFilteredProductos(filtered);
   };
+
+  const handleComparePrices = async (productName) => {
+      setIsComparing(true);
+      const result = await scrapePrices(productName); // Usamos la función scrapePrices
+      if (result.success) {
+        setComparisonResults(result.data);
+        setIsComparisonModalOpen(true);
+      } else {
+        console.error(result.message);
+      }
+      setIsComparing(false);
+    };
 
   const handleAgregarCarrito = (producto) => {
     setSelectedQuantityProduct(producto);
@@ -196,6 +213,9 @@ const Tienda = () => {
                 <button onClick={() => handleBuyNow(producto)}>
                   Comprar
                 </button>
+                <button onClick={() => handleComparePrices(producto.nombre)}>
+                  {isComparing ? 'Comparando...' : 'Comparar Precios'}
+                </button>
               </div>
             </div>
           ))}
@@ -246,6 +266,44 @@ const Tienda = () => {
           mensaje="Es necesario iniciar sesión para continuar con la compra. Redirigiendo..."
           onClose={() => setShowMessage(false)}
         />
+      )}
+
+      {/* Modal para mostrar resultados de comparación */}
+      {isComparisonModalOpen && (
+        <div className="modal-overlay" onClick={() => setIsComparisonModalOpen(false)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <h3>Resultados de Comparación</h3>
+            {comparisonResults.length > 0 ? (
+              <table className="comparison-table">
+                <thead>
+                  <tr>
+                    <th>Producto</th>
+                    <th>Precio</th>
+                    <th>Enlace</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {comparisonResults.map((result, index) => (
+                    <tr key={index}>
+                      <td>{result.name}</td>
+                      <td>{result.price}</td>
+                      <td>
+                        <a href={result.link} target="_blank" rel="noopener noreferrer">
+                          Ver Producto
+                        </a>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <p>No se encontraron resultados.</p>
+            )}
+            <button className="close-modal" onClick={() => setIsComparisonModalOpen(false)}>
+              Cerrar
+            </button>
+          </div>
+        </div>
       )}
 
       <ScrollToTopButton />

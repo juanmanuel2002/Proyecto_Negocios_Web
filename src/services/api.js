@@ -69,3 +69,24 @@ export const fetchProductos = async () => {
         return { success: false, message: error.message };
     }
 };
+
+export const scrapePrices = async (productName) => {
+    try {
+      const response = await fetch(`${API_URL}/scrape-prices`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ productName }),
+      });
+  
+      if (!response.ok) {
+        throw new Error('Error al realizar el scraping');
+      }
+  
+      const data = await response.json();
+      return { success: true, data };
+    } catch (error) {
+      return { success: false, message: 'Error al comparar precios' };
+    }
+  };
