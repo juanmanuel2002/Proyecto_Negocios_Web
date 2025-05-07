@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext'; 
-import ModalMensaje from '../components/ModalMensaje'; // Importamos el nuevo componente
+import ModalMensaje from '../components/ModalMensaje'; 
 import '../styles/Cart.css';
 
 const Cart = () => {
@@ -23,7 +23,7 @@ const Cart = () => {
     } else {
       setShowMessage(true); 
       setTimeout(() => {
-        setShowMessage(false); // Ocultar el modal después de 3 segundos
+        setShowMessage(false); 
         navigate('/login'); 
       }, 3000);
     }
@@ -63,7 +63,7 @@ const Cart = () => {
                   <span>{item.cantidad}</span>
                   <button
                     className="quantity-button"
-                    onClick={() => handleIncrement(item)} // Llama a la función handleIncrement
+                    onClick={() => handleIncrement(item)} 
                   >
                     +
                   </button>

@@ -15,6 +15,8 @@ import '../styles/Tienda.css';
 
 const Tienda = () => {
   const [productos, setProductos] = useState([]);
+  const [filteredProductos, setFilteredProductos] = useState([]); 
+  const [searchTerm, setSearchTerm] = useState(''); 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -39,6 +41,7 @@ const Tienda = () => {
       const result = await fetchProductos();
       if (result.success) {
         setProductos(result.data);
+        setFilteredProductos(result.data); 
       } else {
         setError(result.message);
       }
@@ -47,6 +50,15 @@ const Tienda = () => {
 
     obtenerProductos();
   }, []);
+
+  const handleSearch = (e) => {
+    const term = e.target.value.toLowerCase();
+    setSearchTerm(term);
+    const filtered = productos.filter((producto) =>
+      (producto.nombre && producto.nombre.toLowerCase().includes(term)) 
+    );
+    setFilteredProductos(filtered);
+  };
 
   const handleAgregarCarrito = (producto) => {
     setSelectedQuantityProduct(producto);
@@ -144,7 +156,19 @@ const Tienda = () => {
     <div className="main-container">
       <Header />
       <div data-aos="fade-up" className="center-title">Sabores Ocultos</div>
-      <h1 data-aos="fade-up" className="titulo-tienda">Nuestros Productos</h1>
+     
+
+      {/* Campo de búsqueda */}
+      <div className="search-container" data-aos="fade-up">
+        <input
+          type="text"
+          placeholder="Buscar productos..."
+          value={searchTerm}
+          onChange={handleSearch}
+          className="search-input"
+        />
+      </div>
+
       <p className="leyenda-fotos" data-aos="fade-up">
         Selecciona la foto del producto para ver más fotos.
       </p>
@@ -154,7 +178,7 @@ const Tienda = () => {
         <p className="error">Ha ocurrido un error al obtener los productos</p>
       ) : (
         <div className="productos-grid" data-aos="fade-up">
-          {productos.map((producto) => (
+          {filteredProductos.map((producto) => (
             <div className="card-producto" key={producto.id}>
               <img
                 src={`imagenes/Galeria/${producto.imagen}`}
