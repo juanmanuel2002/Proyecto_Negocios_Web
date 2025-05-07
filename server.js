@@ -2,15 +2,13 @@ import express from 'express';
 import cors from 'cors';
 import { registerUser, loginUser, sendResetEmail, resetPassword } from './services/firebase/auth.js';
 import {getProductos} from './services/firebase/getProduct.js';
-import { scrapePrices } from './services/utils/scraper.js'; // Importa tu función de scraping
-
-
+import { scrapePrices } from './services/utils/scraper.js'; 
+import config from './config.js';
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Endpoint para registrar un usuario
 app.post('/api/register', async (req, res) => {
     const { email, password, name } = req.body;
     try {
@@ -21,7 +19,6 @@ app.post('/api/register', async (req, res) => {
     }
 });
 
-// Endpoint para iniciar sesión
 app.post('/api/login', async (req, res) => {
     const { email, password } = req.body;
     try {
@@ -32,7 +29,6 @@ app.post('/api/login', async (req, res) => {
     }
 });
 
-// Endpoint para enviar correo de restablecimiento de contraseña
 app.post('/api/reset-email', async (req, res) => {
     const { email } = req.body;
     try {
@@ -43,7 +39,6 @@ app.post('/api/reset-email', async (req, res) => {
     }
 });
 
-// Endpoint para restablecer la contraseña
 app.post('/api/reset-password', async (res) => {
     const { token, newPassword } = req.body;
     try {
@@ -65,17 +60,21 @@ app.get('/api/productos', async (req,res) => {
 });
 
 app.post('/api/scrape-prices', async (req, res) => {
-  const { productName } = req.body; // Recibe el nombre del producto desde el cuerpo de la solicitud
+  const { productName } = req.body; 
   if (!productName) {
     return res.status(400).json({ error: 'El nombre del producto es requerido' });
   }
 
   try {
-    const scrapedData = await scrapePrices(productName); // Llama a la función de scraping
+    const scrapedData = await scrapePrices(productName); 
     res.status(200).json(scrapedData);
   } catch (error) {
     res.status(500).json({ error: 'Error al realizar el scraping', details: error.message });
   }
+});
+
+app.get('/api/clientPaypal', (req, res) => {
+    res.status(200).json({ clientId: config.paypal.paypalClientId });
 });
 
 // Iniciar el servidor
