@@ -1,5 +1,5 @@
-//const API_URL = 'https://proyecto-negocios-web-1.onrender.com/api'; //Servidor render
-const API_URL = 'http://localhost:5000/api'; // Para pruebas en local
+const API_URL = 'https://proyecto-negocios-web-1.onrender.com/api'; //Servidor render
+//const API_URL = 'http://localhost:5000/api'; // Para pruebas en local
 export const loginUser = async (email, password) => {
     try {
         const response = await fetch(`${API_URL}/login`, {
