@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { loginUser } from '../services/api'; // Importa la función del servicio
+import { loginUser } from '../services/api'; 
 import { useAuth } from '../context/AuthContext'; 
 import '../styles/Auth.css';
 
 const Login = () => {
-  const { login } = useAuth();
+  const { login, redirectPath, setRedirectPath } = useAuth();
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -15,12 +15,24 @@ const Login = () => {
     e.preventDefault();
     setError('');
 
-    const result = await loginUser(email, password);
-    if (result.success) {
-      login()
-      navigate('/main');
-    } else {
-      setError(result.message);
+    try {
+      const result = await loginUser(email, password);
+      if (result.success) {
+        login();
+        const path = redirectPath || '/main'; 
+        setRedirectPath('/main'); 
+        navigate(path);
+      } else {
+        throw new Error(result.message); 
+      }
+    } catch (err) {
+      if (err.message.includes('auth/invalid-credential') || err.message.includes('auth/wrong-password')) {
+        setError('Usuario o Contraseña incorrectos, intente nuevamente.');
+      } else if (err.message.includes('auth/user-not-found')) {
+        setError('No se encontró una cuenta con este correo electrónico.');
+      } else {
+        setError('Ocurrió un error inesperado. Por favor, intente nuevamente.');
+      }
     }
   };
 

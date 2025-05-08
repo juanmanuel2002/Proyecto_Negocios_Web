@@ -62,11 +62,12 @@
   
   .valores-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Ajusta dinámicamente las columnas */
-    gap: 20px; /* Espaciado entre las cards */
-    justify-content: center; /* Centra las cards horizontalmente */
+    gap: 20px; 
+    justify-content: center; 
     max-width: 1200px;
     margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
   }
   
   .valores-cards .card {
@@ -76,9 +77,11 @@
     box-shadow: var(--box-shadow);
     text-align: center;
     transition: transform 0.3s ease;
-    width: 100%; /* Ocupa todo el ancho disponible */
-    max-width: 300px; /* Limita el ancho máximo */
-    box-sizing: border-box; /* Incluye el padding en el ancho total */
+    width: 100%; 
+    max-width: 300px; 
+    box-sizing: border-box; 
+    flex-grow: 1;
+    aspect-ratio: 3/2;
   }
   
   .valores-cards .card:hover {

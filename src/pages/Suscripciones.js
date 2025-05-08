@@ -13,7 +13,7 @@ import '../styles/Global.css';
 import '../styles/Header.css';
 
 const Suscripciones = () => {
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, setRedirectPath } = useAuth();
   const { clearCart, addToCart } = useCart();
   const navigate = useNavigate();
   const [showMessage, setShowMessage] = useState(false);
@@ -35,7 +35,13 @@ const Suscripciones = () => {
       });
       navigate('/paypal', { state: { from: '/suscripciones' } }); 
     } else {
-      // Mostrar mensaje de inicio de sesión en un modal
+      setRedirectPath('/paypal');
+      addToCart({
+        nombre: `Paquete ${paquete.nombre}`,
+        precio: paquete.precio,
+        cantidad: 1,
+        items: paquete.items,
+      }); 
       setShowMessage(true);
       setTimeout(() => {
         setShowMessage(false); 

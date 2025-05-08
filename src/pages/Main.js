@@ -13,7 +13,7 @@ import '../styles/Global.css';
 import '../styles/Main.css';
 import { FaCrown, FaGift, FaBoxOpen, FaStar } from 'react-icons/fa'; 
 import { handleSearchTweets } from '../services/api';
-import TweetList from '../components/TweetList'; // Importar el componente TweetList
+import TweetList from '../components/TweetList';
 
 const Main = () => {
     useEffect(() => {
@@ -23,7 +23,7 @@ const Main = () => {
     const navigate = useNavigate();
 
     const [tweetIds, setTweetIds] = useState([]);
-    const [loadingTweets, setLoadingTweets] = useState(false);
+    const [setLoadingTweets] = useState(false);
 
     const images = [
         '/imagenes/Galeria/cafe.jpg',
@@ -57,11 +57,12 @@ const Main = () => {
         }
     ];
 
+    // Función para buscar tweets
     const fetchTweets = async (query) => {
         setLoadingTweets(true);
         try {
             const tweets = await handleSearchTweets(query);
-            const ids = tweets.data.map((tweet) => tweet.id); // Extraer los IDs de los tweets
+            const ids = tweets.map((tweet) => tweet.id); // Extraer los IDs de los tweets
             setTweetIds(ids);
         } catch (error) {
             console.error('Error al obtener tweets:', error);
@@ -69,6 +70,11 @@ const Main = () => {
             setLoadingTweets(false);
         }
     };
+
+    useEffect(() => {
+        fetchTweets('Mystery Box');
+        // eslint-disable-next-line
+    }, []);
 
     return (
         <div className="main-container">
@@ -157,20 +163,7 @@ const Main = () => {
                     </div>
                 </div>
 
-                {/* Botón para buscar tweets */}
-                <button
-                    onClick={() => fetchTweets('Mystery%20Box')}
-                    className="search-tweets-button"
-                >
-                    Buscar Tweets Relacionados
-                </button>
-
-                {/* Mostrar tweets */}
-                {loadingTweets ? (
-                    <p>Cargando tweets...</p>
-                ) : (
-                    <TweetList tweetIds={tweetIds} />
-                )}
+                
 
                 {/* Columna 2 - Comunidad */}
                 <div className="comunidad" data-aos="fade-left">
@@ -180,6 +173,27 @@ const Main = () => {
                         <img src={logo} alt="Logo" />
                     </div>
                     <button className="suscribirse-btn" onClick={() => navigate('/suscripciones')}>Suscríbete</button>
+                </div>
+            </div>
+
+            {/* Mostrar tweets */}
+            <div className="tweets-section" data-aos="fade-up">
+                <h2 className="seccion-titulo">Lo que dicen en Twitter</h2>
+                <div className="tweets-columns">
+                    {/* Columna 1 */}
+                    <div className="tweet-column">
+                        {tweetIds[0] && <TweetList tweetIds={[tweetIds[0]]} />}
+                    </div>
+
+                    {/* Columna 2 */}
+                    <div className="tweet-column">
+                        {tweetIds[1] && <TweetList tweetIds={[tweetIds[1]]} />}
+                    </div>
+
+                    {/* Columna 3 */}
+                    <div className="tweet-column">
+                        {tweetIds[2] && <TweetList tweetIds={[tweetIds[2]]} />}
+                    </div>
                 </div>
             </div>
 

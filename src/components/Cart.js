@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
-import { useAuth } from '../context/AuthContext'; 
+import { useAuth} from '../context/AuthContext'; 
 import ModalMensaje from '../components/ModalMensaje'; 
 import '../styles/Cart.css';
 
 const Cart = () => {
   const { cartItems, removeFromCart, clearCart, updateCartItemQuantity } = useCart();
-  const { isLoggedIn } = useAuth(); 
+  const { isLoggedIn, setRedirectPath } = useAuth(); 
   const navigate = useNavigate();
   const [showMessage, setShowMessage] = useState(false); 
 
@@ -21,6 +21,7 @@ const Cart = () => {
     if (isLoggedIn) {
       navigate('/paypal'); 
     } else {
+      setRedirectPath('/paypal'); // Guardar la ruta de redirección
       setShowMessage(true); 
       setTimeout(() => {
         setShowMessage(false); 

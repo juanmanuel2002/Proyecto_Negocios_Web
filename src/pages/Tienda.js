@@ -36,7 +36,7 @@ const Tienda = () => {
 
 
   const { addToCart, clearCart } = useCart();
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, setRedirectPath } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -107,6 +107,7 @@ const Tienda = () => {
       setIsQuantityModalOpen(false);
       setSelectedQuantityProduct(null);
     } else if (actionType === 'buyNow') {
+      setRedirectPath('/paypal');
       clearCart();
       addToCart({
         ...selectedQuantityProduct,
