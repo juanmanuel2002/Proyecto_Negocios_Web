@@ -15,7 +15,7 @@ export const searchTweets = async (query) => {
   }
 
   try {
-    const response = await twitterClient.v2.search(query, { max_results: 3 });
+    const response = await twitterClient.v2.search(query, { max_results: 10 });
 
     // Almacenar los resultados en caché
     cache[query] = {

@@ -77,16 +77,27 @@ app.get('/api/clientPaypal', (req, res) => {
     res.status(200).json({ clientId: config.paypal.paypalClientId });
 });
 
-// Endpoint para buscar tweets
-app.get('/api/search-tweets', async (req, res) => {
-    const { query } = req.query; 
+// Función para seleccionar elementos aleatorios
+const getRandomElements = (array, count) => {
+    const shuffled = array.sort(() => 0.5 - Math.random()); // Mezcla aleatoriamente el array
+    return shuffled.slice(0, count); // Devuelve los primeros 'count' elementos
+  };
+  
+  // Endpoint para buscar tweets
+  app.get('/api/search-tweets', async (req, res) => {
+    const { query } = req.query;
     if (!query) {
       return res.status(400).json({ error: 'El parámetro "query" es requerido' });
     }
   
     try {
-      const tweets = await searchTweets(query); 
-      res.status(200).json(tweets);
+      const tweets = await searchTweets(query); // Obtiene los datos de la API de Twitter
+      if (!tweets.data || tweets.data.length === 0) {
+        return res.status(404).json({ error: 'No se encontraron tweets para la consulta proporcionada.' });
+      }
+  
+      const randomTweets = getRandomElements(tweets.data, 3); // Accede a tweets.data y selecciona 3 aleatorios
+      res.status(200).json(randomTweets); // Devuelve los 3 tweets seleccionados
     } catch (error) {
       res.status(500).json({ error: 'Error al buscar tweets', details: error.message });
     }
