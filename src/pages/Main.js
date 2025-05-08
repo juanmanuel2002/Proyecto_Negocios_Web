@@ -13,7 +13,7 @@ import '../styles/Global.css';
 import '../styles/Main.css';
 import { FaCrown, FaGift, FaBoxOpen, FaStar } from 'react-icons/fa'; 
 import { handleSearchTweets } from '../services/api';
-import TweetList from '../components/TweetList';
+import TweetList from '../components/TweetList'; 
 
 const Main = () => {
     useEffect(() => {
@@ -23,7 +23,7 @@ const Main = () => {
     const navigate = useNavigate();
 
     const [tweetIds, setTweetIds] = useState([]);
-    const [setLoadingTweets] = useState(false);
+    const [loadingTweets, setLoadingTweets] = useState(false);
 
     const images = [
         '/imagenes/Galeria/cafe.jpg',
@@ -62,7 +62,7 @@ const Main = () => {
         setLoadingTweets(true);
         try {
             const tweets = await handleSearchTweets(query);
-            const ids = tweets.map((tweet) => tweet.id); // Extraer los IDs de los tweets
+            const ids = tweets.map((tweet) => tweet.id); 
             setTweetIds(ids);
         } catch (error) {
             console.error('Error al obtener tweets:', error);
@@ -71,10 +71,10 @@ const Main = () => {
         }
     };
 
+    // Llamar a fetchTweets cuando se renderiza la página
     useEffect(() => {
         fetchTweets('Mystery Box');
-        // eslint-disable-next-line
-    }, []);
+    }, []); 
 
     return (
         <div className="main-container">
