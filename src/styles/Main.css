@@ -5,6 +5,103 @@ body, html {
   box-sizing: border-box;
 }
 
+/* Estilo general del modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  overflow: hidden; /* Evitar que el fondo sea desplazable */
+}
+
+.modal-content {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  width: 90%;
+  max-width: 500px;
+  max-height: 90%; /* Limitar la altura máxima del modal */
+  overflow-y: auto; /* Hacer que el contenido sea desplazable */
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content h2 {
+  font-size: 24px;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.modal-content p {
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 15px;
+  color: #555;
+}
+
+.modal-question {
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-around;
+  gap: 20px; /* Espaciado entre botones */
+}
+
+.modal-buttons button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.modal-buttons button:first-child {
+  background-color: #4caf50;
+  color: white;
+}
+
+.modal-buttons button:last-child {
+  background-color: #f44336;
+  color: white;
+}
+
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 768px) {
+  .modal-content {
+    max-height: 80%; /* Reducir la altura máxima en móviles */
+    padding: 15px; /* Reducir el padding */
+  }
+
+  .modal-content h2 {
+    font-size: 20px; /* Reducir el tamaño del título */
+  }
+
+  .modal-content p {
+    font-size: 14px; /* Reducir el tamaño del texto */
+  }
+
+  .modal-question {
+    font-size: 16px; /* Ajustar el tamaño de la pregunta */
+  }
+
+  .modal-buttons button {
+    font-size: 14px; /* Reducir el tamaño de los botones */
+    padding: 8px 15px; /* Ajustar el padding de los botones */
+  }
+}
+
 .main-container {
   width: 100%;
   margin: 0 auto;

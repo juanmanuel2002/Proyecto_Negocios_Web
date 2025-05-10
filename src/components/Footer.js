@@ -18,10 +18,16 @@ const Footer = () => {
                 <span onClick={() => navigate('/terms-and-conditions')}>Términos y Condiciones</span>
                 <span onClick={() => navigate('/contact-us')}>Contacto</span>
                 <div className="social-icons">
+                <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
                     <i className="fab fa-facebook-f" />
+                </a>
+                <a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer">
                     <i className="fab fa-twitter" />
+                </a>
+                <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
                     <i className="fab fa-instagram" />
-                </div>
+                </a>
+            </div>
             </div>
         </footer>
     );

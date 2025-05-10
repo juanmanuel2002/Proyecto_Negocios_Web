@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FaCrown, FaGift, FaBoxOpen, FaStar } from 'react-icons/fa'; 
+import { handleSearchTweets } from '../services/api';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -9,11 +11,9 @@ import MysteryBoxCard from '../components/MysteryBoxCards';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import ScrollToTopButton from '../components/ScrollTopButton';
+import TweetList from '../components/TweetList'; 
 import '../styles/Global.css';
 import '../styles/Main.css';
-import { FaCrown, FaGift, FaBoxOpen, FaStar } from 'react-icons/fa'; 
-import { handleSearchTweets } from '../services/api';
-import TweetList from '../components/TweetList'; 
 
 const Main = () => {
     useEffect(() => {
@@ -25,7 +25,11 @@ const Main = () => {
     const [tweetIds, setTweetIds] = useState([]);
     // eslint-disable-next-line
     const [loadingTweets, setLoadingTweets] = useState(false);
-
+    
+    const [showAgeConfirmation, setShowAgeConfirmation] = useState(() => {
+        return sessionStorage.getItem('isAgeConfirmed') !== 'true';
+    });
+    
     const images = [
         '/imagenes/Galeria/cafe.jpg',
         '/imagenes/Galeria/cerveza.jpg',
@@ -72,15 +76,43 @@ const Main = () => {
         }
     };
 
-    // Llamar a fetchTweets cuando se renderiza la página
+    const handleAgeConfirmation = () => {
+        sessionStorage.setItem('isAgeConfirmed', 'true'); 
+        setShowAgeConfirmation(false); 
+    };
+
+    // Este es el texto con el que se van a buscar los tweets
     useEffect(() => {
-        fetchTweets('Mystery Box');
+        fetchTweets('Mystery box FI UNAM 2025');
     }, []); 
 
     return (
         <div className="main-container">
             {/* Banner */}
             <Header />
+            {showAgeConfirmation && (
+            <div className="modal-overlay">
+                <div className="modal-content">
+                <h2>Bienvenido a Sabores Ocultos</h2>
+                <p>
+                    Este sitio está dedicado a la venta y promoción de bebidas alcohólicas como vino, mezcal, tequila y otros productos selectos. Promovemos el disfrute consciente y responsable del alcohol.
+                </p>
+                <p>
+                    El consumo de bebidas alcohólicas está estrictamente prohibido para menores de edad. Acceder a este sitio implica que usted reconoce ser mayor de edad legal en su país y se compromete a consumir nuestros productos con moderación.
+                </p>
+                <p>
+                    El abuso del alcohol puede ser perjudicial para la salud. Recomendamos siempre beber con responsabilidad y evitar el consumo excesivo.
+                </p>
+                <p className="modal-question">¿Eres mayor de edad y aceptas nuestra política de consumo responsable?</p>
+                <div className="modal-buttons">
+                    <button onClick={handleAgeConfirmation}>Sí</button>
+                    <button onClick={() => (window.location.href = 'https://www.google.com')}>No</button>
+                </div>
+                </div>
+            </div>
+            )}
+
+
             <div data-aos="fade-up" className="center-title">Sabores Ocultos</div>
 
             {/* Bloque de la pregunta + imagen */}
