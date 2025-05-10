@@ -23,6 +23,7 @@ const Main = () => {
     const navigate = useNavigate();
 
     const [tweetIds, setTweetIds] = useState([]);
+    // eslint-disable-next-line
     const [loadingTweets, setLoadingTweets] = useState(false);
 
     const images = [

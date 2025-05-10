@@ -215,7 +215,22 @@
     box-shadow: 0 0 5px rgba(109, 76, 65, 0.5);
   }
 
-  /* Estilos para la tabla de comparación */
+  /* Estilo general del modal */
+
+
+/* Botón de cierre (cruz) */
+.close-modal-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #333;
+}
+
+/* Tabla dentro del modal */
 .comparison-table {
   width: 100%;
   border-collapse: collapse;
@@ -230,25 +245,32 @@
 }
 
 .comparison-table th {
-  background-color:#a89791;
+  background-color: #f4f4f4;
   font-weight: bold;
-  font-size: 1.2rem; /* Tamaño más grande para los títulos */
-  text-transform: uppercase;
 }
 
-.comparison-table tr:nth-child(even) {
-  background-color: var(--color-table);
+.modal-content p {
+  font-size: 16px;
+  color: #333;
+  text-align: center;
+  margin: 20px 0;
+  margin-top: 20px;
 }
 
-.comparison-table tr:hover {
-  background-color: #f1f1f1;
-}
+/* Responsive: Ajustar el modal en pantallas pequeñas */
+@media (max-width: 768px) {
+  .modal-content {
+    width: 90%; /* Reducir el ancho del modal */
+    max-width: 90%; /* Asegurar que no exceda el ancho de la pantalla */
+    padding: 15px; /* Reducir el padding */
+  }
 
-.comparison-table a {
-  color: var(--text-color);
-  text-decoration: none;
-}
+  .comparison-table th,
+  .comparison-table td {
+    font-size: 14px; /* Reducir el tamaño de fuente */
+  }
 
-.comparison-table a:hover {
-  text-decoration: underline;
+  .close-modal-button {
+    font-size: 18px; /* Ajustar el tamaño de la cruz */
+  }
 }

@@ -32,12 +32,15 @@ const Tienda = () => {
 
   const [comparisonResults, setComparisonResults] = useState([]); 
   const [isComparisonModalOpen, setIsComparisonModalOpen] = useState(false); 
+  //eslint-disable-next-line
   const [isComparing, setIsComparing] = useState(false);
 
 
   const { addToCart, clearCart } = useCart();
   const { isLoggedIn, setRedirectPath } = useAuth();
   const navigate = useNavigate();
+
+  const [isLoadingComparison, setIsLoadingComparison] = useState(false); 
 
   useEffect(() => {
     AOS.init({ duration: 1000, once: false });
@@ -66,16 +69,19 @@ const Tienda = () => {
   };
 
   const handleComparePrices = async (productName) => {
-      setIsComparing(true);
-      const result = await scrapePrices(productName); // Usamos la función scrapePrices
-      if (result.success) {
-        setComparisonResults(result.data);
-        setIsComparisonModalOpen(true);
-      } else {
+    setIsLoadingComparison(true); 
+    setIsComparisonModalOpen(true); 
+
+    const result = await scrapePrices(productName); 
+    if (result.success) {
+        setComparisonResults(result.data); 
+    } else {
         console.error(result.message);
-      }
-      setIsComparing(false);
-    };
+        setComparisonResults([]); 
+    }
+
+    setIsLoadingComparison(false); 
+  };
 
   const handleAgregarCarrito = (producto) => {
     setSelectedQuantityProduct(producto);
@@ -273,8 +279,14 @@ const Tienda = () => {
       {isComparisonModalOpen && (
         <div className="modal-overlay" onClick={() => setIsComparisonModalOpen(false)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            {/* Botón para cerrar el modal */}
+            <button className="close-modal-button" onClick={() => setIsComparisonModalOpen(false)}>
+              ✖
+            </button>
             <h3>Resultados de Comparación</h3>
-            {comparisonResults.length > 0 ? (
+            {isLoadingComparison ? (
+              <p>Trabajando en obtener los productos...</p>
+            ) : comparisonResults.length > 0 ? (
               <table className="comparison-table">
                 <thead>
                   <tr>
