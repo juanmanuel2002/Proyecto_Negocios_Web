@@ -17,6 +17,7 @@ const Perfil = () => {
             <div className="perfil-info">
               <p><strong>Nombre:</strong> {currentUser.name}</p>
               <p><strong>Correo Electrónico:</strong> {currentUser.email || 'No disponible'}</p>
+              <p><strong>Suscripción:</strong> {currentUser.suscripcion || 'No cuentas con una suscripción'}</p>
             </div>
           ) : (
             <p>No se encontró información del usuario. Por favor, inicia sesión.</p>

@@ -10,7 +10,7 @@ import '../styles/PayPal.css';
 
 const PayPal = () => {
   const { cartItems } = useCart();
-  const { currentUser } = useAuth(); 
+  const { currentUser, refreshUserData } = useAuth(); 
   const navigate = useNavigate();
   const location = useLocation();
   const [userReady, setUserReady] = useState(false);
@@ -54,6 +54,7 @@ const PayPal = () => {
 
     if (result.success) {
       alert('Compra confirmada exitosamente.');
+      await refreshUserData(userId);
       navigate('/main');
     } else {
       alert('Error al confirmar la compra. Inténtalo de nuevo.');

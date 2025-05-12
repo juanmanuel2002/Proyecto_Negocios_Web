@@ -28,8 +28,8 @@ const MisPedidos = () => {
           return acc;
         }, {});
         setProductosVisibles(visibilidadInicial);
-      } else {
-        setError(result.message);
+      } else if(result.status === 404){
+        setError('No se encontraron pedidos para este usuario.');
       }
       setLoading(false);
     };
@@ -115,7 +115,7 @@ const MisPedidos = () => {
                   {productosVisibles[pedido.id] && (
                     <div className="pedido-productos">
                       <h3>Productos:</h3>
-                      {Object.values(pedido).map((producto, index) =>
+                      {Object.values(pedido.orderData).map((producto, index) =>
                         producto.nombre ? (
                           <div key={index} className="producto">
                             <p><strong>Nombre:</strong> {producto.nombre}</p>
@@ -168,7 +168,7 @@ const MisPedidos = () => {
                   {productosVisibles[pedido.id] && (
                     <div className="pedido-productos">
                       <h3>Productos:</h3>
-                      {Object.values(pedido).map((producto, index) =>
+                      {Object.values(pedido.orderData).map((producto, index) =>
                         producto.nombre ? (
                           <div key={index} className="producto">
                             <p><strong>Nombre:</strong> {producto.nombre}</p>

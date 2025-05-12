@@ -159,3 +159,18 @@ export const fetchPedidos = async (userId) => {
       return { success: false, message: 'No se pudieron cargar los pedidos. Inténtalo más tarde.' };
   }
 };
+
+export const fetchUserInfo = async (userId) => {
+  try{
+    const response = await fetch(`${API_URL}/user?userId=${userId}`);
+    if (!response.ok) {
+      throw new Error('Error al obtener los datos del usuario');
+    }
+    const data = await response.json();
+    console.log('Datos del usuario:', data);
+    return {data};
+  } catch (error) {
+    console.error('Error en fetchUsuario:', error);
+    return { success: false, message: 'No se pudieron cargar la informacion el usuario, Inténtalo más tarde.' };
+  }
+}

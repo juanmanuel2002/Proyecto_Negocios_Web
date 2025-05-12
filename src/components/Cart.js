@@ -18,6 +18,13 @@ const Cart = () => {
   );
 
   const handleCheckout = () => {
+    const tieneProductos = cartItems.some((item) => !item.nombre.includes('Suscripción'));
+    const tieneSuscripcion = cartItems.some((item) => item.nombre.includes('Suscripción'));
+
+    if (tieneProductos && tieneSuscripcion) {
+      alert('No puedes proceder con la compra porque intentas agregar una suscripcion y productos en el mismo pedido.');
+      return;
+    }
     if (isLoggedIn) {
       navigate('/paypal'); 
     } else {

@@ -9,6 +9,19 @@ export const CartProvider = ({ children }) => {
 
   // Función para agregar productos al carrito
   const addToCart = (producto) => {
+    const tieneProductos = cartItems.some((item) => !item.nombre.includes('Suscripción'));
+    const tieneSuscripcion = cartItems.some((item) => item.nombre.includes('Suscripción'));
+
+    if (tieneProductos && producto.nombre.includes('Suscripción')) {
+      alert('No puedes agregar una suscripción si ya tienes productos en el carrito.');
+      return;
+    }
+
+    if (tieneSuscripcion && !producto.nombre.includes('Suscripción')) {
+      alert('No puedes agregar productos si ya tienes una suscripción en el carrito.');
+      return;
+    }
+
     setCartItems((prevCart) => {
       const existingProduct = prevCart.find((item) => item.nombre === producto.nombre);
       if (existingProduct) {
@@ -53,7 +66,7 @@ export const CartProvider = ({ children }) => {
         addToCart,
         removeFromCart,
         clearCart,
-        updateCartItemQuantity, // Asegúrate de incluir esta función
+        updateCartItemQuantity,
       }}
     >
       {children}

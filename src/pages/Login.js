@@ -17,9 +17,8 @@ const Login = () => {
 
     try {
       const result = await loginUser(email, password);
-      console.log('Login result:', result); // Agregar este log para depuración
       if (result.success) {
-        login(result.uid, result.name, result.email); // Llama a la función de login con uid y name
+        login(result.uid, result.name, result.email, result.suscripcion); 
         const path = redirectPath || '/main'; 
         setRedirectPath('/main'); 
         navigate(path);
