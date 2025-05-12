@@ -8,8 +8,8 @@
   
   .nosotros-banner {
     display: flex;
-    align-items: center; /* Alinea verticalmente el contenido */
-    justify-content: space-between; /* Espacia el texto y la imagen */
+    align-items: center; 
+    justify-content: space-between; 
     padding: 2rem;
     background-color: var(--background-color);
     border-radius: 10px;
@@ -17,8 +17,8 @@
   }
   
   .banner-texto {
-    flex: 1; /* Ocupa el 50% del espacio disponible */
-    padding-right: 2rem; /* Espaciado entre el texto y la imagen */
+    flex: 1; 
+    padding-right: 2rem; 
   }
   
   .banner-texto h1 {
@@ -34,19 +34,19 @@
   }
   
   .banner-imagen {
-    flex: 1; /* Ocupa el 50% del espacio disponible */
+    flex: 1; 
     display: flex;
-    justify-content: center; /* Centra la imagen horizontalmente */
+    justify-content: center; 
   }
   
   .banner-imagen img {
-    max-width: 100%; /* Asegura que la imagen no exceda el contenedor */
+    max-width: 100%; 
     height: auto;
     border-radius: 10px;
     box-shadow: var(--box-shadow);
   }
   
-  .nuestros-valores {
+  .nuestros-valores, .nosotros-mision, .nosotros-vision {
     text-align: center;
     padding: 2rem;
     background-color: var(--background-color);
@@ -54,14 +54,13 @@
     border-radius: 10px;
   }
   
-  .nuestros-valores h2 {
+  .nuestros-valores h2,  .nosotros-mision h2, .nosotros-vision h2 {
     font-size: 2rem;
     color: var(--tit-text-color);
     margin-bottom: 1.5rem;
   }
   
-  .valores-cards {
-    display: grid;
+  .valores-cards, .mision-cards, .vision-cards {
     gap: 20px; 
     justify-content: center; 
     max-width: 1200px;
@@ -70,7 +69,8 @@
     flex-wrap: wrap;
   }
   
-  .valores-cards .card {
+  .valores-cards .card, .mision-cards .card,
+   .vision-cards .card {
     background-color: var(--card-color);
     padding: 1.5rem;
     border-radius: 10px;
@@ -84,48 +84,23 @@
     aspect-ratio: 3/2;
   }
   
-  .valores-cards .card:hover {
+  .valores-cards .card:hover, .mision-cards .card:hover,
+  .vision-cards .card:hover {
     transform: scale(1.05);
   }
   
-  .valores-cards .card h3 {
+  .valores-cards .card h3, .mision-cards .card h3,
+  .vision-cards .card h3 {
     font-size: 1.5rem;
     color: var(--tit-text-color);
     margin-bottom: 0.5rem;
   }
   
-  .valores-cards .card p {
+  .valores-cards .card p, .mision-cards .card p,
+  .vision-cards .card p {
     font-size: 1rem;
     color: var(--text-color);
     line-height: 1.5;
-  }
-
-  .valores-cards .card:nth-child(5){
-    grid-column: 2 /span; /* Ocupa dos columnas */
-  }
-  
-  /* Responsivo para pantallas medianas */
-  @media (max-width: 1024px) {
-    .valores-cards {
-      grid-template-columns: repeat(2, 1fr); /* Dos columnas por fila */
-      justify-content: center;
-      max-width: 600px;
-      margin: 0 auto; /* Centra el contenedor horizontalmente */
-    }
-  }
-  
- /* Responsivo para pantallas pequeñas */
-  @media (max-width: 768px) {
-    .valores-cards {
-      grid-template-columns: 1fr; /* Una columna por fila */
-      justify-content: center; /* Centra las columnas dentro del contenedor */
-      max-width: 90%; /* Reduce el ancho máximo del contenedor */
-      margin: 0 auto; /* Centra el contenedor horizontalmente */
-    }
-
-    .valores-cards .card {
-      max-width: 100%; /* Asegura que las cards ocupen todo el ancho disponible */
-    }
   }
 
   .nosotros-equipo {
@@ -176,56 +151,3 @@
     color: var(--text-color);
   }
   
- /* Estilos para los banners de Misión y Visión */
-.nosotros-mision, .nosotros-vision {
-  text-align: center;
-  padding: 2rem;
-  background-color: var(--background-color);
-  margin-top: 2rem;
-  border-radius: 10px;
-}
-
-.nosotros-mision h2, .nosotros-vision h2 {
-  font-size: 2rem;
-  color: var(--tit-text-color);
-  margin-bottom: 1.5rem;
-}
-
-.mision-cards, .vision-cards {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Tres columnas */
-  gap: 20px; /* Espaciado entre las cards */
-  justify-items: center;
-  color : var(--tit-text-color);
-}
-
-.mision-cards .card, .vision-cards .card {
-  background-color: var(--card-color);
-  padding: 1.5rem;
-  border-radius: 10px;
-  box-shadow: var(--box-shadow);
-  text-align: center;
-  transition: transform 0.3s ease;
-  width: 100%; /* Ocupa todo el ancho disponible */
-  max-width: 300px; /* Ancho máximo para evitar que sean demasiado grandes */
-  box-sizing: border-box; /* Incluye el padding en el ancho total */
-}
-
-.mision-cards .card:hover, .vision-cards .card:hover {
-  transform: scale(1.05);
-}
-
-
-/* Responsivo para pantallas medianas */
-@media (max-width: 1024px) {
-  .mision-cards, .vision-cards {
-    grid-template-columns: repeat(2, 1fr); /* Dos columnas por fila */
-  }
-}
-
-/* Responsivo para pantallas pequeñas */
-@media (max-width: 768px) {
-  .mision-cards, .vision-cards {
-    grid-template-columns: 1fr; /* Una columna por fila */
-  }
-}

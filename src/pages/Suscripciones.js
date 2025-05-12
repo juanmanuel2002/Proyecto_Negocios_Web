@@ -129,7 +129,7 @@ const Suscripciones = () => {
           <div className="productos-cards">
             {productos.map((producto, index) => (
               <div 
-                className={`card-producto ${productos.length % 2 === 1 && index === productos.length - 1 ? 'centered' : ''}`} 
+                className="card-producto"
                 key={producto}
               >
                 <h3>{producto}</h3>
