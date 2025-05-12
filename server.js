@@ -5,7 +5,7 @@ import {getProductos} from './services/firebase/getProduct.js';
 import { scrapePrices } from './services/utils/scraper.js'; 
 import config from './config.js';
 import { searchTweets } from './services/utils/twitter.js'; 
-import { createOrder } from './services/firebase/order.js';
+import { createOrder, getOrdersByUserId} from './services/firebase/order.js';
 
 const app = express();
 app.use(cors());
@@ -117,6 +117,25 @@ app.post('/api/order', async (req, res) => {
       res.status(201).json(result); 
     } catch (error) {
       res.status(500).json({ error: 'Error al crear el pedido', details: error.message });
+    }
+  });
+
+  // Endpoint para obtener pedidos por userId
+app.get('/api/order', async (req, res) => {
+    const { userId } = req.query;
+  
+    if (!userId) {
+      return res.status(400).json({ error: 'El parámetro "userId" es requerido' });
+    }
+  
+    try {
+      const orders = await getOrdersByUserId(userId); 
+      if (orders.length === 0) {
+        return res.status(404).json({ error: 'No se encontraron pedidos para el usuario proporcionado.' });
+      }
+      res.status(200).json(orders); 
+    } catch (error) {
+      res.status(500).json({ error: 'Error al obtener los pedidos', details: error.message });
     }
   });
 
