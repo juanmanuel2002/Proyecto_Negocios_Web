@@ -4,12 +4,16 @@ import PayPalButton from '../components/PayPalButton';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { createOrder } from '../services/api'; 
+import { useAuth } from '../context/AuthContext'; 
 import '../styles/PayPal.css';
 
 const PayPal = () => {
   const { cartItems } = useCart();
+  const { currentUser } = useAuth(); 
   const navigate = useNavigate();
-  const location = useLocation(); // Hook para obtener el estado de navegación
+  const location = useLocation();
+  const [userReady, setUserReady] = useState(false);
 
   // Calcular el subtotal general
   const subtotal = cartItems.reduce(
@@ -22,11 +26,40 @@ const PayPal = () => {
 
   // Actualiza la clave del botón de PayPal cada vez que el subtotal cambie
   useEffect(() => {
-    setPaypalKey((prevKey) => prevKey + 1);
-  }, [subtotal]);
-
+    if (currentUser) {
+      setUserReady(true);
+      setPaypalKey(prev => prev + 1); 
+    }
+  }, [currentUser, subtotal]);
   // Determinar la página anterior
-  const previousPage = location.state?.from || '/tienda'; // Por defecto, redirige a Tienda
+  const previousPage = location.state?.from || '/tienda'; 
+
+  // Función para confirmar la compra
+  const handleConfirmPurchase = async () => {
+    const userId = currentUser?.uid; 
+    if (!userId) {
+        alert('No se pudo identificar al usuario. Por favor, inicia sesión.');
+        return;
+    }
+
+    const orderData = cartItems.map((item) => ({
+      id: item.id,
+      nombre: item.nombre,
+      cantidad: item.cantidad,
+      precio: item.precio,
+    }));
+    const total = subtotal.toFixed(2);
+
+    const result = await createOrder(userId, orderData, total);
+
+    if (result.success) {
+      alert('Compra confirmada exitosamente.');
+      navigate('/main');
+    } else {
+      alert('Error al confirmar la compra. Inténtalo de nuevo.');
+      console.error(result.message);
+    }
+  };
 
   return (
     <>
@@ -57,11 +90,17 @@ const PayPal = () => {
                   <strong>Total:</strong> ${subtotal.toFixed(2)}
                 </p>
               </div>
+              
               {/* Botón de PayPal con clave única */}
-              <PayPalButton key={paypalKey} total={subtotal} />
+              {userReady && (
+                <PayPalButton key={paypalKey} total={subtotal} />
+              )}
               <div className="checkout-actions">
                 <button className="back-button" onClick={() => navigate(previousPage)}>
                   Regresar
+                </button>
+                <button className="confirm-button" onClick={handleConfirmPurchase}>
+                  Confirmar compra
                 </button>
               </div>
             </>

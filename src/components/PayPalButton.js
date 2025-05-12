@@ -11,7 +11,7 @@ const PayPalButton = ({ total }) => {
 
       const existingScript = document.querySelector(`script[src*="paypal.com/sdk/js"]`);
       if (existingScript) {
-        setSdkReady(true);
+        existingScript.remove();
         return;
       }
 

@@ -1,5 +1,5 @@
-const API_URL = 'https://proyecto-negocios-web-1.onrender.com/api'; //Servidor render
-//const API_URL = 'http://localhost:5000/api'; // Para pruebas en local
+//const API_URL = 'https://proyecto-negocios-web-1.onrender.com/api'; //Servidor render
+const API_URL = 'http://localhost:5000/api'; // Para pruebas en local
 export const loginUser = async (email, password) => {
     try {
         const response = await fetch(`${API_URL}/login`, {
@@ -7,7 +7,8 @@ export const loginUser = async (email, password) => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password }),
         });
-        return await response.json();
+        const data = await response.json();
+        return data;
     } catch (error) {
         console.error('Error al iniciar sesión:', error);
         return { success: false, message: 'Error al conectar con el servidor.' };
@@ -122,3 +123,25 @@ export const scrapePrices = async (productName) => {
       console.error('Error al buscar tweets:', error);
     }
   };
+
+  export const createOrder = async (userId, orderData, total) => {
+    try {
+        const response = await fetch(`${API_URL}/order`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ userId, orderData, total }),
+        });
+
+        if (!response.ok) {
+            throw new Error('Error al crear la orden');
+        }
+
+        const data = await response.json();
+        return { success: true, data };
+    } catch (error) {
+        console.error('Error al crear la orden:', error);
+        return { success: false, message: 'Error al conectar con el servidor.' };
+    }
+};

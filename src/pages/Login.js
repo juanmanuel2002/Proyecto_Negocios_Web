@@ -18,7 +18,7 @@ const Login = () => {
     try {
       const result = await loginUser(email, password);
       if (result.success) {
-        login();
+        login(result.uid);
         const path = redirectPath || '/main'; 
         setRedirectPath('/main'); 
         navigate(path);
