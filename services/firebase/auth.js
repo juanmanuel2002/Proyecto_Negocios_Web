@@ -11,6 +11,7 @@ export const registerUser = async (email, password, name) => {
       uid: user.uid,
       email: user.email,
       nombre: name,
+      suscripcion: null, 
       creado: new Date().toISOString()
     });
 

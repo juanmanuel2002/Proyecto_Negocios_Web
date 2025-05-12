@@ -8,6 +8,8 @@ import { searchTweets } from './services/utils/twitter.js';
 import { createOrder, getOrdersByUserId} from './services/firebase/order.js';
 import { db } from './services/firebase/setup.js';
 import { doc, getDoc } from 'firebase/firestore';
+import { getUserByUid } from './services/firebase/getUser.js'; 
+
 
 const app = express();
 app.use(cors());
@@ -43,8 +45,9 @@ app.post('/api/login', async (req, res) => {
 
         const userData = userDoc.data();
         const name = userData.nombre;
+        const suscripcion = userData.suscripcion || null; 
 
-        res.status(200).json({ ...result, name, email });
+        res.status(200).json({ ...result, name, email, suscripcion });
     } catch (error) {
         res.status(500).json({ success: false, message: error.message });
     }
@@ -74,7 +77,9 @@ app.get('/api/productos', async (req,res) => {
   const result = await getProductos();
   if (result.success) {
     res.status(200).json(result.data);
-  } else {
+  }else if(result.status === 404) {
+    res.status(404).json({ error: 'No se encontraron productos' });
+  }else {
     res.status(500).json({ error: result.message });
   }
 });
@@ -133,7 +138,14 @@ app.post('/api/order', async (req, res) => {
   
     try {
       const result = await createOrder(userId, orderData, total);
-      res.status(201).json(result); 
+      if (result.success) {
+        res.status(200).json(result);
+      }else if (result.status === 404) {
+        res.status(404).json({ error: 'No se encontraron productos' });
+      }
+      else {
+        res.status(500).json({ error: result.message });
+      }       
     } catch (error) {
       res.status(500).json({ error: 'Error al crear el pedido', details: error.message });
     }
@@ -158,6 +170,25 @@ app.get('/api/order', async (req, res) => {
     }
   });
 
+  // Endpoint para obtener información de un usuario por uid
+app.get('/api/user', async (req, res) => {
+    const { userId } = req.query;
+
+    if (!userId) {
+        return res.status(400).json({ error: 'El parámetro "userId" es requerido' });
+    }
+
+    try {
+        const userData = await getUserByUid(userId);
+        res.status(200).json(userData); 
+    } catch (error) {
+        if (error.message === 'Usuario no encontrado') {
+            return res.status(404).json({ error: error.message });
+            }
+            res.status(500).json({ error: 'Error al obtener la información del usuario', details: error.message });
+        }
+    
+});
 
 // Iniciar el servidor
 const PORT = 5000;

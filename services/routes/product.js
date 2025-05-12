@@ -8,7 +8,10 @@ router.get('/api/productos', async (req, res) => {
   const result = await getProductos();
   if (result.success) {
     res.status(200).json(result.data);
-  } else {
+  }else if(result.status === 404) {
+    res.status(404).json({ error: 'No se encontraron productos' });
+  } 
+  else {
     res.status(500).json({ error: result.message });
   }
 });
