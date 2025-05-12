@@ -23,7 +23,7 @@ export const registerUser = async (email, password, name) => {
 export const loginUser = async (email, password) => {
   try {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    const user = userCredential.user; 
+    const user = userCredential.user;
     return { success: true, uid: user.reloadUserInfo.localId }; 
   } catch (error) {
     return { success: false, message: error.message };

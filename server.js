@@ -6,6 +6,8 @@ import { scrapePrices } from './services/utils/scraper.js';
 import config from './config.js';
 import { searchTweets } from './services/utils/twitter.js'; 
 import { createOrder, getOrdersByUserId} from './services/firebase/order.js';
+import { db } from './services/firebase/setup.js';
+import { doc, getDoc } from 'firebase/firestore';
 
 const app = express();
 app.use(cors());
@@ -24,8 +26,25 @@ app.post('/api/register', async (req, res) => {
 app.post('/api/login', async (req, res) => {
     const { email, password } = req.body;
     try {
+        // Realiza el login y obtiene el uid
         const result = await loginUser(email, password);
-        res.status(200).json(result);
+
+        if (!result.success) {
+            return res.status(401).json({ success: false, message: 'Credenciales inválidas' });
+        }
+
+        const userDocRef = doc(db, 'usuarios', result.uid); 
+        const userDoc = await getDoc(userDocRef); 
+
+
+        if (!userDoc.exists) {
+            return res.status(404).json({ success: false, message: 'Usuario no encontrado' });
+        }
+
+        const userData = userDoc.data();
+        const name = userData.nombre;
+
+        res.status(200).json({ ...result, name, email });
     } catch (error) {
         res.status(500).json({ success: false, message: error.message });
     }
