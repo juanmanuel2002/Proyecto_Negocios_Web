@@ -14,9 +14,11 @@ import '../styles/Header.css';
 
 const Suscripciones = () => {
   const { isLoggedIn, setRedirectPath } = useAuth();
-  const { clearCart, addToCart } = useCart();
+  const { clearCart, addToCart, cartItems} = useCart();
   const navigate = useNavigate();
   const [showMessage, setShowMessage] = useState(false);
+  const [isValidationModalOpen, setIsValidationModalOpen] = useState(false); 
+  const [validationMessage, setValidationMessage] = useState('');
 
   useEffect(() => {
     AOS.init({ duration: 1000, once: false });
@@ -24,6 +26,14 @@ const Suscripciones = () => {
   }, []);
 
   const handleCardClick = (paquete) => {
+    const tieneProductos = cartItems.some((item) => !item.nombre.includes('Suscripción'));
+
+    if (tieneProductos) {
+      setValidationMessage('No puedes agregar una suscripción si ya tienes productos en el carrito. Elimina los productos para poder agregar una suscripción.');
+      setIsValidationModalOpen(true);
+      return;
+    }
+
     if (isLoggedIn) {
       
       clearCart();
@@ -48,6 +58,11 @@ const Suscripciones = () => {
         navigate('/login'); 
       }, 3000);
     }
+  };
+
+  const closeValidationModal = () => {
+    setIsValidationModalOpen(false);
+    setValidationMessage('');
   };
 
   const productos = ['Mermelada', 'Tequila', 'Mezcal', 'Chocolate', 'Cerveza', 'Vino', 'Cafe'];
@@ -94,6 +109,15 @@ const Suscripciones = () => {
           titulo="Inicio de Sesión Requerido"
           mensaje="Es necesario iniciar sesión para continuar con la compra. Redirigiendo..."
           onClose={() => setShowMessage(false)}
+        />
+      )}
+
+      {/* Modal de validación */}
+      {isValidationModalOpen && (
+        <ModalMensaje
+          titulo="Validación"
+          mensaje={validationMessage}
+          onClose={closeValidationModal}
         />
       )}
 

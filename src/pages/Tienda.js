@@ -32,11 +32,14 @@ const Tienda = () => {
 
   const [comparisonResults, setComparisonResults] = useState([]); 
   const [isComparisonModalOpen, setIsComparisonModalOpen] = useState(false); 
+  const [isValidationModalOpen, setIsValidationModalOpen] = useState(false); 
+  const [validationMessage, setValidationMessage] = useState(''); 
+
   //eslint-disable-next-line
   const [isComparing, setIsComparing] = useState(false);
 
 
-  const { addToCart, clearCart } = useCart();
+  const { addToCart, clearCart, cartItems } = useCart();
   const { isLoggedIn, setRedirectPath } = useAuth();
   const navigate = useNavigate();
 
@@ -84,6 +87,13 @@ const Tienda = () => {
   };
 
   const handleAgregarCarrito = (producto) => {
+    const tieneSuscripcion = cartItems.some((item) => item.nombre.includes('Suscripción'));
+
+    if (tieneSuscripcion) {
+      setValidationMessage('No puedes agregar productos si ya tienes una suscripción en el carrito. Elimina la suscripcion para poder agregar los productos al carrito');
+      setIsValidationModalOpen(true);
+      return;
+    }
     setSelectedQuantityProduct(producto);
     setQuantity(1);
     setActionType('addToCart');
@@ -91,6 +101,13 @@ const Tienda = () => {
   };
 
   const handleBuyNow = (producto) => {
+    const tieneSuscripcion = cartItems.some((item) => item.nombre.includes('Suscripción'));
+
+    if (tieneSuscripcion) {
+      setValidationMessage('No puedes comprar productos si ya tienes una suscripción en el carrito. Elimina la suscripcion para poder comprar los productos');
+      setIsValidationModalOpen(true);
+      return;
+    }
     setSelectedQuantityProduct(producto);
     setQuantity(1);
     setActionType('buyNow');
@@ -168,6 +185,11 @@ const Tienda = () => {
     setIsModalOpen(false);
   };
 
+  const closeValidationModal = () => {
+    setIsValidationModalOpen(false);
+    setValidationMessage('');
+  };
+
   const handleNextImage = () => {
     setCurrentImageIndex((prevIndex) => (prevIndex + 1) % galleryImages.length);
   };
@@ -227,6 +249,16 @@ const Tienda = () => {
             </div>
           ))}
         </div>
+      )}
+
+      
+      {/* Modal de validación */}
+      {isValidationModalOpen && (
+        <ModalMensaje
+          titulo="Validación"
+          mensaje={validationMessage}
+          onClose={closeValidationModal}
+        />
       )}
 
       {/* Modal de galería de imágenes */}

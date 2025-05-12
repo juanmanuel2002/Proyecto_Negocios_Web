@@ -10,6 +10,8 @@ const Cart = () => {
   const { isLoggedIn, setRedirectPath } = useAuth(); 
   const navigate = useNavigate();
   const [showMessage, setShowMessage] = useState(false); 
+  const [isValidationModalOpen, setIsValidationModalOpen] = useState(false); 
+  const [validationMessage, setValidationMessage] = useState(''); 
 
   // Calcular el subtotal general sumando los subtotales de todos los productos
   const subtotal = cartItems.reduce(
@@ -22,13 +24,14 @@ const Cart = () => {
     const tieneSuscripcion = cartItems.some((item) => item.nombre.includes('Suscripción'));
 
     if (tieneProductos && tieneSuscripcion) {
-      alert('No puedes proceder con la compra porque intentas agregar una suscripcion y productos en el mismo pedido.');
+      setValidationMessage('No puedes proceder con la compra porque intentas agregar una suscripción y productos en el mismo pedido.');
+      setIsValidationModalOpen(true);
       return;
     }
     if (isLoggedIn) {
       navigate('/paypal'); 
     } else {
-      setRedirectPath('/paypal'); // Guardar la ruta de redirección
+      setRedirectPath('/paypal'); 
       setShowMessage(true); 
       setTimeout(() => {
         setShowMessage(false); 
@@ -38,11 +41,22 @@ const Cart = () => {
   };
 
   const handleIncrement = (item) => {
+    if (item.nombre.includes('Suscripción')) {
+      setValidationMessage('No puedes agregar más unidades de una suscripción.');
+      setIsValidationModalOpen(true);
+      return;
+    }
+
     if (item.cantidad < item.unidadesDisponibles) {
       updateCartItemQuantity(item.nombre, item.cantidad + 1);
     } else {
       alert(`No puedes agregar más unidades de "${item.nombre}". Solo hay ${item.unidadesDisponibles} disponibles.`);
     }
+  };
+
+  const closeValidationModal = () => {
+    setIsValidationModalOpen(false);
+    setValidationMessage('');
   };
 
   return (
@@ -116,6 +130,15 @@ const Cart = () => {
           titulo="Inicio de Sesión Requerido"
           mensaje="Es necesario iniciar sesión para continuar con la compra. Redirigiendo..."
           onClose={() => setShowMessage(false)}
+        />
+      )}
+
+      {/* Modal de validación */}
+      {isValidationModalOpen && (
+        <ModalMensaje
+          titulo="Validación"
+          mensaje={validationMessage}
+          onClose={closeValidationModal}
         />
       )}
     </div>
