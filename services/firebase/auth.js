@@ -14,7 +14,7 @@ export const registerUser = async (email, password, name) => {
       creado: new Date().toISOString()
     });
 
-    return { success: true };
+    return { success: true};
   } catch (error) {
     return { success: false, message: error.message };
   }
@@ -22,8 +22,9 @@ export const registerUser = async (email, password, name) => {
 
 export const loginUser = async (email, password) => {
   try {
-    await signInWithEmailAndPassword(auth, email, password);
-    return { success: true };
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user; 
+    return { success: true, uid: user.reloadUserInfo.localId }; 
   } catch (error) {
     return { success: false, message: error.message };
   }
