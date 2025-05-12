@@ -145,3 +145,17 @@ export const scrapePrices = async (productName) => {
         return { success: false, message: 'Error al conectar con el servidor.' };
     }
 };
+
+export const fetchPedidos = async (userId) => {
+  try {
+      const response = await fetch(`${API_URL}/order?userId=${userId}`);
+      if (!response.ok) {
+          throw new Error('Error al obtener los pedidos');
+      }
+      const data = await response.json();
+      return { success: true, data };
+  } catch (error) {
+      console.error('Error en fetchPedidos:', error);
+      return { success: false, message: 'No se pudieron cargar los pedidos. Inténtalo más tarde.' };
+  }
+};

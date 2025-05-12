@@ -4,16 +4,17 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { ThemeContext } from './ThemeContext';
 import { useCart } from '../context/CartContext';
-import Cart from './Cart'; // Importa el componente Cart
+import Cart from './Cart'; 
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import '../styles/Header.css';
-
+import { useAuth } from '../context/AuthContext'; 
 const Header = () => {
   const navigate = useNavigate();
   const { darkMode, toggleTheme } = useContext(ThemeContext);
   const { cartItems, removeFromCart, clearCart } = useCart(); // Obtén los productos del carrito
   const [menuOpen, setMenuOpen] = useState(false);
+  const { currentUser } = useAuth();
   const [isCartOpen, setIsCartOpen] = useState(false); // Estado para el sidebar del carrito
 
   const toggleMenu = () => {
@@ -21,11 +22,11 @@ const Header = () => {
   };
 
   const toggleCart = () => {
-    setIsCartOpen(!isCartOpen); // Alterna la visibilidad del carrito
+    setIsCartOpen(!isCartOpen);
   };
 
   const closeCart = () => {
-    setIsCartOpen(false); // Cierra el carrito
+    setIsCartOpen(false); 
   };
 
   // Calcular el subtotal
@@ -38,6 +39,9 @@ const Header = () => {
         <span onClick={() => navigate('/nosotros')}>Sobre Nosotros</span>
         <span onClick={() => navigate('/tienda')}>Tienda</span>
         <span onClick={() => navigate('/suscripciones')}>Suscripciones</span>
+        {currentUser && ( // Mostrar "Mis Pedidos" solo si el usuario está logeado
+          <span onClick={() => navigate('/mis-pedidos')}>Mis Pedidos</span>
+        )}
       </div>
       <div className="right-nav">
         <button onClick={toggleTheme} className="theme-toggle">
@@ -67,6 +71,9 @@ const Header = () => {
                   <span onClick={() => { navigate('/nosotros'); toggleMenu(); }}>Sobre Nosotros</span>
                   <span onClick={() => { navigate('/tienda'); toggleMenu(); }}>Tienda</span>
                   <span onClick={() => { navigate('/suscripciones'); toggleMenu(); }}>Suscripciones</span>
+                  {currentUser && ( // Mostrar "Mis Pedidos" solo si el usuario está logeado
+                    <span onClick={() => navigate('/mis-pedidos')}>Mis Pedidos</span>
+                  )}
               </div>
           )}
           

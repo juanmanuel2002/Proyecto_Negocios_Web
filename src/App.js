@@ -13,10 +13,11 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsAndConditions from './pages/TermsAndConditions';
 import ContactUs from './pages/ContactUs';
 import ScrollToTop from './components/ScrollToTop';
-import { CartProvider } from './context/CartContext';
+import MisPedidos from './pages/MisPedidos'; 
 import Carrito from './pages/Carrito';
 import Paypal from './pages/Paypal';
 import { AuthProvider } from './context/AuthContext';
+import { CartProvider } from './context/CartContext';
 
 const App = () => {
     return (
@@ -40,6 +41,7 @@ const App = () => {
                         <Route path="/" element={<Navigate to="/main" />} />
                         <Route path="/carrito" element={<Carrito />} />
                         <Route path="/paypal" element={<Paypal />} />
+                        <Route path="/mis-pedidos" element={<MisPedidos />} />
                     </Routes>
                 </Router>
             </CartProvider>

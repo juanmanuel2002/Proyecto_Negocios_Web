@@ -1,0 +1,95 @@
+.mis-pedidos-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  h1 {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+  
+  .pedidos-activos, .pedidos-completados {
+    margin-bottom: 30px;
+  }
+  
+  .pedido-card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    background-color: var(--light-background-color);
+  }
+  
+  .pedido-card.activo {
+    border-left: 5px solid #4caf50;
+    margin-bottom: 40px;
+  }
+  
+  .pedido-card.completado {
+    border-left: 5px solid #2196f3;
+  }
+  
+  .pedido-info {
+    margin-bottom: 10px;
+  }
+  
+  .pedido-productos {
+    margin-top: 10px;
+  }
+  
+  .producto {
+    margin-bottom: 10px;
+    padding-left: 10px;
+    border-left: 2px solid #ddd;
+  }
+  
+  .loading-container, .error-container, .sin-pedidos {
+    text-align: center;
+    margin-top: 50px;
+  }
+
+  .volver-a-comprar-btn {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  .volver-a-comprar-btn:hover {
+    background-color: #45a049;
+  }
+
+  .toggle-productos-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  .toggle-productos-btn:hover {
+    background-color: #0056b3;
+  }
+
+  .toggle-seccion-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+  }
+  
+  .toggle-seccion-btn:hover {
+    background-color: #0056b3;
+  }

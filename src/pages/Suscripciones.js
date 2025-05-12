@@ -28,7 +28,7 @@ const Suscripciones = () => {
       
       clearCart();
       addToCart({
-        nombre: `Paquete ${paquete.nombre}`,
+        nombre: `${paquete.nombre}`,
         precio: paquete.precio,
         cantidad: 1,
         items: paquete.items,
@@ -37,7 +37,7 @@ const Suscripciones = () => {
     } else {
       setRedirectPath('/paypal');
       addToCart({
-        nombre: `Paquete ${paquete.nombre}`,
+        nombre: `${paquete.nombre}`,
         precio: paquete.precio,
         cantidad: 1,
         items: paquete.items,
@@ -60,9 +60,9 @@ const Suscripciones = () => {
       {/* Cards de paquetes */}
       <div className="paquetes-container">
         {[ 
-          { nombre: 'Básico', precio: 350, items: ['Una botella', 'Dos productos'] },
-          { nombre: 'Premium', precio: 550, items: ['Dos botellas', 'Cuatro productos'] },
-          { nombre: 'Exclusiva', precio: 450, items: ['Tres botellas', 'Tres productos'] },
+          { nombre: 'Suscripción Básica', precio: 350, items: ['Una botella', 'Dos productos'] },
+          { nombre: 'Suscripción Premium', precio: 550, items: ['Dos botellas', 'Cuatro productos'] },
+          { nombre: 'Suscripción Exclusiva', precio: 450, items: ['Tres botellas', 'Tres productos'] },
         ].map((paquete) => (
           <div
             key={paquete.nombre}
