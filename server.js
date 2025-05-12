@@ -9,6 +9,7 @@ import { createOrder, getOrdersByUserId} from './services/firebase/order.js';
 import { db } from './services/firebase/setup.js';
 import { doc, getDoc } from 'firebase/firestore';
 import { getUserByUid } from './services/firebase/getUser.js'; 
+import { deleteOrderById } from './services/firebase/deleteOrder.js';
 
 
 const app = express();
@@ -188,6 +189,25 @@ app.get('/api/user', async (req, res) => {
             res.status(500).json({ error: 'Error al obtener la información del usuario', details: error.message });
         }
     
+});
+
+// Endpoint para borrar una orden por id
+app.delete('/api/order', async (req, res) => {
+    const { id } = req.query;
+
+    if (!id) {
+        return res.status(400).json({ error: 'El parámetro "id" es requerido' });
+    }
+
+    try {
+        const result = await deleteOrderById(id); 
+        res.status(200).json(result); 
+    } catch (error) {
+        if (error.message === 'La orden no existe') {
+            return res.status(404).json({ error: error.message });
+        }
+        res.status(500).json({ error: 'Error al eliminar la orden', details: error.message });
+    }
 });
 
 // Iniciar el servidor
