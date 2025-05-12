@@ -9,14 +9,16 @@ import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import '../styles/Header.css';
 import { useAuth } from '../context/AuthContext'; 
+
 const Header = () => {
   const navigate = useNavigate();
   const { darkMode, toggleTheme } = useContext(ThemeContext);
   const { cartItems, removeFromCart, clearCart } = useCart(); // Obtén los productos del carrito
   const [menuOpen, setMenuOpen] = useState(false);
-  const { currentUser } = useAuth();
+  const { currentUser } = useAuth(); // Obtener el usuario autenticado
   const [isCartOpen, setIsCartOpen] = useState(false); // Estado para el sidebar del carrito
 
+  console.log('currentUser:', currentUser);
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
@@ -53,31 +55,38 @@ const Header = () => {
             <span className="cart-badge">{cartItems.length}</span>
           )}
         </div>
-        <AccountCircleIcon onClick={() => navigate('/login')} />
+        {currentUser ? (
+          <div className="user-info">
+            <span className="user-greeting">¡Hola {currentUser.name}!</span>
+            <AccountCircleIcon onClick={() => navigate('/perfil')} />
+          </div>
+        ) : (
+          <AccountCircleIcon onClick={() => navigate('/login')} />
+        )}
       </div>
 
       {/* Botón de menú para móviles */}
       <div className="mobile-menu-icon" onClick={toggleMenu}>
-                      {menuOpen ? <CloseIcon /> : <MenuIcon />}
-                  </div>
+        {menuOpen ? <CloseIcon /> : <MenuIcon />}
+      </div>
 
-          {/* Fondo para cerrar el menú al hacer clic fuera */}
-          {menuOpen && <div className="overlay" onClick={toggleMenu}></div>}
-
-          {/* Menú desplegable para móviles */}
-          {menuOpen && (
-              <div className={`mobile-menu ${menuOpen ? 'open' : ''}`}>
-                  <span onClick={() => { navigate('/main'); toggleMenu(); }}>Inicio</span>
-                  <span onClick={() => { navigate('/nosotros'); toggleMenu(); }}>Sobre Nosotros</span>
-                  <span onClick={() => { navigate('/tienda'); toggleMenu(); }}>Tienda</span>
-                  <span onClick={() => { navigate('/suscripciones'); toggleMenu(); }}>Suscripciones</span>
-                  {currentUser && ( // Mostrar "Mis Pedidos" solo si el usuario está logeado
-                    <span onClick={() => navigate('/mis-pedidos')}>Mis Pedidos</span>
-                  )}
-              </div>
-          )}
-          
       {/* Fondo para cerrar el menú al hacer clic fuera */}
+      {menuOpen && <div className="overlay" onClick={toggleMenu}></div>}
+
+      {/* Menú desplegable para móviles */}
+      {menuOpen && (
+        <div className={`mobile-menu ${menuOpen ? 'open' : ''}`}>
+          <span onClick={() => { navigate('/main'); toggleMenu(); }}>Inicio</span>
+          <span onClick={() => { navigate('/nosotros'); toggleMenu(); }}>Sobre Nosotros</span>
+          <span onClick={() => { navigate('/tienda'); toggleMenu(); }}>Tienda</span>
+          <span onClick={() => { navigate('/suscripciones'); toggleMenu(); }}>Suscripciones</span>
+          {currentUser && (
+            <span onClick={() => { navigate('/mis-pedidos'); toggleMenu(); }}>Mis Pedidos</span>
+          )}
+        </div>
+      )}
+
+      {/* Fondo para cerrar el carrito al hacer clic fuera */}
       {isCartOpen && <div className="cart-overlay" onClick={closeCart}></div>}
 
       {/* Sidebar del carrito */}
@@ -96,6 +105,7 @@ const Header = () => {
         </div>
       </div>
     </header>
+    
   );
 };
 

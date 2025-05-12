@@ -218,3 +218,15 @@
   flex: 1;
   overflow-y: auto;
 }
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-greeting {
+  font-size: 14px;
+  color: var(--text-color);
+  font-weight: bold;
+}

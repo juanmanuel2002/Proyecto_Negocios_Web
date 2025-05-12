@@ -16,6 +16,7 @@ import ScrollToTop from './components/ScrollToTop';
 import MisPedidos from './pages/MisPedidos'; 
 import Carrito from './pages/Carrito';
 import Paypal from './pages/Paypal';
+import Perfil from './pages/Perfil';
 import { AuthProvider } from './context/AuthContext';
 import { CartProvider } from './context/CartContext';
 
@@ -42,6 +43,7 @@ const App = () => {
                         <Route path="/carrito" element={<Carrito />} />
                         <Route path="/paypal" element={<Paypal />} />
                         <Route path="/mis-pedidos" element={<MisPedidos />} />
+                        <Route path="/perfil" element={<Perfil />} />
                     </Routes>
                 </Router>
             </CartProvider>

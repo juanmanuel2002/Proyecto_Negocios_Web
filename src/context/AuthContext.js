@@ -8,8 +8,8 @@ export const AuthProvider = ({ children }) => {
 
   const [currentUser, setCurrentUser] = useState(null);
 
-    const login = async (uid) => {
-        setCurrentUser({uid})
+    const login = async (uid,name,email) => {
+        setCurrentUser({uid,name,email})
         setIsLoggedIn(true);
        
     };
