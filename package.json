@@ -6,13 +6,19 @@
     "type": "module",
     "scripts": {
         "start": "node server.js",
-        "dev": "nodemon server.js"
+        "dev": "nodemon server.js",
+        "emulate": "firebase emulators:start --only auth,firestore",
+        "seed": "set \"FIREBASE_EMULATOR=true\" && node scripts/seed.js",
+        "seed:auth": "cross-env FIREBASE_EMULATOR=true node scripts/seed-auth.js",
+        "test:login": "cross-env FIREBASE_EMULATOR=true node test-login.js",
+        "test:productos" : "cross-env FIREBASE_EMULATOR=true node test-getProductos.js"
     },
     "dependencies": {
         "axios": "^1.9.0",
         "cheerio": "^1.0.0",
         "cors": "^2.8.5",
-        "dotenv": "^16.0.3",
+        "cross-env": "^7.0.3",
+        "dotenv": "^16.5.0",
         "express": "^5.1.0",
         "firebase": "^11.6.0",
         "firebase-admin": "^13.2.0",

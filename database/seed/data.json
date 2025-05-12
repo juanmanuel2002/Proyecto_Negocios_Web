@@ -1,0 +1,16 @@
+{
+  "usuarios": {
+    "uid_test_1": {
+      "uid": "uid_test_1",
+      "email": "test@example.com",
+      "nombre": "Test User",
+      "creado": "2025-05-01T12:00:00Z"
+    }
+  },
+  "productos": {
+    "prod_1": {
+      "nombre": "Café Ejemplo",
+      "precio": 120
+    }
+  }
+}
