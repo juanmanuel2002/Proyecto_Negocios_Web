@@ -44,6 +44,8 @@ const Tienda = () => {
   const navigate = useNavigate();
 
   const [isLoadingComparison, setIsLoadingComparison] = useState(false); 
+  const [isStockModalOpen, setIsStockModalOpen] = useState(false); 
+  const [stockMessage, setStockMessage] = useState(''); 
 
   useEffect(() => {
     AOS.init({ duration: 1000, once: false });
@@ -87,6 +89,16 @@ const Tienda = () => {
   };
 
   const handleAgregarCarrito = (producto) => {
+    const productoEnCarrito = cartItems.find((item) => item.id === producto.id);
+    const cantidadTotal = (productoEnCarrito?.cantidad || 0) + 1;
+
+    if (cantidadTotal > producto.unidadesDisponibles) {
+      setStockMessage(
+        `No puedes agregar más unidades de "${producto.nombre}". Solo hay ${producto.unidadesDisponibles} disponibles en total.`
+      );
+      setIsStockModalOpen(true); 
+      return;
+    }
     const tieneSuscripcion = cartItems.some((item) => item.nombre.includes('Suscripción'));
 
     if (tieneSuscripcion) {
@@ -116,9 +128,10 @@ const Tienda = () => {
 
   const handleConfirmQuantity = () => {
     if (quantity > selectedQuantityProduct.unidadesDisponibles) {
-      alert(
+      setStockMessage(
         `No puedes agregar más unidades de "${selectedQuantityProduct.nombre}". Solo hay ${selectedQuantityProduct.unidadesDisponibles} disponibles.`
       );
+      setIsStockModalOpen(true); 
       return;
     }
 
@@ -155,9 +168,10 @@ const Tienda = () => {
     if (quantity < selectedQuantityProduct.unidadesDisponibles) {
       setQuantity((prev) => prev + 1);
     } else {
-      alert(
+      setStockMessage(
         `No puedes agregar más unidades de "${selectedQuantityProduct.nombre}". Solo hay ${selectedQuantityProduct.unidadesDisponibles} disponibles.`
       );
+      setIsStockModalOpen(true); 
     }
   };
 
@@ -349,6 +363,15 @@ const Tienda = () => {
             </button>
           </div>
         </div>
+      )}
+      
+      {/* Modal de validación de stock */}
+      {isStockModalOpen && (
+        <ModalMensaje
+          titulo="Stock Insuficiente"
+          mensaje={stockMessage}
+          onClose={() => setIsStockModalOpen(false)}
+        />
       )}
 
       <ScrollToTopButton />

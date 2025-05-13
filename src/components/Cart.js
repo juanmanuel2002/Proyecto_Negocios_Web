@@ -12,6 +12,8 @@ const Cart = () => {
   const [showMessage, setShowMessage] = useState(false); 
   const [isValidationModalOpen, setIsValidationModalOpen] = useState(false); 
   const [validationMessage, setValidationMessage] = useState(''); 
+  const [isStockModalOpen, setIsStockModalOpen] = useState(false); 
+  const [stockMessage, setStockMessage] = useState(''); 
 
   // Calcular el subtotal general sumando los subtotales de todos los productos
   const subtotal = cartItems.reduce(
@@ -50,7 +52,10 @@ const Cart = () => {
     if (item.cantidad < item.unidadesDisponibles) {
       updateCartItemQuantity(item.nombre, item.cantidad + 1);
     } else {
-      alert(`No puedes agregar más unidades de "${item.nombre}". Solo hay ${item.unidadesDisponibles} disponibles.`);
+      setStockMessage(
+        `No puedes agregar más unidades de "${item.nombre}". Solo hay ${item.unidadesDisponibles} disponibles en total.`
+      );
+      setIsStockModalOpen(true);
     }
   };
 
@@ -61,7 +66,6 @@ const Cart = () => {
 
   return (
     <div className="cart-container">
-      <h2>Carrito de Compras</h2>
       {cartItems.length === 0 ? (
         <p>Tu carrito está vacío.</p>
       ) : (
@@ -139,6 +143,14 @@ const Cart = () => {
           titulo="Validación"
           mensaje={validationMessage}
           onClose={closeValidationModal}
+        />
+      )}
+      {/* Modal de validación de stock */}
+      {isStockModalOpen && (
+        <ModalMensaje
+          titulo="Stock Insuficiente"
+          mensaje={stockMessage}
+          onClose={() => setIsStockModalOpen(false)}
         />
       )}
     </div>
