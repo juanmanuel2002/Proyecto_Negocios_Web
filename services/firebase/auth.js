@@ -1,6 +1,7 @@
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail, confirmPasswordReset } from 'firebase/auth';
 import { auth, db } from './setup.js';
 import { doc, setDoc } from 'firebase/firestore';
+import { sendEmail } from '../utils/sendEmail.js';
 
 export const registerUser = async (email, password, name) => {
   try {
@@ -14,6 +15,11 @@ export const registerUser = async (email, password, name) => {
       suscripcion: null, 
       creado: new Date().toISOString()
     });
+
+    // Enviar correo de bienvenida
+   // await sendEmail('compra',userEmail, orderData,total, orderId, fechaCreacion,userName);
+    await sendEmail('bienvenida',email,"","","","",name); // Enviar correo de bienvenida
+
 
     return { success: true};
   } catch (error) {

@@ -1,27 +1,40 @@
-import { doc, setDoc, collection, query, where, getDocs, updateDoc } from 'firebase/firestore';
+import { doc, setDoc,getDoc, collection, query, where, getDocs, updateDoc } from 'firebase/firestore';
 import { db } from './setup.js';
+import { sendEmail } from '../utils/sendEmail.js';
+
 
 export const createOrder = async (uid, orderData, total) => {
   try {
     const orderId = `${Date.now()}`; // Generar un ID único para el pedido
+    const userDocRef = doc(db, 'usuarios', uid);
+    const fechaCreacion = new Date().toISOString(); 
 
-    
     await setDoc(doc(db, 'pedidos', orderId), {
       uid, // Relacionar el pedido con el usuario
       orderData,
       total,
       estado: 'ACTIVO',
-      creado: new Date().toISOString()
+      creado: fechaCreacion
     });
 
     const suscripcionItem = orderData.find(item => item.nombre.includes('Suscripción'));
     if (suscripcionItem) {
       
-      const userDocRef = doc(db, 'usuarios', uid);
       await updateDoc(userDocRef, {
         suscripcion: suscripcionItem.nombre 
       });
     }
+
+    // Obtener el correo del usuario
+    const userDoc = await getDoc(userDocRef);
+    if (!userDoc.exists()) {
+      throw new Error('Usuario no encontrado');
+    }
+
+    const userEmail = userDoc.data().email;
+    const userName = userDoc.data().nombre;
+    // Enviar correo de confirmación
+    await sendEmail('compra',userEmail, orderData,total, orderId, fechaCreacion,userName);
 
     return { success: true, orderId };
   } catch (error) {

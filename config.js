@@ -21,7 +21,11 @@ const config = {
         id: process.env.X_ID,
         token: process.env.X_TOKEN,
         tokenSecret: process.env.X_TOKEN_SECRET,
-    }
+    },
+    email: {
+        user: process.env.EMAIL_HOST,
+        pass: process.env.EMAIL_KEY,
+    },
 };
 
 export default config;
