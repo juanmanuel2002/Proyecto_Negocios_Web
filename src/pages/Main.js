@@ -211,7 +211,7 @@ const Main = () => {
 
             {/* Mostrar tweets */}
             <div className="tweets-section" data-aos="fade-up">
-                <h2 className="seccion-titulo">Lo que dicen en Twitter</h2>
+                <h2 className="seccion-titulo">Lo que dicen en X</h2>
                 <div className="tweets-columns">
                     {/* Columna 1 */}
                     <div className="tweet-column">
