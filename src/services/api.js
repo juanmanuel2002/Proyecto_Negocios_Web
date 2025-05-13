@@ -174,3 +174,21 @@ export const fetchUserInfo = async (userId) => {
     return { success: false, message: 'No se pudieron cargar la informacion el usuario, Inténtalo más tarde.' };
   }
 }
+
+export const deletePedido = async (pedidoId) => {
+  try {
+    const response = await fetch(`${API_URL}/order?id=${pedidoId}`, {
+      method: 'DELETE',
+    });
+
+    if (!response.ok) {
+      throw new Error('Error al borrar el pedido');
+    }
+
+    const data = await response.json();
+    return { success: true, data };
+  } catch (error) {
+    console.error('Error en deletePedido:', error);
+    return { success: false, message: 'No se pudo borrar el pedido. Inténtalo más tarde.' };
+  }
+};

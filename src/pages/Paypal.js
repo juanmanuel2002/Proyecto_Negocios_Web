@@ -96,6 +96,7 @@ const PayPal = () => {
               {userReady && (
                 <PayPalButton key={paypalKey} total={subtotal} />
               )}
+              
               <div className="checkout-actions">
                 <button className="back-button" onClick={() => navigate(previousPage)}>
                   Regresar

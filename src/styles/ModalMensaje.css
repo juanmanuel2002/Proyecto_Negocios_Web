@@ -32,3 +32,24 @@
   .close-modal:hover {
     background: #5a3a33;
   }
+/* Contenedor de las acciones del modal */
+.modal-actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between; /* Separar los botones */
+  gap: 40px; /* Espaciado entre los botones */
+}
+
+.modal-actions .confirm-button {
+  background-color: #44ca6c;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.modal-actions .confirm-button:hover {
+  background-color: #0056b3; /* Azul más oscuro al pasar el cursor */
+}

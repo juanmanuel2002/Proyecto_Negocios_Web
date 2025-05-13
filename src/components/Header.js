@@ -31,6 +31,14 @@ const Header = () => {
     setIsCartOpen(false); 
   };
 
+  const capitalizeName = (name) => {
+    if (!name) return '';
+    return name
+      .split(' ')
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join(' ');
+  };
+
   // Calcular el subtotal
   const subtotal = cartItems.reduce((acc, item) => acc + parseFloat(item.precio), 0);
 
@@ -57,7 +65,7 @@ const Header = () => {
         </div>
         {currentUser ? (
           <div className="user-info">
-            <span className="user-greeting">¡Hola {currentUser.name}!</span>
+            <span className="user-greeting">¡Hola {capitalizeName(currentUser.name || currentUser.nombre)}!</span>
             <AccountCircleIcon onClick={() => navigate('/perfil')} />
           </div>
         ) : (

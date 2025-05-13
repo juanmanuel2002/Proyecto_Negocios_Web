@@ -7,6 +7,15 @@ import '../styles/Perfil.css';
 const Perfil = () => {
   const { currentUser } = useAuth(); // Obtener el usuario autenticado
 
+  // Función para capitalizar la primera letra de cada palabra
+  const capitalizeName = (name) => {
+    if (!name) return '';
+    return name
+      .split(' ')
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join(' ');
+  };
+
   return (
     <>
       <Header />
@@ -15,7 +24,7 @@ const Perfil = () => {
           <h1>Mi Perfil</h1>
           {currentUser ? (
             <div className="perfil-info">
-              <p><strong>Nombre:</strong> {currentUser.name}</p>
+              <p><strong>Nombre:</strong> {capitalizeName(currentUser.name || currentUser.nombre)}</p>
               <p><strong>Correo Electrónico:</strong> {currentUser.email || 'No disponible'}</p>
               <p><strong>Suscripción:</strong> {currentUser.suscripcion || 'No cuentas con una suscripción'}</p>
             </div>

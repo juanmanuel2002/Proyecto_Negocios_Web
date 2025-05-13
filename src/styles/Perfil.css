@@ -3,21 +3,22 @@
     margin: 0 auto;
     padding: 20px;
     text-align: center;
-    background-color: #f9f9f9;
+    background-color: var(--light-background-color);
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--box-shadow);
+    margin-top: 30px;
   }
   
   .perfil-container h1 {
     margin-bottom: 20px;
     font-size: 24px;
-    color: #333;
+    color: var(--text-color);
   }
   
   .perfil-info {
     text-align: left;
     font-size: 16px;
-    color: #555;
+    color: var(--text-color);
   }
   
   .perfil-info p {
@@ -25,5 +26,5 @@
   }
   
   .perfil-info strong {
-    color: #333;
+    color: var(--text-color);
   }

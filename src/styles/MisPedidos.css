@@ -24,10 +24,12 @@
   .pedido-card.activo {
     border-left: 5px solid #4caf50;
     margin-bottom: 40px;
+    background-color: var(--light-background-color);
   }
   
   .pedido-card.completado {
     border-left: 5px solid #2196f3;
+    background-color: var(--light-background-color);
   }
   
   .pedido-info {
@@ -93,3 +95,38 @@
   .toggle-seccion-btn:hover {
     background-color: #0056b3;
   }
+
+ /* Contenedor del pedido */
+.pedido-card {
+  position: relative; /* Necesario para posicionar elementos dentro del contenedor */
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  background-color: #f9f9f9;
+}
+
+/* Botón de Cancelar Pedido */
+.cancelar-pedido-btn {
+  background-color: #f44336; /* Rojo */
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  position: absolute; /* Posicionamiento absoluto dentro del contenedor */
+  top: 20px; /* Alineado con el texto "Número de Pedido" */
+  right: 20px; /* Espaciado desde el lado derecho */
+}
+
+.cancelar-pedido-btn:hover {
+  background-color: #d32f2f; /* Rojo más oscuro al pasar el cursor */
+}
+
+/* Información del pedido */
+.pedido-info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
