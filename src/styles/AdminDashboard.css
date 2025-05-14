@@ -1,0 +1,46 @@
+/* Contenedor principal del dashboard */
+.admin-dashboard-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.dashboard-summary {
+  margin-bottom: 20px;
+  background-color: var(--light-background-color);
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-summary p {
+  margin: 5px 0;
+  font-size: 16px;
+}
+
+.recent-orders-list {
+  list-style: none;
+  padding: 0;
+}
+
+.order-card {
+  background-color: var(--light-background-color);;
+  margin-bottom: 15px;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.order-card h3 {
+  margin-top: 10px;
+}
+
+.order-card ul {
+  list-style: none;
+  padding: 0;
+}
+
+.order-card ul li {
+  margin-bottom: 10px;
+  font-size: 14px;
+}

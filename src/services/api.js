@@ -1,5 +1,5 @@
-//const API_URL = 'https://proyecto-negocios-web-1.onrender.com/api'; //Servidor render
-const API_URL = 'http://localhost:5000/api'; // Para pruebas en local
+const API_URL = 'https://proyecto-negocios-web-1.onrender.com/api'; //Servidor render
+//const API_URL = 'http://localhost:5000/api'; // Para pruebas en local
 
 export const loginUser = async (email, password) => {
     try {
@@ -10,7 +10,7 @@ export const loginUser = async (email, password) => {
         });
         const data = await response.json();
         if (response.ok && data.token) {
-            localStorage.setItem('token', data.token);
+            sessionStorage.setItem('token', data.token);
             return data;
         } else {
             return { success: false, message: data.message || 'Credenciales inválidas' };
@@ -65,7 +65,7 @@ export const resetPassword = async (token, newPassword) => {
 
 export const fetchProductos = async () => {
     try {
-        const token = localStorage.getItem('token');
+        const token = sessionStorage.getItem('token');
         const response = await fetch(`${API_URL}/productos`,{
             method: 'GET',
             headers: {
@@ -106,7 +106,7 @@ export const scrapePrices = async (productName) => {
 
   export const fetchPayPalClientId = async () => {
     try {
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       const response = await fetch(`${API_URL}/clientPaypal`,{
             method: 'GET',
             headers: {
@@ -143,7 +143,7 @@ export const scrapePrices = async (productName) => {
 
   export const createOrder = async (userId, orderData, total) => {
     try {
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
         const response = await fetch(`${API_URL}/order`, {
             method: 'POST',
             headers: {
@@ -167,11 +167,11 @@ export const scrapePrices = async (productName) => {
 
 export const fetchPedidos = async (userId) => {
   try {
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       const response = await fetch(`${API_URL}/order?userId=${userId}`,{
             method: 'GET',
             headers: {
-                'Authorization': `Bearer ${token}`, // Incluir el token en el encabezado
+                'Authorization': `Bearer ${token}`, 
             },
         });
       if (!response.ok) {
@@ -187,11 +187,11 @@ export const fetchPedidos = async (userId) => {
 
 export const fetchUserInfo = async (userId) => {
   try{
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       const response = await fetch(`${API_URL}/user?userId=${userId}`,{
             method: 'GET',
             headers: {
-                'Authorization': `Bearer ${token}`, // Incluir el token en el encabezado
+                'Authorization': `Bearer ${token}`, 
             },
         });
     if (!response.ok) {
@@ -208,11 +208,11 @@ export const fetchUserInfo = async (userId) => {
 
 export const deletePedido = async (pedidoId) => {
   try {
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     const response = await fetch(`${API_URL}/order?id=${pedidoId}`, {
       method: 'DELETE',
       headers: {
-              'Authorization': `Bearer ${token}`, // Incluir el token en el encabezado
+              'Authorization': `Bearer ${token}`,
           },
     });
 
@@ -225,5 +225,27 @@ export const deletePedido = async (pedidoId) => {
   } catch (error) {
     console.error('Error en deletePedido:', error);
     return { success: false, message: 'No se pudo borrar el pedido. Inténtalo más tarde.' };
+  }
+};
+
+export const fetchAdminDashboard = async () => {
+  try {
+    const token = sessionStorage.getItem('token'); 
+    const response = await fetch(`${API_URL}/admin-dashboard`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`, 
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error('Error al obtener los datos del dashboard de administrador');
+    }
+
+    const data = await response.json();
+    return { success: true, data };
+  } catch (error) {
+    console.error('Error en fetchAdminDashboard:', error);
+    return { success: false, message: 'No se pudieron cargar los datos del dashboard. Inténtalo más tarde.' };
   }
 };

@@ -9,16 +9,27 @@ import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import '../styles/Header.css';
 import { useAuth } from '../context/AuthContext'; 
+import {jwtDecode} from 'jwt-decode';
 
 const Header = () => {
   const navigate = useNavigate();
   const { darkMode, toggleTheme } = useContext(ThemeContext);
-  const { cartItems, removeFromCart, clearCart } = useCart(); // Obtén los productos del carrito
+  const { cartItems, removeFromCart, clearCart } = useCart(); 
   const [menuOpen, setMenuOpen] = useState(false);
-  const { currentUser } = useAuth(); // Obtener el usuario autenticado
+  const { currentUser } = useAuth(); 
   const [isCartOpen, setIsCartOpen] = useState(false); // Estado para el sidebar del carrito
 
-  console.log('currentUser:', currentUser);
+  const token = sessionStorage.getItem('token');
+  let isAdmin = false;
+  if (token) {
+    try {
+      const decodedToken = jwtDecode(token);
+      isAdmin = decodedToken.role === 'admin'; 
+    } catch (error) {
+      console.error('Error al decodificar el token:', error);
+    }
+  }
+
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
@@ -49,8 +60,11 @@ const Header = () => {
         <span onClick={() => navigate('/nosotros')}>Sobre Nosotros</span>
         <span onClick={() => navigate('/tienda')}>Tienda</span>
         <span onClick={() => navigate('/suscripciones')}>Suscripciones</span>
-        {currentUser && ( // Mostrar "Mis Pedidos" solo si el usuario está logeado
+        {currentUser && !isAdmin && ( // Mostrar "Mis Pedidos" solo si el usuario está logeado
           <span onClick={() => navigate('/mis-pedidos')}>Mis Pedidos</span>
+        )}
+        {currentUser && isAdmin && ( 
+          <span onClick={() => navigate('/admin-dashboard')}>Dashboard</span>
         )}
       </div>
       <div className="right-nav">
@@ -88,8 +102,11 @@ const Header = () => {
           <span onClick={() => { navigate('/nosotros'); toggleMenu(); }}>Sobre Nosotros</span>
           <span onClick={() => { navigate('/tienda'); toggleMenu(); }}>Tienda</span>
           <span onClick={() => { navigate('/suscripciones'); toggleMenu(); }}>Suscripciones</span>
-          {currentUser && (
+          {currentUser && !isAdmin && (
             <span onClick={() => { navigate('/mis-pedidos'); toggleMenu(); }}>Mis Pedidos</span>
+          )}
+          {currentUser && isAdmin && ( 
+            <span onClick={() => navigate('/admin-dashboard')}>Dashboard</span>
           )}
         </div>
       )}
