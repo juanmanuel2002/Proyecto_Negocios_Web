@@ -1,5 +1,6 @@
-const API_URL = 'https://proyecto-negocios-web-1.onrender.com/api'; //Servidor render
-//const API_URL = 'http://localhost:5000/api'; // Para pruebas en local
+//const API_URL = 'https://proyecto-negocios-web-1.onrender.com/api'; //Servidor render
+const API_URL = 'http://localhost:5000/api'; // Para pruebas en local
+
 export const loginUser = async (email, password) => {
     try {
         const response = await fetch(`${API_URL}/login`, {
@@ -8,7 +9,12 @@ export const loginUser = async (email, password) => {
             body: JSON.stringify({ email, password }),
         });
         const data = await response.json();
-        return data;
+        if (response.ok && data.token) {
+            localStorage.setItem('token', data.token);
+            return data;
+        } else {
+            return { success: false, message: data.message || 'Credenciales inválidas' };
+        }
     } catch (error) {
         console.error('Error al iniciar sesión:', error);
         return { success: false, message: 'Error al conectar con el servidor.' };
@@ -59,7 +65,13 @@ export const resetPassword = async (token, newPassword) => {
 
 export const fetchProductos = async () => {
     try {
-        const response = await fetch(`${API_URL}/productos`);
+        const token = localStorage.getItem('token');
+        const response = await fetch(`${API_URL}/productos`,{
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            },
+        });
         const data = await response.json();
         if (response.ok) {
         return { success: true, data: data };
@@ -94,8 +106,13 @@ export const scrapePrices = async (productName) => {
 
   export const fetchPayPalClientId = async () => {
     try {
-      const response = await fetch(`${API_URL}/clientPaypal`);
-        
+      const token = localStorage.getItem('token');
+      const response = await fetch(`${API_URL}/clientPaypal`,{
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`, 
+            },
+        });
       if (!response.ok) {
         throw new Error(`Error en la respuesta del servidor: ${response.status}`);
       }
@@ -126,10 +143,12 @@ export const scrapePrices = async (productName) => {
 
   export const createOrder = async (userId, orderData, total) => {
     try {
+      const token = localStorage.getItem('token');
         const response = await fetch(`${API_URL}/order`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
             },
             body: JSON.stringify({ userId, orderData, total }),
         });
@@ -148,7 +167,13 @@ export const scrapePrices = async (productName) => {
 
 export const fetchPedidos = async (userId) => {
   try {
-      const response = await fetch(`${API_URL}/order?userId=${userId}`);
+      const token = localStorage.getItem('token');
+      const response = await fetch(`${API_URL}/order?userId=${userId}`,{
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`, // Incluir el token en el encabezado
+            },
+        });
       if (!response.ok) {
           throw new Error('Error al obtener los pedidos');
       }
@@ -162,7 +187,13 @@ export const fetchPedidos = async (userId) => {
 
 export const fetchUserInfo = async (userId) => {
   try{
-    const response = await fetch(`${API_URL}/user?userId=${userId}`);
+      const token = localStorage.getItem('token');
+      const response = await fetch(`${API_URL}/user?userId=${userId}`,{
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`, // Incluir el token en el encabezado
+            },
+        });
     if (!response.ok) {
       throw new Error('Error al obtener los datos del usuario');
     }
@@ -177,8 +208,12 @@ export const fetchUserInfo = async (userId) => {
 
 export const deletePedido = async (pedidoId) => {
   try {
+    const token = localStorage.getItem('token');
     const response = await fetch(`${API_URL}/order?id=${pedidoId}`, {
       method: 'DELETE',
+      headers: {
+              'Authorization': `Bearer ${token}`, // Incluir el token en el encabezado
+          },
     });
 
     if (!response.ok) {

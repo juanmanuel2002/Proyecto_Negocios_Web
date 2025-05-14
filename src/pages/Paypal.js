@@ -9,7 +9,7 @@ import { useAuth } from '../context/AuthContext';
 import '../styles/PayPal.css';
 
 const PayPal = () => {
-  const { cartItems } = useCart();
+  const { cartItems, clearCart } = useCart();
   const { currentUser, refreshUserData } = useAuth(); 
   const navigate = useNavigate();
   const location = useLocation();
@@ -54,6 +54,7 @@ const PayPal = () => {
 
     if (result.success) {
       alert('Compra confirmada exitosamente.');
+      clearCart();
       await refreshUserData(userId);
       navigate('/main');
     } else {
