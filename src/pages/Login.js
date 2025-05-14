@@ -18,21 +18,22 @@ const Login = () => {
     try {
       const result = await loginUser(email, password);
       if (result.success) {
-        login(result.uid, result.name, result.email, result.suscripcion); 
-        const path = redirectPath || '/main'; 
-        setRedirectPath('/main'); 
+        login(result.uid, result.name, result.email, result.suscripcion);
+        const path = redirectPath || '/main';
+        setRedirectPath('/main');
         navigate(path);
       } else {
-        throw new Error(result.message); 
+        // Manejo de errores específicos basado en el mensaje del backend
+        if (result.message.includes('Credenciales inválidas')) {
+          setError('Correo o contraseña incorrectos. Por favor, verifica tus datos.');
+        } else if (result.message.includes('Usuario no encontrado')) {
+          setError('No se encontró una cuenta con este correo electrónico.');
+        } else {
+          setError(result.message || 'Ocurrió un error inesperado. Por favor, intente nuevamente.');
+        }
       }
     } catch (err) {
-      if (err.message.includes('auth/invalid-credential') || err.message.includes('auth/wrong-password')) {
-        setError('Usuario o Contraseña incorrectos, intente nuevamente.');
-      } else if (err.message.includes('auth/user-not-found')) {
-        setError('No se encontró una cuenta con este correo electrónico.');
-      } else {
-        setError('Ocurrió un error inesperado. Por favor, intente nuevamente.');
-      }
+      setError('Error al procesar la solicitud. Por favor, intente nuevamente.');
     }
   };
 
