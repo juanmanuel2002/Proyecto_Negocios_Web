@@ -10,7 +10,8 @@ import { db } from './services/firebase/setup.js';
 import { doc, getDoc } from 'firebase/firestore';
 import { getUserByUid } from './services/firebase/getUser.js'; 
 import { deleteOrderById } from './services/firebase/deleteOrder.js';
-
+import jwt from 'jsonwebtoken';
+import { authenticateToken } from './services/middleware/authenticateToken.js';
 
 const app = express();
 app.use(cors());
@@ -47,8 +48,14 @@ app.post('/api/login', async (req, res) => {
         const userData = userDoc.data();
         const name = userData.nombre;
         const suscripcion = userData.suscripcion || null; 
+        // Generar el token JWT
+        const token = jwt.sign(
+          { uid: result.uid, email, name, suscripcion }, 
+          config.jwtSecret, 
+          { expiresIn: '1h' } 
+        );
 
-        res.status(200).json({ ...result, name, email, suscripcion });
+        res.status(200).json({...result, token, name, email, suscripcion });
     } catch (error) {
         res.status(500).json({ success: false, message: error.message });
     }
@@ -99,7 +106,7 @@ app.post('/api/scrape-prices', async (req, res) => {
   }
 });
 
-app.get('/api/clientPaypal', (req, res) => {
+app.get('/api/clientPaypal',authenticateToken, (req, res) => {
     res.status(200).json({ clientId: config.paypal.paypalClientId });
 });
 
@@ -121,7 +128,7 @@ try {
     if (!tweets.data || tweets.data.length === 0) {
     return res.status(404).json({ error: 'No se encontraron tweets para la consulta proporcionada.' });
     }
-
+    console.log(tweets.data);
     const randomTweets = getRandomElements(tweets.data, 3); // Accede a tweets.data y selecciona 3 aleatorios
     res.status(200).json(randomTweets); // Devuelve los 3 tweets seleccionados
 } catch (error) {
@@ -130,7 +137,7 @@ try {
 });
 
 
-app.post('/api/order', async (req, res) => {
+app.post('/api/order',authenticateToken, async (req, res) => {
     const { userId, orderData, total } = req.body;
   
     if (!userId || !orderData) {
@@ -153,7 +160,7 @@ app.post('/api/order', async (req, res) => {
   });
 
   // Endpoint para obtener pedidos por userId
-app.get('/api/order', async (req, res) => {
+app.get('/api/order',authenticateToken, async (req, res) => {
     const { userId } = req.query;
   
     if (!userId) {
@@ -172,7 +179,7 @@ app.get('/api/order', async (req, res) => {
   });
 
   // Endpoint para obtener información de un usuario por uid
-app.get('/api/user', async (req, res) => {
+app.get('/api/user',authenticateToken, async (req, res) => {
     const { userId } = req.query;
 
     if (!userId) {
@@ -192,7 +199,7 @@ app.get('/api/user', async (req, res) => {
 });
 
 // Endpoint para borrar una orden por id
-app.delete('/api/order', async (req, res) => {
+app.delete('/api/order',authenticateToken, async (req, res) => {
     const { id } = req.query;
 
     if (!id) {

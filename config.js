@@ -26,6 +26,7 @@ const config = {
         user: process.env.EMAIL_HOST,
         pass: process.env.EMAIL_KEY,
     },
+    jwtSecret: process.env.JWT_SECRET,
 };
 
 export default config;
