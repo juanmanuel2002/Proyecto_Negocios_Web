@@ -14,22 +14,46 @@ import { deleteOrderById } from './services/firebase/deleteOrder.js';
 import { authenticateToken } from './services/middleware/authenticateToken.js';
 import { authorizeRole } from './services/middleware/authorizeRole.js';
 import { getTotalUsers, getTotalOrders, getRecentOrders } from './services/firebase/dashboardAdmin.js';
+import { body, query, validationResult } from 'express-validator';
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.post('/api/register', async (req, res) => {
-    const { email, password, name } = req.body;
-    try {
-        const result = await registerUser(email, password, name);
-        res.status(200).json(result);
-    } catch (error) {
-        res.status(500).json({ success: false, message: error.message });
+app.post(
+  '/api/register',
+  [
+    body('email').isEmail().withMessage('Debe ser un correo válido'),
+    body('password').isLength({ min: 6 }).withMessage('La contraseña debe tener al menos 6 caracteres'),
+    body('name').notEmpty().withMessage('El nombre es obligatorio'),
+  ],
+  (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ success: false, errors: errors.array() });
     }
-});
 
-app.post('/api/login', async (req, res) => {
+    const { email, password, name } = req.body;
+    registerUser(email, password, name)
+      .then((result) => res.status(200).json(result))
+      .catch((error) => res.status(500).json({ success: false, message: error.message }));
+  }
+);
+
+app.post(
+    '/api/login',
+    [
+      // Validar que el email sea válido
+      body('email').isEmail().withMessage('Debe ser un correo válido'),
+      // Validar que la contraseña no esté vacía
+      body('password').notEmpty().withMessage('La contraseña es obligatoria'),
+    ],
+    async (req, res) => {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({ success: false, errors: errors.array() });
+      }
+
     const { email, password } = req.body;
     try {
         // Realiza el login y obtiene el uid
@@ -120,47 +144,52 @@ const getRandomElements = (array, count) => {
   };
   
 // Endpoint para buscar tweets
-app.get('/api/search-tweets', async (req, res) => {
-const { query } = req.query;
-if (!query) {
-    return res.status(400).json({ error: 'El parámetro "query" es requerido' });
-}
-
-try {
-    const tweets = await searchTweets(query); // Obtiene los datos de la API de Twitter
-    if (!tweets.data || tweets.data.length === 0) {
-    return res.status(404).json({ error: 'No se encontraron tweets para la consulta proporcionada.' });
+app.get(
+  '/api/search-tweets',
+  [
+    query('query').notEmpty().withMessage('El parámetro "query" es obligatorio'),
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ success: false, errors: errors.array() });
     }
-    console.log(tweets.data);
-    const randomTweets = getRandomElements(tweets.data, 3); // Accede a tweets.data y selecciona 3 aleatorios
-    res.status(200).json(randomTweets); // Devuelve los 3 tweets seleccionados
-} catch (error) {
-    res.status(500).json({ error: 'Error al buscar tweets', details: error.message });
-}
-});
+
+    const { query } = req.query;
+    try {
+      const tweets = await searchTweets(query);
+      const randomTweets = getRandomElements(tweets.data, 3); 
+      res.status(200).json(randomTweets);
+    } catch (error) {
+      res.status(500).json({ success: false, message: error.message });
+    }
+  }
+);
 
 
-app.post('/api/order',authenticateToken, async (req, res) => {
+app.post(
+  '/api/order',
+  authenticateToken,
+  [
+    body('userId').notEmpty().withMessage('El userId es obligatorio'),
+    body('orderData').isArray({ min: 1 }).withMessage('Debe proporcionar al menos un producto en orderData'),
+    body('total').isNumeric().withMessage('El total debe ser un número'),
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ success: false, errors: errors.array() });
+    }
+
     const { userId, orderData, total } = req.body;
-  
-    if (!userId || !orderData) {
-      return res.status(400).json({ error: 'El userId y los datos del pedido son requeridos' });
-    }
-  
     try {
       const result = await createOrder(userId, orderData, total);
-      if (result.success) {
-        res.status(200).json(result);
-      }else if (result.status === 404) {
-        res.status(404).json({ error: 'No se encontraron productos' });
-      }
-      else {
-        res.status(500).json({ error: result.message });
-      }       
+      res.status(200).json(result);
     } catch (error) {
-      res.status(500).json({ error: 'Error al crear el pedido', details: error.message });
+      res.status(500).json({ success: false, message: error.message });
     }
-  });
+  }
+);
 
   // Endpoint para obtener pedidos por userId
 app.get('/api/order',authenticateToken, async (req, res) => {
