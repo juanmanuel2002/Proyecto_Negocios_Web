@@ -1,17 +1,19 @@
 import express from 'express';
 import cors from 'cors';
+import config from './config.js';
+import jwt from 'jsonwebtoken';
 import { registerUser, loginUser, sendResetEmail, resetPassword } from './services/firebase/auth.js';
 import {getProductos} from './services/firebase/getProduct.js';
 import { scrapePrices } from './services/utils/scraper.js'; 
-import config from './config.js';
 import { searchTweets } from './services/utils/twitter.js'; 
 import { createOrder, getOrdersByUserId} from './services/firebase/order.js';
 import { db } from './services/firebase/setup.js';
 import { doc, getDoc } from 'firebase/firestore';
 import { getUserByUid } from './services/firebase/getUser.js'; 
 import { deleteOrderById } from './services/firebase/deleteOrder.js';
-import jwt from 'jsonwebtoken';
 import { authenticateToken } from './services/middleware/authenticateToken.js';
+import { authorizeRole } from './services/middleware/authorizeRole.js';
+import { getTotalUsers, getTotalOrders, getRecentOrders } from './services/firebase/dashboardAdmin.js';
 
 const app = express();
 app.use(cors());
@@ -47,15 +49,16 @@ app.post('/api/login', async (req, res) => {
 
         const userData = userDoc.data();
         const name = userData.nombre;
-        const suscripcion = userData.suscripcion || null; 
+        const suscripcion = userData.suscripcion || null;
+        const role = userData.role || 'user'; 
         // Generar el token JWT
         const token = jwt.sign(
-          { uid: result.uid, email, name, suscripcion }, 
+          { uid: result.uid, email, name, suscripcion, role }, 
           config.jwtSecret, 
           { expiresIn: '1h' } 
         );
 
-        res.status(200).json({...result, token, name, email, suscripcion });
+        res.status(200).json({...result, token, name, email, suscripcion, role});
     } catch (error) {
         res.status(500).json({ success: false, message: error.message });
     }
@@ -214,6 +217,27 @@ app.delete('/api/order',authenticateToken, async (req, res) => {
             return res.status(404).json({ error: error.message });
         }
         res.status(500).json({ error: 'Error al eliminar la orden', details: error.message });
+    }
+});
+
+// Endpoint para el dashboard de administrador
+app.get('/api/admin-dashboard', authenticateToken, authorizeRole('admin'), async (req, res) => {
+    try {
+        // Información relevante para el administrador
+        const totalUsers = await getTotalUsers(); 
+        const totalOrders = await getTotalOrders(); 
+        const recentOrders = await getRecentOrders(); 
+
+        res.status(200).json({
+            success: true,
+            data: {
+                totalUsers,
+                totalOrders,
+                recentOrders,
+            },
+        });
+    } catch (error) {
+        res.status(500).json({ success: false, message: 'Error al obtener datos del dashboard', details: error.message });
     }
 });
 

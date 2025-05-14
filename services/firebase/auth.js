@@ -12,14 +12,12 @@ export const registerUser = async (email, password, name) => {
       uid: user.uid,
       email: user.email,
       nombre: name,
-      suscripcion: null, 
+      suscripcion: null,
       creado: new Date().toISOString()
     });
 
     // Enviar correo de bienvenida
-   // await sendEmail('compra',userEmail, orderData,total, orderId, fechaCreacion,userName);
-    await sendEmail('bienvenida',email,"","","","",name); // Enviar correo de bienvenida
-
+    await sendEmail('bienvenida',email,"","","","",name); 
 
     return { success: true};
   } catch (error) {
