@@ -1,20 +1,14 @@
 @import './Variables.css';
+@import url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
 
 /* Reset básico */
 body, html, .main-container {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Georgia', serif;
+    font-family: 'Fjalla One', sans-serif;
     background-color: var(--background-color);
     color: var(--text-color);
-  }
-
-  /* Aplicar animación al footer */
-  footer {
-    animation: fadeInUp 1.2s ease-in-out;
-    animation-fill-mode: both;
-    margin-top: 3rem;
   }
   
   /* Animaciones */
@@ -73,13 +67,6 @@ body, html, .main-container {
     }
   }
 
-  /* Responsive footer */
-@media (max-width: 600px) {
-    .footer-links {
-      flex-direction: column;
-      align-items: center;
-    }
-  }
   
   /* Scroll suave */
   html {
