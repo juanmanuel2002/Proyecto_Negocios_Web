@@ -4,6 +4,8 @@ import config from './config.js';
 import jwt from 'jsonwebtoken';
 import { registerUser, loginUser, sendResetEmail, resetPassword } from './services/firebase/auth.js';
 import {getProductos} from './services/firebase/getProduct.js';
+import { addProductos } from './services/firebase/addProduct.js';
+import { deleteProducto } from './services/firebase/deleteProduct.js';
 import { scrapePrices } from './services/utils/scraper.js'; 
 import { searchTweets } from './services/utils/twitter.js'; 
 import { createOrder, getOrdersByUserId} from './services/firebase/order.js';
@@ -15,6 +17,7 @@ import { authenticateToken } from './services/middleware/authenticateToken.js';
 import { authorizeRole } from './services/middleware/authorizeRole.js';
 import { getTotalUsers, getTotalOrders, getRecentOrders } from './services/firebase/dashboardAdmin.js';
 import { body, query, validationResult } from 'express-validator';
+import { generateJWT } from './services/utils/getToken.js'; 
 
 const app = express();
 app.use(cors());
@@ -54,39 +57,40 @@ app.post(
         return res.status(400).json({ success: false, errors: errors.array() });
       }
 
-    const { email, password } = req.body;
-    try {
-        // Realiza el login y obtiene el uid
-        const result = await loginUser(email, password);
+      const { email, password } = req.body;
+      try {
+          // Realiza el login y obtiene el uid
+          const result = await loginUser(email, password);
 
-        if (!result.success) {
-            return res.status(401).json({ success: false, message: 'Credenciales inválidas' });
-        }
+          if (!result.success) {
+              return res.status(401).json({ success: false, message: 'Credenciales inválidas' });
+          }
 
-        const userDocRef = doc(db, 'usuarios', result.uid); 
-        const userDoc = await getDoc(userDocRef); 
+          const userDocRef = doc(db, 'usuarios', result.uid); 
+          const userDoc = await getDoc(userDocRef); 
 
 
-        if (!userDoc.exists) {
-            return res.status(404).json({ success: false, message: 'Usuario no encontrado' });
-        }
+          if (!userDoc.exists) {
+              return res.status(404).json({ success: false, message: 'Usuario no encontrado' });
+          }
 
-        const userData = userDoc.data();
-        const name = userData.nombre;
-        const suscripcion = userData.suscripcion || null;
-        const role = userData.role || 'user'; 
-        // Generar el token JWT
-        const token = jwt.sign(
-          { uid: result.uid, email, name, suscripcion, role }, 
-          config.jwtSecret, 
-          { expiresIn: '1h' } 
-        );
+          const userData = userDoc.data();
+          const name = userData.nombre;
+          const suscripcion = userData.suscripcion || null;
+          const role = userData.role || 'user'; 
+          // Generar el token JWT
+          const token = jwt.sign(
+            { uid: result.uid, email, name, suscripcion, role }, 
+            config.jwtSecret, 
+            { expiresIn: '1h' } 
+          );
 
-        res.status(200).json({...result, token, name, email, suscripcion, role});
-    } catch (error) {
-        res.status(500).json({ success: false, message: error.message });
-    }
-});
+          res.status(200).json({...result, token, name, email, suscripcion, role});
+      } catch (error) {
+          res.status(500).json({ success: false, message: error.message });
+      }
+  }
+);
 
 app.post('/api/reset-email', async (req, res) => {
     const { email } = req.body;
@@ -118,6 +122,27 @@ app.get('/api/productos', async (req,res) => {
     res.status(500).json({ error: result.message });
   }
 });
+
+app.post('/api/productos',authenticateToken,authorizeRole('admin'), async (req, res) => {
+  const result = await addProductos(req.body);
+  if (result.success) {
+    res.status(201).json({ message: 'Producto agregado correctamente' });
+  }else {
+    res.status(result.status || 500).json({ error: result.message });
+  }
+});
+
+app.delete('/api/productos',authenticateToken,authorizeRole('admin'), async (req, res) => {
+  const result = await deleteProducto(req.body.id);
+  if (result.success) {
+    res.status(200).json({ message: 'Producto eliminado correctamente' });
+  }else if(result.status === 404) {
+    res.status(404).json({ error: 'Producto no encontrado' });
+  }else {
+    res.status(result.status || 500).json({ error: result.message });
+  }
+});
+
 
 app.post('/api/scrape-prices', async (req, res) => {
   const { productName } = req.body; 
@@ -268,6 +293,29 @@ app.get('/api/admin-dashboard', authenticateToken, authorizeRole('admin'), async
     } catch (error) {
         res.status(500).json({ success: false, message: 'Error al obtener datos del dashboard', details: error.message });
     }
+});
+
+
+app.post('/api/token', async (req, res) => {
+  const { uid, email, role } = req.body;
+
+  if (!uid || !email) {
+    return res.status(400).json({ error: 'uid y email son requeridos' });
+  }
+
+  const payload = {
+    uid,
+    email,
+    role: role || 'usuario',
+  };
+
+  const result = await generateJWT(payload);
+
+  if (result.success) {
+    res.status(200).json({ token: result.token });
+  } else {
+    res.status(500).json({ error: result.message });
+  }
 });
 
 // Iniciar el servidor
