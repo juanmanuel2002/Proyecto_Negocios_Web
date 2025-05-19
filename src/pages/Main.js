@@ -6,7 +6,7 @@ import { importCarouselImages } from '../utils/importCarouselImages';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import logo from '../asserts/logo.jpg';
+import logo from '../assets/logo.jpg';
 import Carousel from '../components/Carousel';
 import MysteryBoxCard from '../components/MysteryBoxCards';
 import Header from '../components/Header';
