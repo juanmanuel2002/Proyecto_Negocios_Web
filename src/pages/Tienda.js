@@ -180,7 +180,7 @@ const Tienda = () => {
   };
 
   const handleImageClick = (producto) => {
-    const folderPath = `/imagenes/Galeria/${producto.nombre}`;
+    const folderPath = `/imagenes/products/${producto.categoria}/${producto.imagen}`;
     const images = [
       `${folderPath}/imagen1.jpg`,
       `${folderPath}/imagen2.jpg`,
@@ -229,9 +229,9 @@ const Tienda = () => {
         />
       </div>
 
-      <p className="leyenda-fotos" data-aos="fade-up">
+      {/* <p className="leyenda-fotos" data-aos="fade-up">
         Selecciona la foto del producto para ver más fotos.
-      </p>
+      </p> */}
       {loading ? (
         <p className="loading"><ClipLoader color="#6d4c41" size={50} /></p>
       ) : error ? (
@@ -241,9 +241,9 @@ const Tienda = () => {
           {filteredProductos.map((producto) => (
             <div className="card-producto" key={producto.id}>
               <img
-                src={`imagenes/Galeria/${producto.imagen}`}
+                src={`imagenes/products/${producto.categoria}/${producto.imagen}`}
                 alt={producto.nombre}
-                onClick={() => handleImageClick(producto)}
+                //onClick={() => handleImageClick(producto)} Comentado porque por ahora es una imagen por producto
                 className="producto-imagen"
               />
               <h3>{producto.nombre}</h3>

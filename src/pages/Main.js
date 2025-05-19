@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaCrown, FaGift, FaBoxOpen, FaStar } from 'react-icons/fa'; 
 import { handleSearchTweets } from '../services/api';
+import { importCarouselImages } from '../utils/importCarouselImages';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import logo from '../asserts/logo.jpg';
+import logo from '../assets/logo.jpg';
 import Carousel from '../components/Carousel';
 import MysteryBoxCard from '../components/MysteryBoxCards';
 import Header from '../components/Header';
@@ -22,6 +23,8 @@ const Main = () => {
 
     const navigate = useNavigate();
 
+    const images = useMemo(() => importCarouselImages(), []);
+
     const [tweetIds, setTweetIds] = useState([]);
     // eslint-disable-next-line
     const [loadingTweets, setLoadingTweets] = useState(false);
@@ -30,14 +33,6 @@ const Main = () => {
         return sessionStorage.getItem('isAgeConfirmed') !== 'true';
     });
     
-    const images = [
-        '/imagenes/Galeria/cafe.jpg',
-        '/imagenes/Galeria/cerveza.jpg',
-        '/imagenes/Galeria/mezcal.jpg',
-        '/imagenes/Galeria/regalo.jpg',
-        '/imagenes/Galeria/articulos.jpg',
-        '/imagenes/Galeria/vino_chocolate.jpg'
-    ];
 
     const testimonios = [
         {
@@ -135,10 +130,9 @@ const Main = () => {
             </div>
 
             {/* Carrusel de imágenes */}
-            <Carousel
-                items={images}
-                renderItem={(image, idx) => <img src={image} alt={`Imagen ${idx + 1}`} />}
-            />
+            <div className="carousel-container" data-aos="fade-up">
+                <Carousel images={images} />
+            </div>
 
             {/* Definición de mystery box */}
             <div className="mystery-box-section" data-aos="fade-up">
