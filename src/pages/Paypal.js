@@ -4,7 +4,7 @@ import PayPalButton from '../components/PayPalButton';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { createOrder } from '../services/api'; 
+import { createOrder, updateStockProductos } from '../services/api'; 
 import { useAuth } from '../context/AuthContext'; 
 import '../styles/PayPal.css';
 
@@ -51,8 +51,22 @@ const PayPal = () => {
     const total = subtotal.toFixed(2);
 
     const result = await createOrder(userId, orderData, total);
+    console.log('cartItem:', cartItems);
+    console.log('result:', result);
 
     if (result.success) {
+      const productosToUpdate = cartItems.map(item => ({
+      id: item.id,
+      nombre: item.nombre,
+      precio: item.precio,
+      descripcion: item.descripcion,
+      imagen: item.imagen,
+      categoria: item.categoria,
+      unidadesDisponibles: item.unidadesDisponibles - item.cantidad,
+      }));
+      
+      await updateStockProductos(productosToUpdate);
+
       alert('Compra confirmada exitosamente.');
       clearCart();
       await refreshUserData(userId);
