@@ -123,7 +123,7 @@ app.get('/api/productos', async (req,res) => {
   }
 });
 
-app.post('/api/productos',authenticateToken,authorizeRole('admin'), async (req, res) => {
+app.post('/api/productos',authenticateToken, async (req, res) => {
   const result = await addProductos(req.body);
   if (result.success) {
     res.status(201).json({ message: 'Producto agregado correctamente' });
