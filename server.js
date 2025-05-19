@@ -181,8 +181,14 @@ app.get(
     }
 
     const { query } = req.query;
+
     try {
       const tweets = await searchTweets(query);
+      
+      if (!tweets.data || tweets.data.length === 0) {
+        return res.status(404).json({ error: 'No se encontraron tweets para la consulta proporcionada.' });
+      }
+
       const randomTweets = getRandomElements(tweets.data, 3); 
       res.status(200).json(randomTweets);
     } catch (error) {

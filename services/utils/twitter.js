@@ -8,7 +8,6 @@ const cache = {};
 
 export const searchTweets = async (query) => {
   const currentTime = Date.now();
-
   if (cache[query]) {
     console.log('Devolviendo resultados desde caché');
     return cache[query].data;
@@ -16,14 +15,13 @@ export const searchTweets = async (query) => {
 
   try {
     const response = await twitterClient.v2.search(query, { max_results: 10 });
-
+    
     // Almacenar los resultados en caché
     cache[query] = {
       data: response.data,
       timestamp: currentTime,
     };
 
-    console.log('Resultados almacenados en caché');
     return response.data;
   } catch (error) {
     if (error.code === 429) {
