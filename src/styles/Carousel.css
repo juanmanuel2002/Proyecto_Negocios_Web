@@ -1,42 +1,27 @@
+/* Contenedor general */
 .carousel-wrapper {
-    overflow: hidden;
-    position: relative;
-    width: 100%;
-  }
-  
-  .carousel-track {
-    display: flex;
-    transition: transform 0.5s ease-in-out;
-  }
-  
-  .carousel-item {
-    flex: 0 0 100%; /* Cada elemento ocupa el 100% del ancho del carrusel */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem;
-  }
-  
-  .carousel-item img {
-    max-width: 100%;
-    border-radius: 10px;
-  }
-  
-  .card-opinion {
-    background-color: #fff;
-    padding: 1rem;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    text-align: center;
-  }
-  
-  .card-opinion h3 {
-    font-size: 1.2rem;
-    margin-bottom: 0.5rem;
-    color: var(--text-color-dark);
-  }
-  
-  .card-opinion p {
-    font-size: 1rem;
-    color: var(--text-color);
-  }
+  width: 100%;        
+  overflow: hidden;    
+}
+
+/* Hace que los items se vean en fila y con espacio */
+.carousel-track {
+  display: flex;
+  gap: 0.5rem;         
+  padding: 1rem 0;     
+}
+
+/* Define un ancho fijo para cada item */
+.carousel-item {
+  flex: 0 0 auto;
+  max-width: 300px;        
+}
+
+/* Ajusta la foto dentro del item */
+.carousel-item img {
+  display: block;        
+  width: 100%;        
+  height: auto;
+  object-fit: contain;   
+  border-radius: 8px; 
+}
