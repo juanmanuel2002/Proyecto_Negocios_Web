@@ -10,9 +10,9 @@ export const addProductos = async (productos) => {
   try {
     const productosCollection = collection(db, 'productos');
     for (const producto of productos) {
-      const { nombre, descripcion, imagen, precio, unidadesDisponibles } = producto;
+      const { nombre, descripcion, imagen, precio, unidadesDisponibles, categoria } = producto;
 
-      if (!nombre || !descripcion || !imagen || !precio || !unidadesDisponibles) {
+      if (!nombre || !descripcion || !imagen || !precio || !unidadesDisponibles || !categoria) {
         return { success: false, message: 'Todos los campos son obligatorios en cada producto.' };
       }
 

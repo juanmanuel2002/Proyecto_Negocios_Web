@@ -1,4 +1,4 @@
-import { doc, setDoc,getDoc, collection, query, where, getDocs, updateDoc } from 'firebase/firestore';
+import { doc, setDoc,getDoc, collection, query, where, getDocs, updateDoc, orderBy } from 'firebase/firestore';
 import { db } from './setup.js';
 import { sendEmail } from '../utils/sendEmail.js';
 
@@ -45,7 +45,7 @@ export const createOrder = async (uid, orderData, total) => {
 export const getOrdersByUserId = async (userId) => {
   try {
     const ordersRef = collection(db, 'pedidos'); 
-    const q = query(ordersRef, where('uid', '==', userId)); 
+    const q = query(ordersRef, where('uid', '==', userId), orderBy('creado', 'desc')); // Ordenar por fecha de creación
     const querySnapshot = await getDocs(q);
 
     const orders = [];
