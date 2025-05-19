@@ -157,7 +157,7 @@ const Suscripciones = () => {
                 key={producto}
               >
                 <h3>{producto}</h3>
-                <p>Descripción del producto</p>
+                <p>Descripción</p>
               </div>
             ))}
           </div>
