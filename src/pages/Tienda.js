@@ -13,6 +13,7 @@ import 'aos/dist/aos.css';
 import '../styles/Main.css';
 import '../styles/Tienda.css';
 import DireccionControl from '../components/DireccionControl';
+import { useDireccionControl } from '../utils/useDireccionControl';
 
 /*TODO: -Implementar filtro por categoria de producto
         -Añadir categoria al buscador de scrapping 
@@ -52,10 +53,11 @@ const Tienda = () => {
   const [isStockModalOpen, setIsStockModalOpen] = useState(false); 
   const [stockMessage, setStockMessage] = useState(''); 
 
-  // Estados para dirección
-  const [showDireccionControl, setShowDireccionControl] = useState(false);
-  const [direccionConfirmada, setDireccionConfirmada] = useState(false);
-  const [pendingBuyNow, setPendingBuyNow] = useState(null);
+  const {
+    showDireccionControl,
+    abrirDireccionControl,
+    cerrarDireccionControl,
+  } = useDireccionControl();
 
   useEffect(() => {
     AOS.init({ duration: 1000, once: false });
@@ -161,8 +163,7 @@ const Tienda = () => {
       });
 
       if (isLoggedIn) {
-        setPendingBuyNow(true);
-        setShowDireccionControl(true);
+        abrirDireccionControl();
       } else {
         setShowMessage(true);
         setTimeout(() => {
@@ -176,9 +177,7 @@ const Tienda = () => {
   };
 
   const handleDireccionConfirmada = () => {
-    setDireccionConfirmada(true);
-    setShowDireccionControl(false);
-    setPendingBuyNow(false);
+    cerrarDireccionControl(); 
     navigate('/paypal', { state: { from: '/tienda' } });
   };
 

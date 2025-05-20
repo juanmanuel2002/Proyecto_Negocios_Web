@@ -1,19 +1,28 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
-import { useAuth} from '../context/AuthContext'; 
+import { useAuth } from '../context/AuthContext'; 
 import ModalMensaje from '../components/ModalMensaje'; 
+import DireccionControl from '../components/DireccionControl';
+import { useDireccionControl } from '../utils/useDireccionControl'; 
 import '../styles/Cart.css';
 
 const Cart = () => {
   const { cartItems, removeFromCart, clearCart, updateCartItemQuantity } = useCart();
-  const { isLoggedIn, setRedirectPath } = useAuth(); 
+  const { isLoggedIn, setRedirectPath, currentUser } = useAuth(); 
   const navigate = useNavigate();
   const [showMessage, setShowMessage] = useState(false); 
   const [isValidationModalOpen, setIsValidationModalOpen] = useState(false); 
   const [validationMessage, setValidationMessage] = useState(''); 
   const [isStockModalOpen, setIsStockModalOpen] = useState(false); 
   const [stockMessage, setStockMessage] = useState(''); 
+
+  
+  const {
+    showDireccionControl,
+    abrirDireccionControl,
+    cerrarDireccionControl,
+  } = useDireccionControl();
 
   // Calcular el subtotal general sumando los subtotales de todos los productos
   const subtotal = cartItems.reduce(
@@ -31,7 +40,7 @@ const Cart = () => {
       return;
     }
     if (isLoggedIn) {
-      navigate('/paypal'); 
+      abrirDireccionControl(); 
     } else {
       setRedirectPath('/paypal'); 
       setShowMessage(true); 
@@ -40,6 +49,11 @@ const Cart = () => {
         navigate('/login'); 
       }, 3000);
     }
+  };
+
+  const handleDireccionConfirmada = () => {
+    cerrarDireccionControl();
+    navigate('/paypal', { state: { from: '/carrito' } });
   };
 
   const handleIncrement = (item) => {
@@ -82,7 +96,7 @@ const Cart = () => {
                   <button
                     className="quantity-button"
                     onClick={() => updateCartItemQuantity(item.nombre, item.cantidad - 1)}
-                    disabled={item.cantidad <= 1} // Evita disminuir por debajo de 1
+                    disabled={item.cantidad <= 1}
                   >
                     -
                   </button>
@@ -151,6 +165,14 @@ const Cart = () => {
           titulo="Stock Insuficiente"
           mensaje={stockMessage}
           onClose={() => setIsStockModalOpen(false)}
+        />
+      )}
+
+      {/* Control de dirección antes de ir a Paypal */}
+      {showDireccionControl && isLoggedIn && currentUser && (
+        <DireccionControl
+          userId={currentUser.uid}
+          onDireccionConfirmada={handleDireccionConfirmada}
         />
       )}
     </div>

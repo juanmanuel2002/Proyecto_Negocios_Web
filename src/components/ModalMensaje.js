@@ -1,7 +1,7 @@
 import React from 'react';
 import '../styles/ModalMensaje.css';
 
-const ModalMensaje = ({ titulo, mensaje, onClose, onConfirm,confirmText,cancelText}) => {
+const ModalMensaje = ({ titulo, mensaje, onClose, onConfirm,onCancel,confirmText,cancelText}) => {
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
@@ -13,7 +13,7 @@ const ModalMensaje = ({ titulo, mensaje, onClose, onConfirm,confirmText,cancelTe
               {confirmText || 'Confirmar'}
             </button>
           )}
-          <button className="close-modal" onClick={onClose}>
+          <button className="close-modal"onClick={onCancel ? onCancel : onClose}>
             {onConfirm ? (cancelText || 'Cancelar') : 'Cerrar'}
           </button>
         </div>

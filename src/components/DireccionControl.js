@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import DireccionForm from './DireccionForm';
 import ModalMensaje from './ModalMensaje';
-import '../styles/DireccionControl.css'; // Asegúrate de tener este archivo CSS
 import { fetchUserInfo, updateUserDireccion } from '../services/api';
+import '../styles/DireccionControl.css'; 
 
 const DireccionControl = ({ userId, onDireccionConfirmada }) => {
   const [direccion, setDireccion] = useState(null);
   const [showForm, setShowForm] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [formKey, setFormKey] = useState(Date.now());
 
   useEffect(() => {
     const getDireccion = async () => {
       const res = await fetchUserInfo(userId);
       const dir = res.data?.direccion;
-      // Si no hay dirección o le falta algún campo importante, muestra el formulario
       if (
         !dir ||
         !dir.calle ||
@@ -24,8 +24,11 @@ const DireccionControl = ({ userId, onDireccionConfirmada }) => {
         !dir.numeroExterior
       ) {
         setShowForm(true);
+        setShowConfirmModal(false);
+        setDireccion(dir || {});
       } else {
         setDireccion(dir);
+        setShowForm(false);
         setShowConfirmModal(true);
       }
     };
@@ -38,16 +41,18 @@ const DireccionControl = ({ userId, onDireccionConfirmada }) => {
   };
 
   const handleEditDireccion = () => {
-    setShowConfirmModal(true);
-    setShowForm(false);
+    setShowConfirmModal(false);
+    setShowForm(true);
+    setFormKey(Date.now()); 
   };
+
 
   const handleSaveDireccion = async (nuevaDireccion) => {
     const res = await updateUserDireccion(userId, nuevaDireccion);
     if (res.success) {
       setDireccion(nuevaDireccion);
       setShowForm(false);
-      onDireccionConfirmada(nuevaDireccion);
+      setShowConfirmModal(true); // Vuelve a mostrar el modal de confirmación con la nueva dirección
     } else {
       alert('Error al guardar la dirección');
     }
@@ -56,19 +61,28 @@ const DireccionControl = ({ userId, onDireccionConfirmada }) => {
   return (
     <>
       {showForm && (
-      <div className="direccion-modal-overlay">
-        <div className="direccion-modal-content">
-          <DireccionForm initialDireccion={direccion || {}} onSave={handleSaveDireccion} />
+        <div className="direccion-modal-overlay">
+          <div className="direccion-modal-content">
+            <DireccionForm
+              key={formKey}
+              initialDireccion={direccion || {}}
+              onSave={handleSaveDireccion}
+            />
+          </div>
         </div>
-      </div>
       )}
       {showConfirmModal && (
         <ModalMensaje
           titulo="¿Usar esta dirección de entrega?"
           mensaje={
             <div>
-              <p>{direccion.calle} #{direccion.numeroExterior} {direccion.numeroInterior && `Int. ${direccion.numeroInterior}`}</p>
-              <p>{direccion.colonia}, {direccion.delegacion}, {direccion.pais}, CP {direccion.codigoPostal}</p>
+              <p>
+                {direccion.calle} #{direccion.numeroExterior}{' '}
+                {direccion.numeroInterior && `Int. ${direccion.numeroInterior}`}
+              </p>
+              <p>
+                {direccion.colonia}, {direccion.delegacion}, {direccion.pais}, CP {direccion.codigoPostal}
+              </p>
             </div>
           }
           onClose={() => setShowConfirmModal(false)}
