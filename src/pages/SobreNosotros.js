@@ -37,9 +37,12 @@ const SobreNosotros = () => {
   ];
 
   const equipo = [
-    { titulo: 'Lucía Martínez', descripcion: 'Fundadora & Curadora de Productos', imagen: '/equipo1.jpg' },
-    { titulo: 'Andrés Gómez', descripcion: 'Diseño de Experiencia', imagen: '/equipo2.jpg' },
-    { titulo: 'Camila Ruiz', descripcion: 'Relaciones con Clientes', imagen: '/equipo3.jpg' },
+    { titulo: 'Barragán Rivera Diego', descripcion: 'Fundadora & Curadora de Productos', imagen: '/equipo1.jpg' },
+    { titulo: 'Chávez Villanueva Giovanni Salvador', descripcion: 'Diseño de Experiencia', imagen: '/imagenes/team/chava.jpeg' },
+    { titulo: 'García Acosta Anyela Mariela', descripcion: 'Relaciones con Clientes', imagen: '/equipo3.jpg' },
+    { titulo: 'Miranda Rayón Juan Manuel', descripcion: 'Relaciones con Clientes', imagen: '/equipo3.jpg' },
+    { titulo: 'Rojo López Luis Felipe', descripcion: 'Relaciones con Clientes', imagen: '/equipo3.jpg' },
+    { titulo: 'Torres Gracian Christian Iván', descripcion: 'Relaciones con Clientes', imagen: '/equipo3.jpg' }
   ];
 
   return (
@@ -57,7 +60,7 @@ const SobreNosotros = () => {
             </p>
           </div>
           <div className="banner-imagen">
-            <img src="logo192.png" alt="Sobre Nosotros" />
+            <img src="logo_nombre.svg" alt="Sobre Nosotros" />
           </div>
         </section>
 
