@@ -78,7 +78,7 @@ const Main = () => {
 
     // Este es el texto con el que se van a buscar los tweets
     useEffect(() => {
-        fetchTweets('Mystery box FI UNAM 2025');
+        fetchTweets('#saboresOcultos2025');
     }, []); 
 
     return (

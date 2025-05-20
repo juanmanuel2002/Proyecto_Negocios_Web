@@ -266,3 +266,20 @@ export async function updateStockProductos(productos) {
     return { success: false, message: error.message };
   }
 }
+
+export const updateUserDireccion = async (uid, direccion) => {
+  try {
+    const token = sessionStorage.getItem('token');
+    const response = await fetch(`${API_URL}/user`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify({uid, direccion }),
+    });
+    return await response.json();
+  } catch (error) {
+    return { success: false, message: error.message };
+  }
+};
