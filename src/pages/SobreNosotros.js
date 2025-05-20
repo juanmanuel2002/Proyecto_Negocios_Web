@@ -10,6 +10,8 @@ import '../styles/SobreNosotros.css';
 import '../styles/Global.css'; 
 import '../styles/Header.css';
 
+//TODO: Implementar roles y fotos
+
 const SobreNosotros = () => {
   useEffect(() => {
     AOS.init({ duration: 1000, once: false });
