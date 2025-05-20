@@ -13,6 +13,11 @@ import 'aos/dist/aos.css';
 import '../styles/Main.css';
 import '../styles/Tienda.css';
 
+/*TODO: -Implementar filtro por categoria de producto
+        -Añadir categoria al buscador de scrapping 
+
+
+*/
 const Tienda = () => {
   const [productos, setProductos] = useState([]);
   const [filteredProductos, setFilteredProductos] = useState([]); 
