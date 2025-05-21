@@ -12,6 +12,7 @@ import { createOrder, getOrdersByUserId} from './services/firebase/order.js';
 import { db } from './services/firebase/setup.js';
 import { doc, getDoc } from 'firebase/firestore';
 import { getUserByUid } from './services/firebase/getUser.js'; 
+import { updateUserInfo } from './services/firebase/updateUser.js'; 
 import { deleteOrderById } from './services/firebase/deleteOrder.js';
 import { authenticateToken } from './services/middleware/authenticateToken.js';
 import { authorizeRole } from './services/middleware/authorizeRole.js';
@@ -143,7 +144,6 @@ app.delete('/api/productos',authenticateToken,authorizeRole('admin'), async (req
   }
 });
 
-
 app.post('/api/scrape-prices', async (req, res) => {
   const { productName } = req.body; 
   if (!productName) {
@@ -196,7 +196,6 @@ app.get(
     }
   }
 );
-
 
 app.post(
   '/api/order',
@@ -261,6 +260,30 @@ app.get('/api/user',authenticateToken, async (req, res) => {
     
 });
 
+app.put(
+  '/api/user',
+  authenticateToken,
+  [
+    body('uid').notEmpty().withMessage('El uid es obligatorio'),
+    body('name').optional().isString().withMessage('El nombre debe ser un texto'),
+    body('direccion').optional().isObject().withMessage('La dirección debe ser un objeto'),
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ success: false, errors: errors.array() });
+    }
+
+    const { uid, direccion } = req.body;
+    try {
+      const result = await updateUserInfo(uid, direccion);
+      res.status(200).json({ success: true, data: result });
+    } catch (error) {
+      res.status(500).json({ success: false, message: error.message });
+    }
+  }
+);
+
 // Endpoint para borrar una orden por id
 app.delete('/api/order',authenticateToken, async (req, res) => {
     const { id } = req.query;
@@ -300,7 +323,6 @@ app.get('/api/admin-dashboard', authenticateToken, authorizeRole('admin'), async
         res.status(500).json({ success: false, message: 'Error al obtener datos del dashboard', details: error.message });
     }
 });
-
 
 app.post('/api/token', async (req, res) => {
   const { uid, email, role } = req.body;
