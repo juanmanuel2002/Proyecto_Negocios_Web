@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { Filter as FilterIcon } from 'lucide-react';
+import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import '../styles/Tienda.css';
 
 const FilterDropdown = ({ options, selected, onChange }) => {
@@ -80,7 +80,7 @@ const FilterDropdown = ({ options, selected, onChange }) => {
           className="filter-dropdown-button"
           aria-label="Filtrar productos"
         >
-          <FilterIcon size={20} />
+          <FilterAltIcon fontSize="medium" />
         </button>
       </div>
       {open && createPortal(dropdown, document.body)}

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import FilterDropdown from '../components/FilterDropdown';
-import { ClipLoader } from 'react-spinners';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
@@ -285,7 +285,9 @@ const Tienda = () => {
         Selecciona la foto del producto para ver más fotos.
       </p> */}
       {loading ? (
-        <p className="loading"><ClipLoader color="#6d4c41" size={50} /></p>
+        <p className="loading">
+          <i className="fas fa-spinner fa-spin-pulse fa-3x"></i>
+        </p>
       ) : error ? (
         <p className="error">Ha ocurrido un error al obtener los productos</p>
       ) : (
