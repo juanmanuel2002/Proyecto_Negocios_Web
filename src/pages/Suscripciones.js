@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import ScrollToTopButton from '../components/ScrollTopButton'; 
 import AOS from 'aos';
+import { importMarcasImages } from '../utils/importMarcasImages';
 import 'aos/dist/aos.css';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
@@ -19,6 +20,7 @@ const Suscripciones = () => {
   const [showMessage, setShowMessage] = useState(false);
   const [isValidationModalOpen, setIsValidationModalOpen] = useState(false); 
   const [validationMessage, setValidationMessage] = useState('');
+  const marcasLogos = useMemo(() => importMarcasImages(),[]) 
 
   useEffect(() => {
     AOS.init({ duration: 1000, once: false });
@@ -65,7 +67,7 @@ const Suscripciones = () => {
     setValidationMessage('');
   };
 
-  const productos = ['Mermelada', 'Tequila', 'Mezcal', 'Chocolate', 'Cerveza', 'Vino', 'Cafe'];
+  const productos = ['Mermeladas', 'Tequila', 'Mezcal', 'Chocolates', 'Cerveza', 'Vino', 'Cafe'];
 
   return (
     <div className="main-container">
@@ -147,9 +149,6 @@ const Suscripciones = () => {
       <div className="que-contiene-container" data-aos="fade-up"> 
         <h2 className="titulo-que-contiene">¿Qué contiene?</h2>
         <div className="contenidos-productos">
-          <div className="imagen-que-contiene">
-            <img src="imagenes/Galeria/mezcal.jpg" alt="Imagen de ejemplo" />
-          </div>
           <div className="productos-cards">
             {productos.map((producto, index) => (
               <div 
@@ -157,7 +156,6 @@ const Suscripciones = () => {
                 key={producto}
               >
                 <h3>{producto}</h3>
-                <p>Descripción</p>
               </div>
             ))}
           </div>
@@ -168,19 +166,14 @@ const Suscripciones = () => {
       <div className="marcas-container" data-aos="fade-up">
         <h2 className="titulo-marcas">Las marcas que puedes encontrar</h2>
         <div className="marcas-logos">
-          {[
-            'marca1.jpg',
-            'marca2.jpg',
-            'marca3.jpg',
-            'marca4.jpg',
-          ].map((logo, index) => (
-            <img
-              key={index}
-              src={`imagenes/marcas/${logo}`}
-              alt={`Marca ${index + 1}`}
-              className="logo-marca"
-            />
-          ))}
+         {marcasLogos.map((src, idx) => (
+          <img
+              key={idx}
+              src={src}
+              alt={`Marca ${idx +1 }`}
+              className='logo-marca'
+          />
+         ))}
         </div>
       </div>
 
