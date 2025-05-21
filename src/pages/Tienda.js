@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import FilterDropdown from '../components/FilterDropdown';
 import { ClipLoader } from 'react-spinners';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
@@ -24,6 +25,8 @@ const Tienda = () => {
   const [productos, setProductos] = useState([]);
   const [filteredProductos, setFilteredProductos] = useState([]); 
   const [searchTerm, setSearchTerm] = useState(''); 
+  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -67,6 +70,9 @@ const Tienda = () => {
       if (result.success) {
         setProductos(result.data);
         setFilteredProductos(result.data); 
+        //Obtiene la lista de categorías
+        const cats = Array.from(new Set(result.data.map(p => p.categoria)));
+        setCategories(cats);
       } else {
         setError(result.message);
       }
@@ -79,11 +85,35 @@ const Tienda = () => {
   const handleSearch = (e) => {
     const term = e.target.value.toLowerCase();
     setSearchTerm(term);
-    const filtered = productos.filter((producto) =>
-      (producto.nombre && producto.nombre.toLowerCase().includes(term)) 
-    );
-    setFilteredProductos(filtered);
+    filterProducts(term,selectedCategories);
+  
   };
+
+  const handleCategoriesChange = categories => {
+    setSelectedCategories(categories);
+    filterProducts(searchTerm, categories);
+  };
+
+
+  //Funcion auxiliar para aplicar la busqueda y el cambio
+  const filterProducts = (term,categories) => {
+    let resultado = productos;
+    if (term){
+      resultado = resultado.filter (p =>
+        p.nombre?.toLowerCase().includes(term)
+      );
+    }
+
+    //Filtrado por categorias multiples
+    if(categories.length > 0){
+      resultado = resultado.filter(p => 
+        categories.includes(p.categoria)
+      );
+    }
+
+    setFilteredProductos(resultado);
+  };
+
 
   const handleComparePrices = async (productName) => {
     setIsLoadingComparison(true); 
@@ -243,6 +273,13 @@ const Tienda = () => {
           onChange={handleSearch}
           className="search-input"
         />
+        <FilterDropdown
+          options={categories}
+          selected={selectedCategories}
+          onChange={handleCategoriesChange}
+        />
+
+
       </div>
       {/* <p className="leyenda-fotos" data-aos="fade-up">
         Selecciona la foto del producto para ver más fotos.
