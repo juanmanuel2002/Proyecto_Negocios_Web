@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropertyFilter from '../components/PropertyFilter';
 import { ClipLoader } from 'react-spinners';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
@@ -22,6 +23,8 @@ const Tienda = () => {
   const [productos, setProductos] = useState([]);
   const [filteredProductos, setFilteredProductos] = useState([]); 
   const [searchTerm, setSearchTerm] = useState(''); 
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -60,6 +63,9 @@ const Tienda = () => {
       if (result.success) {
         setProductos(result.data);
         setFilteredProductos(result.data); 
+        //Obtiene la lista de categorías
+        const cats = Array.from(new Set(result.data.map(p => p.categoria)));
+        setCategories(cats);
       } else {
         setError(result.message);
       }
@@ -72,11 +78,35 @@ const Tienda = () => {
   const handleSearch = (e) => {
     const term = e.target.value.toLowerCase();
     setSearchTerm(term);
-    const filtered = productos.filter((producto) =>
-      (producto.nombre && producto.nombre.toLowerCase().includes(term)) 
-    );
-    setFilteredProductos(filtered);
+    // const filtered = productos.filter((producto) =>
+    //   (producto.nombre && producto.nombre.toLowerCase().includes(term)) 
+    // );
+    filterProducts(term,selectedCategory);
+    //setFilteredProductos(filtered);
   };
+
+  const handleCategoryChange = category => {
+    setSelectedCategory(category);
+    filterProducts(searchTerm, category);
+  };
+
+
+  //Funcion auxiliar para aplicar la busqueda y el cambio
+  const filterProducts = (term,category) => {
+    let resultado = productos;
+    if (term){
+      resultado = resultado.filter (p =>
+        p.nombre?.toLowerCase().includes(term)
+      );
+    }
+
+    if(category){
+      resultado = resultado.filter(p => p.categoria == category);
+    }
+
+    setFilteredProductos(resultado);
+  };
+
 
   const handleComparePrices = async (productName) => {
     setIsLoadingComparison(true); 
@@ -232,6 +262,13 @@ const Tienda = () => {
           onChange={handleSearch}
           className="search-input"
         />
+        <PropertyFilter
+          options = {categories}
+          value={selectedCategory}
+          onChange={handleCategoryChange}
+        />
+
+
       </div>
 
       {/* <p className="leyenda-fotos" data-aos="fade-up">

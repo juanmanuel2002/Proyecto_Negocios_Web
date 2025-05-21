@@ -197,6 +197,14 @@
     margin-bottom: 20px;
   }
 
+  .property-filter {
+    margin-left: 1rem;       /* separación del buscador */
+    padding: 0.5rem;         /* espacio interno */
+    border-radius: 4px;      /* bordes redondeados */
+    border: 1px solid #ccc;  /* línea suave */
+    font-size: 1rem;         /* tamaño de texto consistente */
+  }
+
   .search-container {
     text-align: center;
     margin: 20px 0;
