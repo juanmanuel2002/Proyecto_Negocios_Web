@@ -277,8 +277,6 @@
   margin-top: 20px;
 }
 
-
-/* Responsive: Ajustar el modal en pantallas pequeñas */
 @media (max-width: 768px) {
   .modal-content {
     width: 90%; /* Reducir el ancho del modal */
@@ -295,9 +293,6 @@
     font-size: 18px; /* Ajustar el tamaño de la cruz */
   }
 }
-
-/* 1) NO incluyas ningún right:0 ni position:absolute aquí */
-/* 2) Sólo un fixed controlado por inline-style */
 
 .filter-dropdown-list {
   list-style: none;
@@ -345,4 +340,11 @@
   cursor: pointer;
   padding: 0.25rem;
 }
+
+.no-results{
+    text-align: center;
+    font-size: 1.5rem;
+    color: var(--text-color);
+    margin-top: 2rem;
+  }
 

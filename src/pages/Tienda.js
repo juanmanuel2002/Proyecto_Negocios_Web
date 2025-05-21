@@ -13,6 +13,8 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import '../styles/Main.css';
 import '../styles/Tienda.css';
+import DireccionControl from '../components/DireccionControl';
+import { useDireccionControl } from '../utils/useDireccionControl';
 
 /*TODO: -Implementar filtro por categoria de producto
         -Añadir categoria al buscador de scrapping 
@@ -46,14 +48,19 @@ const Tienda = () => {
   //eslint-disable-next-line
   const [isComparing, setIsComparing] = useState(false);
 
-
   const { addToCart, clearCart, cartItems } = useCart();
-  const { isLoggedIn, setRedirectPath } = useAuth();
+  const { isLoggedIn, currentUser, setRedirectPath } = useAuth();
   const navigate = useNavigate();
 
   const [isLoadingComparison, setIsLoadingComparison] = useState(false); 
   const [isStockModalOpen, setIsStockModalOpen] = useState(false); 
   const [stockMessage, setStockMessage] = useState(''); 
+
+  const {
+    showDireccionControl,
+    abrirDireccionControl,
+    cerrarDireccionControl,
+  } = useDireccionControl();
 
   useEffect(() => {
     AOS.init({ duration: 1000, once: false });
@@ -186,7 +193,7 @@ const Tienda = () => {
       });
 
       if (isLoggedIn) {
-        navigate('/paypal', { state: { from: '/tienda' } });
+        abrirDireccionControl();
       } else {
         setShowMessage(true);
         setTimeout(() => {
@@ -197,6 +204,11 @@ const Tienda = () => {
       setIsQuantityModalOpen(false);
       setSelectedQuantityProduct(null);
     }
+  };
+
+  const handleDireccionConfirmada = () => {
+    cerrarDireccionControl(); 
+    navigate('/paypal', { state: { from: '/tienda' } });
   };
 
   const increaseQuantity = () => {
@@ -252,7 +264,6 @@ const Tienda = () => {
       <Header />
       <div data-aos="fade-up" className="center-title">Sabores Ocultos</div>
      
-
       {/* Campo de búsqueda */}
       <div className="search-container" data-aos="fade-up">
         <input
@@ -270,7 +281,6 @@ const Tienda = () => {
 
 
       </div>
-
       {/* <p className="leyenda-fotos" data-aos="fade-up">
         Selecciona la foto del producto para ver más fotos.
       </p> */}
@@ -279,13 +289,18 @@ const Tienda = () => {
       ) : error ? (
         <p className="error">Ha ocurrido un error al obtener los productos</p>
       ) : (
+        filteredProductos.length === 0 ? (
+          <p className="no-results">
+            No se encontraron coincidencias con los criterios seleccionados
+          </p>
+        ) : (
         <div className="productos-grid" data-aos="fade-up">
           {filteredProductos.map((producto) => (
             <div className="card-producto" key={producto.id}>
               <img
                 src={`imagenes/products/${producto.categoria}/${producto.imagen}`}
                 alt={producto.nombre}
-                //onClick={() => handleImageClick(producto)} Comentado porque por ahora es una imagen por producto
+                 //onClick={() => handleImageClick(producto)} Comentado porque por ahora es una imagen por producto
                 className="producto-imagen"
               />
               <h3>{producto.nombre}</h3>
@@ -305,9 +320,9 @@ const Tienda = () => {
             </div>
           ))}
         </div>
+        )
       )}
 
-      
       {/* Modal de validación */}
       {isValidationModalOpen && (
         <ModalMensaje
@@ -414,6 +429,12 @@ const Tienda = () => {
           mensaje={stockMessage}
           onClose={() => setIsStockModalOpen(false)}
         />
+      )}
+
+      {/* Control de dirección antes de ir a Paypal */}
+      {showDireccionControl && isLoggedIn && currentUser && (
+        <DireccionControl userId={currentUser.uid} 
+        onDireccionConfirmada={handleDireccionConfirmada} />
       )}
 
       <ScrollToTopButton />

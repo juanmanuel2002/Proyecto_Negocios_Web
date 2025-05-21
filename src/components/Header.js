@@ -64,8 +64,12 @@ const Header = () => {
           <span onClick={() => navigate('/mis-pedidos')}>Mis Pedidos</span>
         )}
         {currentUser && isAdmin && ( 
+          <span onClick={() => navigate('/mis-pedidos')}>Mis Pedidos</span>
+        )}
+        {currentUser && isAdmin && ( 
           <span onClick={() => navigate('/admin-dashboard')}>Dashboard</span>
         )}
+        
       </div>
       <div className="right-nav">
         <button onClick={toggleTheme} className="theme-toggle">
@@ -104,6 +108,9 @@ const Header = () => {
           <span onClick={() => { navigate('/suscripciones'); toggleMenu(); }}>Suscripciones</span>
           {currentUser && !isAdmin && (
             <span onClick={() => { navigate('/mis-pedidos'); toggleMenu(); }}>Mis Pedidos</span>
+          )}
+          {currentUser && isAdmin && ( 
+            <span onClick={() => navigate('/mis-pedidos')}>Mis Pedidos</span>
           )}
           {currentUser && isAdmin && ( 
             <span onClick={() => navigate('/admin-dashboard')}>Dashboard</span>

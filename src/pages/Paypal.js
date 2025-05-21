@@ -4,7 +4,7 @@ import PayPalButton from '../components/PayPalButton';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { createOrder } from '../services/api'; 
+import { createOrder, updateStockProductos } from '../services/api'; 
 import { useAuth } from '../context/AuthContext'; 
 import '../styles/PayPal.css';
 
@@ -32,8 +32,8 @@ const PayPal = () => {
     }
   }, [currentUser, subtotal]);
   // Determinar la página anterior
-  const previousPage = location.state?.from || '/tienda'; 
-
+  const previousPage = location.state?.from || '/tienda';
+  const realPreviousPage = previousPage === '/carrito' ? '/tienda' : previousPage;
   // Función para confirmar la compra
   const handleConfirmPurchase = async () => {
     const userId = currentUser?.uid; 
@@ -53,6 +53,18 @@ const PayPal = () => {
     const result = await createOrder(userId, orderData, total);
 
     if (result.success) {
+      const productosToUpdate = cartItems.map(item => ({
+      id: item.id,
+      nombre: item.nombre,
+      precio: item.precio,
+      descripcion: item.descripcion,
+      imagen: item.imagen,
+      categoria: item.categoria,
+      unidadesDisponibles: item.unidadesDisponibles - item.cantidad,
+      }));
+      
+      await updateStockProductos(productosToUpdate);
+
       alert('Compra confirmada exitosamente.');
       clearCart();
       await refreshUserData(userId);
@@ -65,10 +77,8 @@ const PayPal = () => {
 
   return (
     <>
-      {/* Header fuera del contenedor principal */}
       <Header />
 
-      {/* Contenedor central que incluye resumen y botón de regreso */}
       <div className="checkout-container">
         <div className="checkout-content">
           <h2>Resumen de Compra</h2>
@@ -93,13 +103,12 @@ const PayPal = () => {
                 </p>
               </div>
               
-              {/* Botón de PayPal con clave única */}
               {userReady && (
                 <PayPalButton key={paypalKey} total={subtotal} />
               )}
               
               <div className="checkout-actions">
-                <button className="back-button" onClick={() => navigate(previousPage)}>
+                <button className="back-button" onClick={() => navigate(realPreviousPage)}>
                   Regresar
                 </button>
                 <button className="confirm-button" onClick={handleConfirmPurchase}>
@@ -111,7 +120,6 @@ const PayPal = () => {
         </div>
       </div>
 
-      {/* Footer fuera del contenedor principal */}
       <Footer />
     </>
   );

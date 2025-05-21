@@ -1,6 +1,6 @@
-//const API_URL = 'https://proyecto-negocios-web-1.onrender.com/api'; // QA
-//const API_URL = 'https://proyecto-negocios-web-back-prod.onrender.com/api'
-const API_URL = 'http://localhost:5000/api'; // Desarrollo
+//const API_URL = 'https://proyecto-negocios-web-1.onrender.com/api'; //Servidor render
+//const API_URL = 'http://localhost:5000/api'; // Para pruebas en local
+const API_URL = 'https://proyecto-negocios-web-back-prod.onrender.com/api'
 
 export const loginUser = async (email, password) => {
     try {
@@ -105,65 +105,64 @@ export const scrapePrices = async (productName) => {
     }
   };
 
-  export const fetchPayPalClientId = async () => {
-    try {
-      const token = sessionStorage.getItem('token');
-      const response = await fetch(`${API_URL}/clientPaypal`,{
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${token}`, 
-            },
-        });
+export const fetchPayPalClientId = async () => {
+  try {
+    const token = sessionStorage.getItem('token');
+    const response = await fetch(`${API_URL}/clientPaypal`,{
+          method: 'GET',
+          headers: {
+              'Authorization': `Bearer ${token}`, 
+          },
+      });
+    if (!response.ok) {
+      throw new Error(`Error en la respuesta del servidor: ${response.status}`);
+    }
+
+    const data = await response.json();
+    
+    if (!data.clientId) {
+      throw new Error('El client-id no está presente en la respuesta del servidor');
+    }
+
+    return data.clientId;
+  } catch (error) {
+    console.error('Error al obtener el client-id de PayPal:', error);
+    throw error;
+  }
+};
+
+export const handleSearchTweets = async (query) => {
+  try {
+    const response = await fetch(`${API_URL}/search-tweets?query=${encodeURIComponent(query)}`);
+    const tweets = await response.json();
+    return tweets;
+  } catch (error) {
+    console.error('Error al buscar tweets:', error);
+  }
+};
+
+export const createOrder = async (userId, orderData, total) => {
+  try {
+    const token = sessionStorage.getItem('token');
+      const response = await fetch(`${API_URL}/order`, {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`,
+          },
+          body: JSON.stringify({ userId, orderData, total }),
+      });
+
       if (!response.ok) {
-        throw new Error(`Error en la respuesta del servidor: ${response.status}`);
+          throw new Error('Error al crear la orden');
       }
-  
+
       const data = await response.json();
-      
-      if (!data.clientId) {
-        throw new Error('El client-id no está presente en la respuesta del servidor');
-      }
-  
-      return data.clientId;
-    } catch (error) {
-      console.error('Error al obtener el client-id de PayPal:', error);
-      throw error;
-    }
-  };
-
-  export const handleSearchTweets = async (query) => {
-    try {
-      const response = await fetch(`${API_URL}/search-tweets?query=${encodeURIComponent(query)}`);
-      const tweets = await response.json();
-      console.log('Tweets encontrados:', tweets);
-      return tweets;
-    } catch (error) {
-      console.error('Error al buscar tweets:', error);
-    }
-  };
-
-  export const createOrder = async (userId, orderData, total) => {
-    try {
-      const token = sessionStorage.getItem('token');
-        const response = await fetch(`${API_URL}/order`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`,
-            },
-            body: JSON.stringify({ userId, orderData, total }),
-        });
-
-        if (!response.ok) {
-            throw new Error('Error al crear la orden');
-        }
-
-        const data = await response.json();
-        return { success: true, data };
-    } catch (error) {
-        console.error('Error al crear la orden:', error);
-        return { success: false, message: 'Error al conectar con el servidor.' };
-    }
+      return { success: true, data };
+  } catch (error) {
+      console.error('Error al crear la orden:', error);
+      return { success: false, message: 'Error al conectar con el servidor.' };
+  }
 };
 
 export const fetchPedidos = async (userId) => {
@@ -199,7 +198,6 @@ export const fetchUserInfo = async (userId) => {
       throw new Error('Error al obtener los datos del usuario');
     }
     const data = await response.json();
-    console.log('Datos del usuario:', data);
     return {data};
   } catch (error) {
     console.error('Error en fetchUsuario:', error);
@@ -250,3 +248,37 @@ export const fetchAdminDashboard = async () => {
     return { success: false, message: 'No se pudieron cargar los datos del dashboard. Inténtalo más tarde.' };
   }
 };
+
+export async function updateStockProductos(productos) {
+  try {
+    const token = sessionStorage.getItem('token');
+    const response = await fetch(`${API_URL}/productos`, {
+      method: 'POST',
+      headers: { 
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`, },
+      body: JSON.stringify(productos),
+    });
+    return await response.json();
+  } catch (error) {
+    return { success: false, message: error.message };
+  }
+}
+
+export const updateUserDireccion = async (uid, direccion) => {
+  try {
+    const token = sessionStorage.getItem('token');
+    const response = await fetch(`${API_URL}/user`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify({uid, direccion }),
+    });
+    return await response.json();
+  } catch (error) {
+    return { success: false, message: error.message };
+  }
+};
+
