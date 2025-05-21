@@ -226,6 +226,7 @@ const Tienda = () => {
     setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
   };
 
+  // eslint-disable-next-line
   const handleImageClick = (producto) => {
     const folderPath = `/imagenes/products/${producto.categoria}/${producto.imagen}`;
     const images = [
@@ -328,7 +329,7 @@ const Tienda = () => {
       {/* Modal de validación */}
       {isValidationModalOpen && (
         <ModalMensaje
-          titulo="Validación"
+          titulo=""
           mensaje={validationMessage}
           onClose={closeValidationModal}
         />
