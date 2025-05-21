@@ -23,7 +23,7 @@ const Tienda = () => {
   const [productos, setProductos] = useState([]);
   const [filteredProductos, setFilteredProductos] = useState([]); 
   const [searchTerm, setSearchTerm] = useState(''); 
-  const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedCategories, setSelectedCategories] = useState([]);
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -78,21 +78,18 @@ const Tienda = () => {
   const handleSearch = (e) => {
     const term = e.target.value.toLowerCase();
     setSearchTerm(term);
-    // const filtered = productos.filter((producto) =>
-    //   (producto.nombre && producto.nombre.toLowerCase().includes(term)) 
-    // );
-    filterProducts(term,selectedCategory);
-    //setFilteredProductos(filtered);
+    filterProducts(term,selectedCategories);
+  
   };
 
-  const handleCategoryChange = category => {
-    setSelectedCategory(category);
-    filterProducts(searchTerm, category);
+  const handleCategoriesChange = categories => {
+    setSelectedCategories(categories);
+    filterProducts(searchTerm, categories);
   };
 
 
   //Funcion auxiliar para aplicar la busqueda y el cambio
-  const filterProducts = (term,category) => {
+  const filterProducts = (term,categories) => {
     let resultado = productos;
     if (term){
       resultado = resultado.filter (p =>
@@ -100,8 +97,11 @@ const Tienda = () => {
       );
     }
 
-    if(category){
-      resultado = resultado.filter(p => p.categoria == category);
+    //Filtrado por categorias multiples
+    if(categories.length > 0){
+      resultado = resultado.filter(p => 
+        categories.includes(p.categoria)
+      );
     }
 
     setFilteredProductos(resultado);
@@ -264,8 +264,8 @@ const Tienda = () => {
         />
         <PropertyFilter
           options = {categories}
-          value={selectedCategory}
-          onChange={handleCategoryChange}
+          value={selectedCategories}
+          onChange={handleCategoriesChange}
         />
 
 
