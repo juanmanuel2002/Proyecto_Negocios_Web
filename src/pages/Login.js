@@ -2,14 +2,21 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { loginUser } from '../services/api'; 
 import { useAuth } from '../context/AuthContext'; 
+import DireccionControl from '../components/DireccionControl';
+import { useDireccionControl } from '../utils/useDireccionControl';
 import '../styles/Auth.css';
 
 const Login = () => {
-  const { login, redirectPath, setRedirectPath } = useAuth();
+  const { login, redirectPath, setRedirectPath, currentUser } = useAuth();
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const {
+    showDireccionControl,
+    abrirDireccionControl,
+    cerrarDireccionControl,
+  } = useDireccionControl();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -19,9 +26,13 @@ const Login = () => {
       const result = await loginUser(email, password);
       if (result.success) {
         login(result.uid, result.name, result.email, result.suscripcion);
-        const path = redirectPath || '/main';
-        setRedirectPath('/main');
-        navigate(path);
+        if (redirectPath === '/paypal') {
+          abrirDireccionControl();
+        } else {
+          const path = redirectPath || '/main';
+          setRedirectPath('/main');
+          navigate(path);
+        }
       } else {
         // Manejo de errores específicos basado en el mensaje del backend
         if (result.message.includes('Credenciales inválidas')) {
@@ -35,6 +46,11 @@ const Login = () => {
     } catch (err) {
       setError('Error al procesar la solicitud. Por favor, intente nuevamente.');
     }
+  };
+  const handleDireccionConfirmada = () => {
+    cerrarDireccionControl();
+    setRedirectPath('/main'); // Limpia el redirect para futuros logins
+    navigate('/paypal', { state: { from: '/login' } });
   };
 
   return (
@@ -72,6 +88,12 @@ const Login = () => {
           Crear cuenta nueva
         </button>
       </div>
+      {showDireccionControl && (
+        <DireccionControl
+          userId={currentUser?.uid}
+          onDireccionConfirmada={handleDireccionConfirmada}
+        />
+      )}
     </div>
   );
 };

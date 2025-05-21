@@ -40,8 +40,9 @@
   }
   
   .banner-imagen img {
-    max-width: 100%; 
+    max-width: 50%; 
     height: auto;
+    padding: 30px;
     border-radius: 10px;
     box-shadow: var(--box-shadow);
   }
