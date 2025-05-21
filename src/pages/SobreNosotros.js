@@ -39,12 +39,13 @@ const SobreNosotros = () => {
   ];
 
   const equipo = [
-    { titulo: 'Barragán Rivera Diego', descripcion: 'Fundadora & Curadora de Productos', imagen: '/equipo1.jpg' },
-    { titulo: 'Chávez Villanueva Giovanni Salvador', descripcion: 'Diseño de Experiencia', imagen: '/imagenes/team/chava.jpeg' },
-    { titulo: 'García Acosta Anyela Mariela', descripcion: 'Relaciones con Clientes', imagen: '/equipo3.jpg' },
-    { titulo: 'Miranda Rayón Juan Manuel', descripcion: 'Relaciones con Clientes', imagen: '/equipo3.jpg' },
-    { titulo: 'Rojo López Luis Felipe', descripcion: 'Relaciones con Clientes', imagen: '/equipo3.jpg' },
-    { titulo: 'Torres Gracian Christian Iván', descripcion: 'Relaciones con Clientes', imagen: '/equipo3.jpg' }
+    { titulo: 'Miranda Rayón Juan Manuel', descripcion: 'Desarrollador Full Stack', imagen: '/imagenes/team/juan.jpg' },
+    { titulo: 'García Acosta Anyela Mariela', descripcion: 'Directora y fundadora', imagen: '/imagenes/team/mariela.jpg' },
+    { titulo: 'Chávez Villanueva Giovanni Salvador', descripcion: 'Diseñador UX/UI', imagen: '/imagenes/team/chava.jpeg' },
+    { titulo: 'Barragán Rivera Diego', descripcion: 'Curador de Productos', imagen: '/imagenes/team/doki.jpeg' },
+    { titulo: 'Torres Gracian Christian Iván', descripcion: 'Coordinador de logística y operaciones', imagen: '/imagenes/team/ivan.jpg' },
+    { titulo: 'Rojo López Luis Felipe', descripcion: 'Especialista en Marketing Digital', imagen: '/imagenes/team/rojo.jpg' },
+    { titulo: 'Fernando Yañez García', descripcion: 'Control de calidad', imagen: '/imagenes/team/fer.jpg'}
   ];
 
   return (
