@@ -11,14 +11,22 @@ import ModalMensaje from '../components/ModalMensaje';
 import '../styles/Suscripciones.css'; 
 import '../styles/Global.css'; 
 import '../styles/Header.css';
+import DireccionControl from '../components/DireccionControl';
+import { useDireccionControl } from '../utils/useDireccionControl';
 
 const Suscripciones = () => {
-  const { isLoggedIn, setRedirectPath } = useAuth();
+  const { isLoggedIn, setRedirectPath, currentUser} = useAuth();
   const { clearCart, addToCart, cartItems} = useCart();
   const navigate = useNavigate();
   const [showMessage, setShowMessage] = useState(false);
   const [isValidationModalOpen, setIsValidationModalOpen] = useState(false); 
   const [validationMessage, setValidationMessage] = useState('');
+
+  const {
+    showDireccionControl,
+    abrirDireccionControl,
+    cerrarDireccionControl,
+  } = useDireccionControl();
 
   useEffect(() => {
     AOS.init({ duration: 1000, once: false });
@@ -43,7 +51,7 @@ const Suscripciones = () => {
         cantidad: 1,
         items: paquete.items,
       });
-      navigate('/paypal', { state: { from: '/suscripciones' } }); 
+      abrirDireccionControl();
     } else {
       setRedirectPath('/paypal');
       addToCart({
@@ -64,6 +72,11 @@ const Suscripciones = () => {
     setIsValidationModalOpen(false);
     setValidationMessage('');
   };
+
+  const handleDireccionConfirmada = () => {
+  cerrarDireccionControl();
+  navigate('/paypal', { state: { from: '/suscripciones' } });
+};
 
   const productos = ['Mermelada', 'Tequila', 'Mezcal', 'Chocolate', 'Cerveza', 'Vino', 'Cafe'];
 
@@ -183,6 +196,12 @@ const Suscripciones = () => {
           ))}
         </div>
       </div>
+      {showDireccionControl && isLoggedIn && (
+        <DireccionControl
+          userId={currentUser?.uid}
+          onDireccionConfirmada={handleDireccionConfirmada}
+        />
+      )}
 
       <ScrollToTopButton />
 
