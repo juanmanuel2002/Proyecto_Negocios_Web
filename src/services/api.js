@@ -1,6 +1,6 @@
-//const API_URL = 'https://proyecto-negocios-web-1.onrender.com/api'; // QA
-//const API_URL = 'https://proyecto-negocios-web-back-prod.onrender.com/api'
-const API_URL = 'http://localhost:5000/api'; // Desarrollo
+//const API_URL = 'https://proyecto-negocios-web-1.onrender.com/api'; //Servidor render
+//const API_URL = 'http://localhost:5000/api'; // Para pruebas en local
+const API_URL = 'https://proyecto-negocios-web-back-prod.onrender.com/api'
 
 export const loginUser = async (email, password) => {
     try {
@@ -281,3 +281,4 @@ export const updateUserDireccion = async (uid, direccion) => {
     return { success: false, message: error.message };
   }
 };
+
