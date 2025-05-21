@@ -252,6 +252,11 @@ const Tienda = () => {
       ) : error ? (
         <p className="error">Ha ocurrido un error al obtener los productos</p>
       ) : (
+        filteredProductos.length === 0 ? (
+          <p className="no-results">
+            No se encontraron coincidencias con los criterios seleccionados
+          </p>
+        ) : (
         <div className="productos-grid" data-aos="fade-up">
           {filteredProductos.map((producto) => (
             <div className="card-producto" key={producto.id}>
@@ -278,6 +283,7 @@ const Tienda = () => {
             </div>
           ))}
         </div>
+        )
       )}
 
       {/* Modal de validación */}

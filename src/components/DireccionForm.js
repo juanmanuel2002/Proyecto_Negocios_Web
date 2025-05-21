@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../styles/DireccionForm.css'; // Asegúrate de tener este archivo CSS
+import '../styles/DireccionForm.css'; 
 
 const DireccionForm = ({ initialDireccion = {}, onSave }) => {
   const [direccion, setDireccion] = useState({

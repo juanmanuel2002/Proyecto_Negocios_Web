@@ -262,8 +262,6 @@
   margin-top: 20px;
 }
 
-
-/* Responsive: Ajustar el modal en pantallas pequeñas */
 @media (max-width: 768px) {
   .modal-content {
     width: 90%; /* Reducir el ancho del modal */
@@ -280,3 +278,11 @@
     font-size: 18px; /* Ajustar el tamaño de la cruz */
   }
 }
+
+.no-results{
+    text-align: center;
+    font-size: 1.5rem;
+    color: var(--text-color);
+    margin-top: 2rem;
+  }
+  
