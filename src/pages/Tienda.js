@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import PropertyFilter from '../components/PropertyFilter';
+import FilterDropdown from '../components/FilterDropdown';
 import { ClipLoader } from 'react-spinners';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
@@ -262,9 +262,9 @@ const Tienda = () => {
           onChange={handleSearch}
           className="search-input"
         />
-        <PropertyFilter
-          options = {categories}
-          value={selectedCategories}
+        <FilterDropdown
+          options={categories}
+          selected={selectedCategories}
           onChange={handleCategoriesChange}
         />
 
