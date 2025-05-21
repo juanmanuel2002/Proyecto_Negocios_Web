@@ -39,12 +39,13 @@ const SobreNosotros = () => {
   ];
 
   const equipo = [
-    { titulo: 'Miranda Rayón Juan Manuel', descripcion: 'Desarrollador Fullstack', imagen: '/imagenes/team/juan.jpg' },
-    { titulo: 'García Acosta Anyela Mariela', descripcion: 'Directora', imagen: '/imagenes/team/mariela.jpg' },
+    { titulo: 'Miranda Rayón Juan Manuel', descripcion: 'Desarrollador Full Stack', imagen: '/imagenes/team/juan.jpg' },
+    { titulo: 'García Acosta Anyela Mariela', descripcion: 'Directora y fundadora', imagen: '/imagenes/team/mariela.jpg' },
     { titulo: 'Chávez Villanueva Giovanni Salvador', descripcion: 'Diseñador UX/UI', imagen: '/imagenes/team/chava.jpeg' },
     { titulo: 'Barragán Rivera Diego', descripcion: 'Curador de Productos', imagen: '/imagenes/team/doki.jpeg' },
     { titulo: 'Torres Gracian Christian Iván', descripcion: 'Coordinador de logística y operaciones', imagen: '/imagenes/team/ivan.jpg' },
-    { titulo: 'Rojo López Luis Felipe', descripcion: 'Especialista en Marketing Digital', imagen: '/imagenes/team/' }
+    { titulo: 'Rojo López Luis Felipe', descripcion: 'Especialista en Marketing Digital', imagen: '/imagenes/team/rojo.jpg' },
+    { titulo: 'Fernando Yañez García', descripcion: 'Control de calidad', imagen: '/imagenes/team/fer.jpg'}
   ];
 
   return (
