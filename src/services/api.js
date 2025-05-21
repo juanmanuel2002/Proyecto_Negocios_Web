@@ -135,7 +135,6 @@ export const handleSearchTweets = async (query) => {
   try {
     const response = await fetch(`${API_URL}/search-tweets?query=${encodeURIComponent(query)}`);
     const tweets = await response.json();
-    console.log('Tweets encontrados:', tweets);
     return tweets;
   } catch (error) {
     console.error('Error al buscar tweets:', error);
@@ -199,7 +198,6 @@ export const fetchUserInfo = async (userId) => {
       throw new Error('Error al obtener los datos del usuario');
     }
     const data = await response.json();
-    console.log('Datos del usuario:', data);
     return {data};
   } catch (error) {
     console.error('Error en fetchUsuario:', error);

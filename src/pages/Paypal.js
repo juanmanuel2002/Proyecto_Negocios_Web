@@ -32,8 +32,8 @@ const PayPal = () => {
     }
   }, [currentUser, subtotal]);
   // Determinar la página anterior
-  const previousPage = location.state?.from || '/tienda'; 
-
+  const previousPage = location.state?.from || '/tienda';
+  const realPreviousPage = previousPage === '/carrito' ? '/tienda' : previousPage;
   // Función para confirmar la compra
   const handleConfirmPurchase = async () => {
     const userId = currentUser?.uid; 
@@ -51,8 +51,6 @@ const PayPal = () => {
     const total = subtotal.toFixed(2);
 
     const result = await createOrder(userId, orderData, total);
-    console.log('cartItem:', cartItems);
-    console.log('result:', result);
 
     if (result.success) {
       const productosToUpdate = cartItems.map(item => ({
@@ -79,10 +77,8 @@ const PayPal = () => {
 
   return (
     <>
-      {/* Header fuera del contenedor principal */}
       <Header />
 
-      {/* Contenedor central que incluye resumen y botón de regreso */}
       <div className="checkout-container">
         <div className="checkout-content">
           <h2>Resumen de Compra</h2>
@@ -107,13 +103,12 @@ const PayPal = () => {
                 </p>
               </div>
               
-              {/* Botón de PayPal con clave única */}
               {userReady && (
                 <PayPalButton key={paypalKey} total={subtotal} />
               )}
               
               <div className="checkout-actions">
-                <button className="back-button" onClick={() => navigate(previousPage)}>
+                <button className="back-button" onClick={() => navigate(realPreviousPage)}>
                   Regresar
                 </button>
                 <button className="confirm-button" onClick={handleConfirmPurchase}>
@@ -125,7 +120,6 @@ const PayPal = () => {
         </div>
       </div>
 
-      {/* Footer fuera del contenedor principal */}
       <Footer />
     </>
   );

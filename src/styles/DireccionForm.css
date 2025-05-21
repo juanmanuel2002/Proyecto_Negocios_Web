@@ -1,0 +1,44 @@
+/* Puedes agregarlo en DireccionForm.css o Main.css */
+
+.direccion-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.direccion-form label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 500;
+  color: var(--text-color);
+  text-align: left;
+}
+
+.direccion-form input,
+.direccion-form select {
+  margin-top: 6px;
+  padding: 10px 12px;
+  border: 1px solid #bbb;
+  border-radius: 6px;
+  font-size: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.direccion-form button[type="submit"] {
+  margin-top: 12px;
+  background: #6d4c41;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 12px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.direccion-form button[type="submit"]:hover {
+  background: #4e342e;
+}
