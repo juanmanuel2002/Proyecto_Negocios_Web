@@ -115,11 +115,12 @@ const Tienda = () => {
   };
 
 
-  const handleComparePrices = async (productName) => {
+  const handleComparePrices = async (producto) => {
     setIsLoadingComparison(true); 
     setIsComparisonModalOpen(true); 
+    setSelectedProduct(producto);
 
-    const result = await scrapePrices(productName); 
+    const result = await scrapePrices(producto.nombre); 
     if (result.success) {
         setComparisonResults(result.data); 
     } else {
@@ -314,9 +315,9 @@ const Tienda = () => {
                   Agregar al carrito
                 </button>
                 <button onClick={() => handleBuyNow(producto)}>
-                  Comprar
+                  Comprar 
                 </button>
-                <button onClick={() => handleComparePrices(producto.nombre)}>
+                <button onClick={() => handleComparePrices(producto)}>
                   {isComparing ? 'Comparando...' : 'Comparar Precios'}
                 </button>
               </div>
@@ -389,32 +390,39 @@ const Tienda = () => {
             <button className="close-modal-button" onClick={() => setIsComparisonModalOpen(false)}>
               ✖
             </button>
-            <h3>Resultados de Comparación</h3>
+            <h3>Comparación con productos similares de la Europea</h3>
             {isLoadingComparison ? (
               <p>Trabajando en obtener los productos...</p>
             ) : comparisonResults.length > 0 ? (
-              <table className="comparison-table">
-                <thead>
-                  <tr>
-                    <th>Producto</th>
-                    <th>Precio</th>
-                    <th>Enlace</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {comparisonResults.map((result, index) => (
-                    <tr key={index}>
-                      <td>{result.name}</td>
-                      <td>{result.price}</td>
-                      <td>
-                        <a href={result.link} target="_blank" rel="noopener noreferrer">
-                          Ver Producto
-                        </a>
-                      </td>
+              <>
+                
+                <table className="comparison-table">
+                  <thead>
+                    <tr>
+                      <th>Producto</th>
+                      <th>Nuestro precio</th>
+                      <th>Precio</th>
+                      <th>Enlace</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {comparisonResults.map((result, index) => (
+                      <tr key={index}>
+                        <td>{result.name}</td>
+                        <td>
+                          {selectedProduct ? `$${selectedProduct.precio}` : 'N/A'}
+                        </td>
+                        <td>{result.price}</td>
+                        <td>
+                          <a href={result.link} target="_blank" rel="noopener noreferrer">
+                            Ver Producto
+                          </a>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </>
             ) : (
               <p>No se encontraron resultados.</p>
             )}

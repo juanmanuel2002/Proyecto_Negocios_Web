@@ -328,7 +328,6 @@
   margin-right: 0.5rem;
 }
 
-/* Wrapper y botón, por si no lo tienes */
 .filter-dropdown-wrapper {
   position: relative;
   display: inline-block;
@@ -339,7 +338,10 @@
   border: none;
   cursor: pointer;
   padding: 0.25rem;
+  position: relative;
+  top: 6px;
 }
+
 
 .no-results{
     text-align: center;
