@@ -401,7 +401,7 @@ const Tienda = () => {
                     <tr>
                       <th>Producto</th>
                       <th>Nuestro precio</th>
-                      <th>Precio</th>
+                      <th>Precio La Europea</th>
                       <th>Enlace</th>
                     </tr>
                   </thead>
