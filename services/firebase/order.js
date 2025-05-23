@@ -33,8 +33,10 @@ export const createOrder = async (uid, orderData, total) => {
 
     const userEmail = userDoc.data().email;
     const userName = userDoc.data().nombre;
+    const userAddress = userDoc.data().direccion;
+    console.log(userAddress);
     // Enviar correo de confirmación
-    await sendEmail('compra',userEmail, orderData,total, orderId, fechaCreacion,userName);
+    await sendEmail('compra',userEmail, orderData,total, orderId, fechaCreacion,userName, userAddress);
 
     return { success: true, orderId };
   } catch (error) {

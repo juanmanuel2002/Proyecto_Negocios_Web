@@ -1,7 +1,7 @@
 import nodemailer from 'nodemailer';
 import config from '../../config.js';
 
-export const sendEmail = async (tipo,email,orderDetails,total,orderId, fechaCreacion,nombre) => {
+export const sendEmail = async (tipo,email,orderDetails,total,orderId, fechaCreacion,nombre, userAddress) => {
   try {
     // Configurar el transporte de correo
     const transporter = nodemailer.createTransport({
@@ -35,6 +35,16 @@ export const sendEmail = async (tipo,email,orderDetails,total,orderId, fechaCrea
         </ul>
         <ul>
           ${orderDetails.map(item => `<li>${item.nombre} - Cantidad: ${item.cantidad}</li>`).join('')}
+        </ul>
+         <p><strong>Dirección de entrega:</strong></p>
+        <ul>
+          <li>Calle: ${userAddress.calle} ${userAddress.numeroExterior}${userAddress.numeroInterior ? ', Int. ' + userAddress.numeroInterior : ''}</li>
+          <li>Colonia: ${userAddress.colonia}</li>
+          <li>Delegación: ${userAddress.delegacion}</li>
+          <li>Ciudad: ${userAddress.ciudad}</li>
+          <li>Estado: ${userAddress.estado}</li>
+          <li>Código Postal: ${userAddress.codigoPostal}</li>
+          <li>País: ${userAddress.pais}</li>
         </ul>
         <p>Total: <strong>${total}</strong></p>
         <p>¡Esperamos verte pronto!</p>
