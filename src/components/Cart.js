@@ -154,7 +154,7 @@ const Cart = () => {
       {/* Modal de validación */}
       {isValidationModalOpen && (
         <ModalMensaje
-          titulo="Validación"
+          titulo=""
           mensaje={validationMessage}
           onClose={closeValidationModal}
         />

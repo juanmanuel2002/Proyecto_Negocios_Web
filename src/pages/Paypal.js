@@ -6,6 +6,9 @@ import Footer from '../components/Footer';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { createOrder, updateStockProductos } from '../services/api'; 
 import { useAuth } from '../context/AuthContext'; 
+import DireccionControl from '../components/DireccionControl';
+import { useDireccionControl } from '../utils/useDireccionControl';
+import ModalMensaje from '../components/ModalMensaje'; 
 import '../styles/PayPal.css';
 
 const PayPal = () => {
@@ -14,6 +17,15 @@ const PayPal = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [userReady, setUserReady] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [showFailModal, setShowFailModal] = useState(false);
+  const {
+    showDireccionControl,
+    abrirDireccionControl,
+    cerrarDireccionControl,
+  } = useDireccionControl();
+  
+  const [direccionSolicitada, setDireccionSolicitada] = useState(false);
 
   // Calcular el subtotal general
   const subtotal = cartItems.reduce(
@@ -33,12 +45,12 @@ const PayPal = () => {
   }, [currentUser, subtotal]);
   // Determinar la página anterior
   const previousPage = location.state?.from || '/tienda';
-  const realPreviousPage = previousPage === '/carrito' ? '/tienda' : previousPage;
+  const realPreviousPage = previousPage === '/carrito' || '/login' ? '/tienda' : previousPage;
   // Función para confirmar la compra
   const handleConfirmPurchase = async () => {
     const userId = currentUser?.uid; 
     if (!userId) {
-        alert('No se pudo identificar al usuario. Por favor, inicia sesión.');
+        setShowFailModal(true);
         return;
     }
 
@@ -65,15 +77,30 @@ const PayPal = () => {
       
       await updateStockProductos(productosToUpdate);
 
-      alert('Compra confirmada exitosamente.');
+      setShowSuccessModal(true);
       clearCart();
       await refreshUserData(userId);
       navigate('/main');
     } else {
-      alert('Error al confirmar la compra. Inténtalo de nuevo.');
+      setShowFailModal(true);
       console.error(result.message);
     }
   };
+
+  const handleDireccionConfirmada = () => {
+      cerrarDireccionControl();
+      setDireccionSolicitada(true);
+    };
+
+  useEffect(() => {
+    // Si viene de login, muestra el formulario de dirección
+    if (location.state?.from === '/login' && !direccionSolicitada) {
+      abrirDireccionControl();
+      setDireccionSolicitada(true);
+    }
+  }, [location.state, abrirDireccionControl, direccionSolicitada]);
+
+  
 
   return (
     <>
@@ -119,6 +146,35 @@ const PayPal = () => {
           )}
         </div>
       </div>
+      
+      {showDireccionControl && currentUser && (
+        <DireccionControl
+          userId={currentUser.uid}
+          onDireccionConfirmada={handleDireccionConfirmada}
+        />
+      )}
+
+      {/* Modal de éxito */}
+      {showSuccessModal && (
+        <ModalMensaje
+          titulo="¡Compra exitosa!"
+          mensaje="Tu compra ha sido confirmada exitosamente."
+          onClose={() => {
+            setShowSuccessModal(false);
+          }}
+        />
+      )}
+
+      {/* Modal de fallo */}
+      {showFailModal && (
+        <ModalMensaje
+          titulo="¡Hubo un error al realizar la compra!"
+          mensaje="Favor de intertar nuevamente más tarde."
+          onClose={() => {
+            setShowFailModal(false);
+          }}
+        />
+      )}
 
       <Footer />
     </>

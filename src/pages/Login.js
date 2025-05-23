@@ -12,8 +12,10 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  
   const {
     showDireccionControl,
+  // eslint-disable-next-line
     abrirDireccionControl,
     cerrarDireccionControl,
   } = useDireccionControl();
@@ -27,7 +29,8 @@ const Login = () => {
       if (result.success) {
         login(result.uid, result.name, result.email, result.suscripcion);
         if (redirectPath === '/paypal') {
-          abrirDireccionControl();
+          setRedirectPath('/main');
+          navigate('/paypal', { state: { from: '/login' } });
         } else {
           const path = redirectPath || '/main';
           setRedirectPath('/main');
