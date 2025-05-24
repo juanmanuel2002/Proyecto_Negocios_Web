@@ -18,45 +18,6 @@ Sabores Ocultos es una tienda en línea para la venta de productos gourmet y beb
 
 ---
 
-## Tecnologías utilizadas
-
-**Frontend:**
-- React
-- React Router DOM
-- AOS (animaciones)
-- Axios
-- @mui/icons-material
-- @fortawesome/fontawesome-free
-- Firebase (auth y firestore)
-- CSS personalizado
-
-**Backend:**
-- Node.js
-- Express
-- Firebase Admin
-- Cors
-- Dotenv
-
----
-
-## Instalación
-
-**Frontend:**
-1. Entra a la carpeta del frontend:
-   - `cd Proyecto_Negocios_Web`
-2. Instala las dependencias:
-   - `npm install`
-   - O instala los paquetes principales:
-     - `npm install aos axios react-icons react-router-dom @mui/icons-material @fortawesome/fontawesome-free firebase firebaseui`
-
-**Backend:**
-1. Clona la rama del backend:
-2. Instala las dependencias:
-   - `npm install`
-   - O instala los paquetes principales:
-     - `npm install express cors firebase dotenv firebase-admin react react-dom`
-
----
 
 ## Scripts disponibles
 
@@ -66,10 +27,6 @@ Sabores Ocultos es una tienda en línea para la venta de productos gourmet y beb
 - `npm run build` — Genera la versión optimizada para producción en la carpeta `build`
 - `npm run eject` — Expone la configuración de Create React App (irreversible)
 
-**Backend:**
-- `nodemon start` — Inicia el servidor Express
-
----
 
 ## Funcionalidades principales
 
