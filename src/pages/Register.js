@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { registerUser } from '../services/api'; // Importa la función del servicio
+import { registerUser } from '../services/api'; 
+import ModalMensaje from '../components/ModalMensaje';
 import '../styles/Auth.css';
 
 const Register = () => {
@@ -9,6 +10,7 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [error, setError] = useState('');
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -16,10 +18,19 @@ const Register = () => {
 
     const result = await registerUser(email, password, name);
     if (result.success) {
-      navigate('/login');
+      setShowSuccessModal(true);
+    } else {
+    // Mensaje de error más claro para el usuario
+    if (
+      result.message &&
+      (result.message.includes('auth/email-already-in-use') ||
+        result.message.toLowerCase().includes('correo ya registrado'))
+    ) {
+      setError('El correo electrónico ya está registrado. Por favor, usa otro o inicia sesión.');
     } else {
       setError(result.message);
     }
+  }
   };
 
   return (
@@ -54,6 +65,16 @@ const Register = () => {
         <button className="login-button" type="submit">Registrarse</button>
         <button className="register-button" onClick={() => navigate('/login')}>Regresar</button>
       </form>
+      {showSuccessModal && (
+        <ModalMensaje
+          titulo="¡Registro exitoso!"
+          mensaje="Tu cuenta ha sido creada correctamente. Ahora puedes iniciar sesión."
+          onClose={() => {
+            setShowSuccessModal(false);
+            navigate('/login');
+          }}
+        />
+      )}
     </div>
   );
 };

@@ -1,75 +1,124 @@
-# Getting Started with Create React App
+# Sabores Ocultos
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Proyecto de e-commerce desarrollado con React y Node.js para la materia de Negocios Web.
 
-## Available Scripts
-front
-npm install aos axiosreact-icons react-router-dom @mui/icons-material @fortawesome/fontawesome @mui/styled-engine @emotion/react @emotion/styled @fortawesome/fontawesome-free firebase firebaseui
+---
 
-back
-npm install express cors firebase dotenv react firebase-admin react-dom
+## Descripción
 
-In the project directory, you can run:
+Sabores Ocultos es una tienda en línea para la venta de productos gourmet y bebidas, con funcionalidades como:
 
-### `npm start`
+- Catálogo de productos con filtros y búsqueda
+- Carrito de compras y suscripciones
+- Comparación de precios con La Europea
+- Validación y captura de dirección antes de la compra
+- Integración con PayPal para pagos
+- Autenticación de usuarios y control de sesión
+- Panel de administración (opcional)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Tecnologías utilizadas
 
-### `npm test`
+**Frontend:**
+- React
+- React Router DOM
+- AOS (animaciones)
+- Axios
+- @mui/icons-material
+- @fortawesome/fontawesome-free
+- Firebase (auth y firestore)
+- CSS personalizado
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**Backend:**
+- Node.js
+- Express
+- Firebase Admin
+- Cors
+- Dotenv
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Instalación
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+**Frontend:**
+1. Entra a la carpeta del frontend:
+   - `cd Proyecto_Negocios_Web`
+2. Instala las dependencias:
+   - `npm install`
+   - O instala los paquetes principales:
+     - `npm install aos axios react-icons react-router-dom @mui/icons-material @fortawesome/fontawesome-free firebase firebaseui`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+**Backend:**
+1. Clona la rama del backend:
+2. Instala las dependencias:
+   - `npm install`
+   - O instala los paquetes principales:
+     - `npm install express cors firebase dotenv firebase-admin react react-dom`
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Scripts disponibles
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+**Frontend:**
+- `npm start` — Inicia la aplicación en modo desarrollo en [http://localhost:3000](http://localhost:3000)
+- `npm test` — Ejecuta los tests en modo interactivo
+- `npm run build` — Genera la versión optimizada para producción en la carpeta `build`
+- `npm run eject` — Expone la configuración de Create React App (irreversible)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+**Backend:**
+- `nodemon start` — Inicia el servidor Express
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+---
 
-## Learn More
+## Funcionalidades principales
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- **Catálogo y búsqueda:** Filtra productos por nombre y categoría.
+- **Carrito y suscripciones:** Agrega productos y paquetes de suscripción.
+- **Comparación de precios:** Compara precios con La Europea usando scrapping.
+- **Dirección:** Formulario inteligente que autocompleta datos por código postal.
+- **Pagos:** Integración con PayPal.
+- **Autenticación:** Registro, login y control de sesión con Firebase.
+- **Mensajes y validaciones:** Modales amigables para errores y confirmaciones.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+---
 
-### Code Splitting
+## Estructura del proyecto
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```
+proyecto_negocios_web/
+│
+├── src/
+│   ├── components/
+│   ├── context/
+│   ├── pages/
+│   ├── services/
+│   ├── styles/
+│   ├── utils/
+│   └── App.js/
+│
+├── public/
+│   └── imagenes/
+│
 
-### Analyzing the Bundle Size
+├── package.json
+└── README.md
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+---
 
-### Making a Progressive Web App
+## Notas
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- El formulario de dirección utiliza la API de SEPOMEX para autocompletar datos.
+- El footer es sticky y siempre se muestra al fondo de la página.
+- El proyecto está preparado para despliegue en servicios como Vercel, Netlify o Firebase Hosting.
 
-### Advanced Configuration
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Créditos
 
-### Deployment
+Desarrollado por el equipo de Sabores Ocultos para la materia de Negocios Web.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+---
 
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+¿Tienes dudas o sugerencias? ¡Contáctanos!
