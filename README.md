@@ -1,5 +1,3 @@
-<!-- Badges de Tecnologías (copia y pega individualmente donde las necesites) -->
-
 ![Node.js](https://img.shields.io/badge/Node.js-339933?logo=node.js&logoColor=white)
 ![Express](https://img.shields.io/badge/Express-404D59?logo=express&logoColor=white)
 ![React](https://img.shields.io/badge/React-20232A?logo=react&logoColor=61DAFB)
@@ -18,8 +16,8 @@
 ## 📂 Estructura del Repositorio  
 ```text
 Repositorio/
-├── Back/ ← Código del backend (ver rama `deploy`)
-└── Front/ ← Código del frontend (ver rama `front`)
+├── Back/ ← Código del backend (ver rama deploy)
+└── Front/ ← Código del frontend (ver rama front)
 ```
 
 > **Branches principales**
@@ -82,7 +80,7 @@ Repositorio/
 
 ## 🚀 Cómo Empezar
 1. **Clona el repositorio**
-  `git clone https://github.com/juanmanuel2002/sabores-ocultos.git cd sabores-ocultos`
+  `git clone https://github.com/juanmanuel2002/sabores-ocultos.git`
 
 3. **Checkout a las ramas**    
     - Backend: `git checkout deploy`

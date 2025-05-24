@@ -1,0 +1,128 @@
+@import './Variables.css';
+
+.container,
+.forgot-container {
+  width: 100%;
+  max-width: 400px;
+  margin: auto;
+  margin-top: 50px;
+  padding: 30px;
+  background-color: var(--background-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  text-align: center;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .container,
+  .forgot-container {
+    max-width: 300px; 
+  }
+}
+
+.heading,
+.forgot-heading {
+  font-size: var(--font-size-title);
+  margin-top: 40px;
+  margin-bottom: 50px;
+  color: var(--accent-color);
+}
+
+.form,
+.forgot-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.input {
+  padding: 20px;
+  font-size: var(--font-size-base);
+  border: 1px solid var(--input-border-color);
+  border-radius: var(--border-radius);
+  background-color: var(--input-background-color);
+  color: var(--text-color);
+}
+
+.input:focus {
+  border-color: var(--accent-color);
+  outline: none;
+}
+
+.login-button,
+.forgot-button {
+  padding: 10px;
+  font-size: var(--font-size-base);
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.register-button {
+    padding: 10px;
+    margin-top: 10px;
+    font-size: var(--font-size-base);
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.login-button:hover,
+.register-button:hover,
+.forgot-button:hover {
+  background-color: var(--accent-color-hover);
+}
+
+.forgot-password {
+  font-size: var(--font-size-base);
+  color: var(--accent-color);
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.forgot-password a {
+  text-decoration: underline;
+}
+
+.register-container {
+  margin-top: 60px;
+}
+
+.back-button {
+    padding: 10px;
+    font-size: var(--font-size-base);
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    margin-top: 100px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .back-button:hover {
+    background-color: var(--secondary-color-hover, #999);
+  }
+
+.footer {
+  margin-top: 200px;
+  font-size: var(--font-size-small);
+  color: var(--text-color);
+}
+
+.error {
+  color: red;
+  font-size: 14px;
+}
+
+.error:not(:empty) {
+  display: block; /* Mostrar solo si hay contenido */
+  margin: 5px 0; /* Aplicar margen solo cuando hay contenido */
+}
