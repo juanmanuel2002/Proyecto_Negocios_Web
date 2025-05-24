@@ -51,6 +51,7 @@ const DireccionForm = ({ initialDireccion = {}, onSave }) => {
 
   return (
     <form onSubmit={handleSubmit} className="direccion-form">
+      <h2>Agrega tu dirección de envío</h2>
       <label>
         Código Postal
         <input
