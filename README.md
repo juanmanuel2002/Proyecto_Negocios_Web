@@ -52,30 +52,31 @@ Repositorio/
 ---
 📋 Requisitos Previos
 
-Node.js >= 22.14.0  
-npm >= 10.9.2  
-Cuenta de Firebase con proyecto configurado  
+- Node.js >= 22.14.0  
+- npm >= 10.9.2  
+- Cuenta de **Firebase** con proyecto configurado  
+
 ---
 
 ## 👥 Integrantes del Equipo
 
-Miranda Rayón Juan Manuel
-García Acosta Anyela Mariela
-Chávez Villanueva Giovanni Salvador
-Barragán Rivera Diego
-Torres Gracian Christian Iván
-Rojo López Luis Felipe
-Fernando Yañez García
+- Miranda Rayón Juan Manuel
+- García Acosta Anyela Mariela
+- Chávez Villanueva Giovanni Salvador
+- Barragán Rivera Diego
+- Torres Gracian Christian Iván
+- Rojo López Luis Felipe
+- Fernando Yañez García
 
 ---
 
 ## 🌟 ¿Qué Hace a Sabores Ocultos Extraordinario?
 
-- **Curaduría Artesanal**: Cada producto cuenta una historia: cafés de Chiapas, mezcales de Oaxaca, vinos de Baja California… NEyDW E1 Sabores oculto…
+- **Curaduría Artesanal**: Cada producto cuenta una historia: cafés de Chiapas, mezcales de Oaxaca, vinos de Baja California, etc.
 - **Efecto Dopamina**: La sorpresa de descubrir sabores únicos impulsa la emoción y el deseo de suscribirte mes a mes.
 - **Impacto Social**: Apoyamos a PYMEs y pequeños productores con comisiones justas y visibilidad nacional.
-- **Escalabilidad & Calidad**: Arquitectura limpia (Clean Architecture / DDD), pruebas unitarias e integración continua.
-- **Experiencia de Usuario**: Animaciones suaves (AOS), diseño responsive y acceso rápido con Firebase UI.
+- **Escalabilidad & Calidad**: Arquitectura limpia, pruebas unitarias.
+- **Experiencia de Usuario**: Animaciones suaves (AOS), diseño responsive y acceso rápido.
   
 ---
 
