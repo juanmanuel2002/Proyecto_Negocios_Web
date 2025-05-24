@@ -7,6 +7,7 @@ import { useCart } from '../context/CartContext';
 import Cart from './Cart'; 
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
+import ModalMensaje from './ModalMensaje';
 import '../styles/Header.css';
 import { useAuth } from '../context/AuthContext'; 
 import {jwtDecode} from 'jwt-decode';
@@ -16,8 +17,10 @@ const Header = () => {
   const { darkMode, toggleTheme } = useContext(ThemeContext);
   const { cartItems, removeFromCart, clearCart } = useCart(); 
   const [menuOpen, setMenuOpen] = useState(false);
-  const { currentUser } = useAuth(); 
-  const [isCartOpen, setIsCartOpen] = useState(false); // Estado para el sidebar del carrito
+  const { currentUser, logout } = useAuth(); 
+  const [isCartOpen, setIsCartOpen] = useState(false); 
+  const [showUserMenu, setShowUserMenu] = useState(false); 
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
 
   const token = sessionStorage.getItem('token');
   let isAdmin = false;
@@ -53,6 +56,33 @@ const Header = () => {
   // Calcular el subtotal
   const subtotal = cartItems.reduce((acc, item) => acc + parseFloat(item.precio), 0);
 
+  // Cerrar menú de usuario al hacer clic fuera
+  React.useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (!event.target.closest('.user-menu') && !event.target.closest('.user-info')) {
+        setShowUserMenu(false);
+      }
+    };
+    if (showUserMenu) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showUserMenu]);
+
+  const handleLogout = () => {
+    setShowUserMenu(false);
+    setShowLogoutModal(true); 
+    setTimeout(() => {
+    setShowLogoutModal(false);
+    sessionStorage.clear();
+     if (typeof logout === 'function') logout();
+     if (typeof clearCart === 'function') clearCart();
+     navigate('/main');
+    }, 3000);
+  };
+
   return (
     <header className="banner">
       <div className="left-nav">
@@ -84,7 +114,28 @@ const Header = () => {
         {currentUser ? (
           <div className="user-info">
             <span className="user-greeting">¡Hola {capitalizeName(currentUser.name || currentUser.nombre)}!</span>
-            <AccountCircleIcon onClick={() => navigate('/perfil')} />
+            <AccountCircleIcon
+              onClick={() => setShowUserMenu((prev) => !prev)}
+              style={{ cursor: 'pointer' }} />
+              {showUserMenu && (
+             <div className={`user-sidebar ${showUserMenu ? 'open' : ''}`}>
+             <div className="user-sidebar-header">
+               <h2>Mi Cuenta</h2>
+               <button className="close-user-sidebar" onClick={() => setShowUserMenu(false)}>✖</button>
+             </div>
+             <div className="user-sidebar-content">
+               <button className="user-menu-item" onClick={() => {
+                setShowUserMenu(false);
+                navigate('/perfil');
+              }}>
+                Ver Perfil
+              </button>
+              <button className="user-menu-item" onClick={handleLogout}>
+                Cerrar sesión
+              </button>
+            </div>
+          </div>
+              )}
           </div>
         ) : (
           <AccountCircleIcon onClick={() => navigate('/login')} />
@@ -136,7 +187,17 @@ const Header = () => {
           />
         </div>
       </div>
+      {showLogoutModal && (
+        <ModalMensaje
+          titulo="Cerrando sesión"
+          mensaje="Tu sesión se está cerrando. ¡Hasta pronto!"
+          onClose={() => setShowLogoutModal(false)}
+          ocultarBotonCerrar={true}
+        />
+      )}
+      
     </header>
+    
     
   );
 };

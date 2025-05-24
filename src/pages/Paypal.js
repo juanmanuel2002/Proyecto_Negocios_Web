@@ -76,11 +76,9 @@ const PayPal = () => {
       }));
       
       await updateStockProductos(productosToUpdate);
-
       setShowSuccessModal(true);
       clearCart();
       await refreshUserData(userId);
-      navigate('/main');
     } else {
       setShowFailModal(true);
       console.error(result.message);
@@ -161,6 +159,9 @@ const PayPal = () => {
           mensaje="Tu compra ha sido confirmada exitosamente."
           onClose={() => {
             setShowSuccessModal(false);
+            setTimeout(() => {
+              navigate('/main');
+            }, 500);
           }}
         />
       )}

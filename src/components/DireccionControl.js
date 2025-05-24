@@ -73,7 +73,7 @@ const DireccionControl = ({ userId, onDireccionConfirmada }) => {
       )}
       {showConfirmModal && (
         <ModalMensaje
-          titulo="¿Usar esta dirección de entrega?"
+          titulo="¿La dirección para la entrega es correcta?"
           mensaje={
             <div>
               <p>
