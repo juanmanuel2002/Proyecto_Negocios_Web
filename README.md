@@ -18,8 +18,8 @@
 ## 📂 Estructura del Repositorio  
 ```text
 Repositorio/
-├── Back/ ← Código del backend (ver rama `deploy`)
-└── Front/ ← Código del frontend (ver rama `front`)
+├── Back/ ← Código del backend (ver rama deploy)
+└── Front/ ← Código del frontend (ver rama front)
 ```
 
 > **Branches principales**
@@ -81,7 +81,7 @@ Fernando Yañez García
 
 ## 🚀 Cómo Empezar
 1. **Clona el repositorio**
-  `git clone https://github.com/juanmanuel2002/sabores-ocultos.git cd sabores-ocultos`
+  `git clone https://github.com/juanmanuel2002/sabores-ocultos.git`
 
 3. **Checkout a las ramas**    
     - Backend: `git checkout deploy`
