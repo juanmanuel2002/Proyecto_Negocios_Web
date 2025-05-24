@@ -1,0 +1,154 @@
+.sobre-nosotros-container {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    font-family: 'Segoe UI', sans-serif;
+    color: var(--text-color);
+  }
+  
+  .nosotros-banner {
+    display: flex;
+    align-items: center; 
+    justify-content: space-between; 
+    padding: 2rem;
+    background-color: var(--background-color);
+    border-radius: 10px;
+    margin-bottom: 2rem;
+  }
+  
+  .banner-texto {
+    flex: 1; 
+    padding-right: 2rem; 
+  }
+  
+  .banner-texto h1 {
+    font-size: 2.5rem;
+    color: var(--tit-text-color);
+    margin-bottom: 1rem;
+  }
+  
+  .banner-texto p {
+    font-size: 1.2rem;
+    color: var(--text-color);
+    line-height: 1.6;
+  }
+  
+  .banner-imagen {
+    flex: 1; 
+    display: flex;
+    justify-content: center; 
+  }
+  
+  .banner-imagen img {
+    max-width: 50%; 
+    height: auto;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: var(--box-shadow);
+  }
+  
+  .nuestros-valores, .nosotros-mision, .nosotros-vision {
+    text-align: center;
+    padding: 2rem;
+    background-color: var(--background-color);
+    margin-top: 2rem;
+    border-radius: 10px;
+  }
+  
+  .nuestros-valores h2,  .nosotros-mision h2, .nosotros-vision h2 {
+    font-size: 2rem;
+    color: var(--tit-text-color);
+    margin-bottom: 1.5rem;
+  }
+  
+  .valores-cards, .mision-cards, .vision-cards {
+    gap: 20px; 
+    justify-content: center; 
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .valores-cards .card, .mision-cards .card,
+   .vision-cards .card {
+    background-color: var(--card-color);
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: var(--box-shadow);
+    text-align: center;
+    transition: transform 0.3s ease;
+    width: 100%; 
+    max-width: 300px; 
+    box-sizing: border-box; 
+    flex-grow: 1;
+    aspect-ratio: 3/2;
+  }
+  
+  .valores-cards .card:hover, .mision-cards .card:hover,
+  .vision-cards .card:hover {
+    transform: scale(1.05);
+  }
+  
+  .valores-cards .card h3, .mision-cards .card h3,
+  .vision-cards .card h3 {
+    font-size: 1.5rem;
+    color: var(--tit-text-color);
+    margin-bottom: 0.5rem;
+  }
+  
+  .valores-cards .card p, .mision-cards .card p,
+  .vision-cards .card p {
+    font-size: 1rem;
+    color: var(--text-color);
+    line-height: 1.5;
+  }
+
+  .nosotros-equipo {
+    margin-top: 5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+  
+  .nosotros-equipo h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color : var(--tit-text-color);
+  }
+  
+  .equipo-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+  }
+  
+  .card {
+    background-color:  var(--card-color);
+    border: 2px solid var(--card-border-color);
+    border-radius: 15px;
+    box-shadow: var(--box-shadow);
+    padding: 1.5rem;
+    width: 250px;
+    text-align: center;
+    color : var(--tit-text-color);
+  }
+  
+  .card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+  }
+  
+  .card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .card p {
+    font-size: 0.95rem;
+    color: var(--text-color);
+  }
+  

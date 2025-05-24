@@ -1,0 +1,59 @@
+.admin-dashboard-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 30px 10px;
+}
+
+.dashboard-summary {
+  margin-bottom: 30px;
+}
+
+.dashboard-flex {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+}
+
+.dashboard-left, .dashboard-right {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.recent-orders-list {
+  list-style: none;
+  padding: 0;
+}
+
+.order-card {
+  background: var(--light-background-color);
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  margin-bottom: 18px;
+  padding: 16px;
+}
+
+.stock-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  background: var(--light-background-color);
+}
+
+.stock-table th, .stock-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.stock-table th {
+  background-color: #979393;
+}
+
+@media (max-width: 900px) {
+  .dashboard-flex {
+    flex-direction: column;
+  }
+  .dashboard-left, .dashboard-right {
+    width: 100%;
+  }
+}
